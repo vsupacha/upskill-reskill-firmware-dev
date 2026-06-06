@@ -1085,17 +1085,17 @@ SECTIONS {
 <ol start="3" type="1">
 <li>เขียนโค้ดส่งข้อมูล + pin toggling<sup>1</sup></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb32-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIO<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb32-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span>
 <span id="cb32-2"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb32-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIO<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <h4 id="การรายงานผาน-nvic">การรายงานผ่าน NVIC</h4>
 <ol start="3" type="1">
 <li>เขียนโค้ดส่งข้อมูล + pin toggling</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb33-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIO<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb33-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
 <span id="cb33-2"><a href=""></a>HAL_UART_Transmit_IT<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb33-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIO<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="4" type="1">
 <li>เขียนโค้ด pin toggling</li>
 </ol>
