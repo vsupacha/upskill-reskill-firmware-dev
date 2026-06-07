@@ -1697,9 +1697,9 @@ SECTIONS {
 <p><img data-src="figs/04_debug_flow.jpg" alt="Debug workflow"><br>
 </p>
 <aside><ol class="aside-footnotes"><li id="fn14"><p><a href="https://www.eetimes.com/a-developers-insight-into-arm-cortex-m-debugging/">A developer’s insight into ARM Cortex M debugging</a></p></li></ol></aside></section>
-<section id="st-link-gdb-server-arm-cortex" class="slide level2 smaller">
-<h2>ST-Link GDB server ⇆ ARM Cortex</h2>
-<p>โปรแกรมสำหรับดีบั๊กการทำงานของเฟิร์มแวร์ผ่านกลไกของ GDB<sup>1</sup> ที่เข้าถึงและควบคุมส่วน ARM Cortex ผ่าน ST-Link</p>
+<section id="st-link-gdb-server-arm-cortex-m" class="slide level2 smaller">
+<h2>ST-Link GDB server ⇆ ARM Cortex-M</h2>
+<p>โปรแกรมสำหรับดีบั๊กการทำงานของเฟิร์มแวร์ผ่านกลไกของ GDB<sup>1</sup> ที่เข้าถึงและควบคุมส่วน ARM Cortex-M ผ่าน ST-Link</p>
 <div class="columns">
 <div class="column" style="width:65%;">
 <ul>
@@ -1739,20 +1739,53 @@ SECTIONS {
 </p>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn15"><p>GNU Project debugger</p></li></ol></aside></section>
+<section id="stm32c5-analog-peripherals" class="slide level2 smaller">
+<h2>STM32C5 analog peripherals</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="analog-to-digital-converter-adc">Analog-to-Digital Converter (ADC)</h4>
+<ul>
+<li>แปลงค่าแรงดันไฟฟ้า 0 ~ V<sub>REF+</sub> เป็นค่าดิจิทัล 0 ~ (2<sup>bit</sup>-1)</li>
+<li>12-bit SAR ADC1/2/3, 14 multiplexed channels</li>
+</ul>
+<p><img data-src="figs/04_STM32_ADC.jpg" alt="ADC"><br>
+</p>
+</div><div class="column" style="width:50%;">
+<h4 id="digital-to-analog-converter-dac">Digital-to-Analog Converter (DAC)</h4>
+<ul>
+<li>แปลงค่าดิจิทัล 0 ~ (2<sup>bit</sup>-1) เป็น ค่าแรงดันไฟฟ้า 0 ~ V<sub>DDA</sub></li>
+<li>12-bit DAC, buffered/non-buffered</li>
+</ul>
+<p><img data-src="figs/04_STM32_DAC.jpg" alt="DAC"><br>
+</p>
+</div></div>
+</section>
+<section id="adc-loopback" class="slide level2 smaller">
+<h2>ADC loopback</h2>
+<ul>
+<li><strong>ADC features</strong>: regular/injected group, single/cont./discont. conversion, SW/HW triggers, analog watchdogs</li>
+<li><strong>DAC mode</strong>: 12-bit DAC, single/waveform output, SW/HW triggers</li>
+</ul>
+<p><img data-src="figs/04_STM32_ADC_loopback.jpg" alt="ADC loopback"><br>
+</p>
+</section>
 <section id="practice-gdb-debugger" class="slide level2 smaller">
 <h2>Practice: GDB debugger</h2>
 <ol type="1">
-<li>เปิด project ตัวอย่าง <strong>AT_cmd_parser</strong><sup>1</sup></li>
-<li>ทดลองพิมพ์ข้อความ <code>AT</code>, <code>ATE0</code> และ <code>ATE1</code> ด้วย Serial Monitor โดยใช้ line ending แบบต่างๆ</li>
-<li>ตั้ง breakpoint ตามตำแหน่งโค้ด
+<li>เตรียม project ตัวอย่าง <strong>ex04_ADC_loopback</strong></li>
+<li>ตรวจสอบการทำงาน main loop ด้วย breakpoint, step และ watch
 <ul>
-<li>ฟังก์ชัน UART callback</li>
-<li>ฟังก์ชัน detectEOL</li>
-<li>ฟังก์ชัน processCommand</li>
+<li>ตัวเลขที่เปลี่ยนแปลงของ <code>dac_val</code> และ <code>adc_val</code></li>
 </ul></li>
-<li>ตรวจสอบการทำงาน</li>
+<li>เสียบสายเชื่อมขา A0 และ A2</li>
+<li>ยืนยันค่าของแรงดันไฟฟ้าด้วย Serial Monitor และ ออสซิลโลสโคป</li>
+<li>ปรับแก้โค้ดให้รายงานเมื่อสถานะแรงดันไฟฟ้าเกิน 2 โวลต์
+<ul>
+<li>สถานะ LED และการรายงานทาง USART2</li>
+</ul></li>
+<li>ยืนยันเงื่อนไขการตรวจสอบด้วย breakpoint</li>
 </ol>
-<aside><ol class="aside-footnotes"><li id="fn16"><p>อ้างอิง <a href="https://docs.espressif.com/projects/esp-at/en/latest/esp32/AT_Command_Set/Basic_AT_Commands.html">ESP32 AT commands</a></p></li></ol></aside></section>
+</section>
 <section id="software-testing" class="slide level2 smaller">
 <h2>Software testing</h2>
 <div class="columns">
@@ -1781,7 +1814,7 @@ SECTIONS {
 <li>performance: ตรวจสอบทรัพยากร/ความเร็ว</li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn17"><p>Continuous Integration/Continuous Delivery</p></li><li id="fn18"><p><a href="https://piolabs.com/blog/insights/cicd-testing-coverage-versioning.html">PlatformIO for CI/CD</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn16"><p>Continuous Integration/Continuous Delivery</p></li><li id="fn17"><p><a href="https://piolabs.com/blog/insights/cicd-testing-coverage-versioning.html">PlatformIO for CI/CD</a></p></li></ol></aside></section>
 <section id="blackbox-testing-assertion" class="slide level2 smaller">
 <h2>Blackbox testing: assertion</h2>
 <p><img data-src="figs/04_test_code.jpg" alt="โค้ดสำหรับทดสอบ"><br>
@@ -1838,11 +1871,80 @@ SECTIONS {
 <p><img data-src="figs/04_emb_tdd.jpg" style="width:90.0%" alt="ลำดับการทดสอบ"><br>
 </p>
 </section>
+<section id="scpi-protocol" class="slide level2 smaller">
+<h2>SCPI protocol</h2>
+<p>Standard Commands for Programmable Instrumentation (SCPI) เป็นโปรโตคอลสำหรับคอมพิวเตอร์เชื่อมต่อผ่าน UART/USB/GPIB/LXI กับเครื่องมือวัด</p>
+<p><img data-src="figs/04_SCPI_protocol.jpg" alt="SCPI protocol"><br>
+</p>
+</section>
 <section id="practice-unit-testing" class="slide level2 smaller">
 <h2>Practice: unit testing</h2>
 <ol type="1">
-<li>เปิด project ตัวอย่าง <strong>AT_cmd_parser</strong></li>
+<li>เตรียม project ตัวอย่าง <strong>ex04_SCPI_demo</strong></li>
+<li>ยืนยันการได้รับคำสั่งผ่าน USART2 โดยใช้ breakpoint ใน <code>HAL_UART_RxCpltCallback()</code>
+<ul>
+<li>ส่งตัวอักษรด้วย Serial Monitor โดยเลือก Line ending เป็น None</li>
+</ul></li>
+<li>ตั้ง breakpoint ในส่วนตรวจจับ EOL ใน <code>SCPI_Parse_Char()</code>
+<ul>
+<li>ปรับ Line encoding เป็น CRLF และใช้ watch ตรวจสอบสถานะ <code>scpi_cmd</code></li>
+</ul></li>
 </ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test case</th>
+<th style="text-align: left;">Input</th>
+<th style="text-align: left;">Expect <code>cmd_buf</code></th>
+<th style="text-align: left;">Expect <code>param_buf</code></th>
+<th style="text-align: left;">Expect <code>is_query</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><code>*IDN?</code></td>
+<td style="text-align: left;"><code>*IDN?</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">true</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
+<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">true</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><code>:MEAS:VOLT? 2</code></td>
+<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
+<td style="text-align: left;"><code>2</code></td>
+<td style="text-align: left;">true</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abnormal</td>
+<td style="text-align: left;"><code>12345:ABC 6</code></td>
+<td style="text-align: left;"><code>:ABC</code></td>
+<td style="text-align: left;"><code>6</code></td>
+<td style="text-align: left;">false</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abnormal</td>
+<td style="text-align: left;"><code>:*IDN?</code></td>
+<td style="text-align: left;"><code>:*IDN?</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">true</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="functional-safety-package-for-stm32" class="slide level2 smaller">
 <h2>Functional safety package for STM32</h2>
@@ -1858,10 +1960,10 @@ SECTIONS {
 <li><strong>Clock</strong>: wrong frequency</li>
 <li><strong>Memory</strong>: single-bit faults, DC fault, address stuck</li>
 <li><strong>Peripherals</strong>: developer responsibility</li>
-<li><strong>Ext commu.</strong>: developer responsibility</li>
+<li><strong>Ext comm.</strong>: developer responsibility</li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn19"><p><a href="https://www.st.com/en/embedded-software/x-cube-classb.html">Functional safety package for IEC 60730-1 and IEC 60335-1 safety standards</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn18"><p><a href="https://www.st.com/en/embedded-software/x-cube-classb.html">Functional safety package for IEC 60730-1 and IEC 60335-1 safety standards</a></p></li></ol></aside></section>
 <section id="design-for-testability" class="slide level2 smaller">
 <h2>Design For Testability</h2>
 <div class="columns">
@@ -1880,7 +1982,7 @@ SECTIONS {
 <li>Diagnostic mode: <br> โหมดพิเศษเพื่อเข้าถึงและควบคุมสถานะต่างๆของฮาร์ดแวร์/เฟิร์มแวร์</li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn20"><p><a href="https://resources.pcb.cadence.com/blog/er-pcb-design-testability-a-practical-guide-for-beginners">PCB Design Testability: A Practical Guide for Beginners</a></p></li><li id="fn21"><p><a href="https://insight.averna.com/en/resources/blog/design-for-testability">Design for Testability (DFT): Techniques and Applications</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn19"><p><a href="https://resources.pcb.cadence.com/blog/er-pcb-design-testability-a-practical-guide-for-beginners">PCB Design Testability: A Practical Guide for Beginners</a></p></li><li id="fn20"><p><a href="https://insight.averna.com/en/resources/blog/design-for-testability">Design for Testability (DFT): Techniques and Applications</a></p></li></ol></aside></section>
 <section id="automated-test-equipment-ate" class="slide level2 smaller">
 <h2>Automated Test Equipment (ATE)</h2>
 <p>Computer-controlled systems designed to automatically perform measurements and analyze functional, performance, or stress characteristics of electronic devices</p>
@@ -1917,7 +2019,7 @@ SECTIONS {
 <img data-src="figs/04_ATE_FPT.jpg" alt="Flying Probe Tester"><br>
 </p>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn22"><p>Or differential/singled-ended</p></li><li id="fn23"><p>Use using bed of nails fixture: <a href="https://www.digikey.com/en/articles/the-basics-of-pogo-pin-connectors">pogo pins</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn21"><p>Or differential/singled-ended</p></li><li id="fn22"><p>Use using bed of nails fixture: <a href="https://www.digikey.com/en/articles/the-basics-of-pogo-pin-connectors">pogo pins</a></p></li></ol></aside></section>
 <section id="qa-2" class="slide level2">
 <h2>Q&amp;A</h2>
 <ol type="1">
@@ -1978,7 +2080,7 @@ SECTIONS {
 <td style="text-align: left;">เปิด/ปิด โหมดส่งข้อมูลต่อเนื่อง (Streaming)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>ABORt</code></td>
+<td style="text-align: left;"><code>:ABORt</code></td>
 <td style="text-align: left;">หยุดการส่งข้อมูล Streaming ทันที</td>
 </tr>
 </tbody>
@@ -2014,27 +2116,22 @@ SECTIONS {
 <tr class="odd">
 <td style="text-align: left;"><code>main.c</code></td>
 <td style="text-align: left;">ควบคุม Main Loop และการเปลี่ยนผ่านสถานะ (State Transition)</td>
-<td style="text-align: left;"><code>main()</code>, <code>Error_Handler()</code></td>
+<td style="text-align: left;"><code>main()</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>scpi_parser.c/h</code></td>
+<td style="text-align: left;"><code>scpi.c/h</code></td>
 <td style="text-align: left;">ตีความคำสั่งจากพอร์ตซีเรียลและจัดการ Command Event</td>
 <td style="text-align: left;"><code>SCPI_ParseChar()</code>, <code>SCPI_Execute()</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>adc_service.c/h</code></td>
 <td style="text-align: left;">ควบคุมการวัดค่า ADC, การแปลงหน่วย (Scaling) และการจัดรูปแบบข้อมูล</td>
-<td style="text-align: left;"><code>ADC_Start_Scan()</code>, <code>Format_Payload()</code></td>
+<td style="text-align: left;"><code>ADC_Start_Scan()</code>, <code>ADC_Format_Payload()</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>app_config.h</code></td>
 <td style="text-align: left;">รวบรวมค่ากำหนดคงที่ (Constants) และ Macro ต่างๆ</td>
 <td style="text-align: left;"><code>#define MAX_BUF_SIZE 64</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>stm32c5xx_it.c</code></td>
-<td style="text-align: left;">จัดการงานที่เกิดขึ้นใน Interrupt (Background Task)</td>
-<td style="text-align: left;"><code>USART2_IRQHandler()</code>, <code>TIM3_IRQHandler()</code></td>
 </tr>
 </tbody>
 </table>
@@ -2057,18 +2154,13 @@ SECTIONS {
 <td style="text-align: left;">🟢 Given</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>State Machine</strong></td>
+<td style="text-align: left;"><strong>SCPI Cmd Handler</strong></td>
 <td style="text-align: left;">ควบคุมลำดับการเปลี่ยนสถานะของระบบ</td>
-<td style="text-align: left;">⚠️ Reference</td>
+<td style="text-align: left;">🔵 <strong>Task</strong></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>ADC Service</strong></td>
-<td style="text-align: left;">อ่านค่า Hardware ADC และทำ Scaling</td>
-<td style="text-align: left;">⚠️ Reference</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>:MEASURE cmd</strong></td>
-<td style="text-align: left;">เชื่อมโยง Parser เข้ากับ ADC และส่งผลลัพธ์</td>
+<td style="text-align: left;">อ่านค่า Hardware ADC และแปลงค่า</td>
 <td style="text-align: left;">🔵 <strong>Task</strong></td>
 </tr>
 </tbody>
@@ -2076,14 +2168,14 @@ SECTIONS {
 <h4 id="unit-testing">Unit testing</h4>
 <table class="caption-top">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 25%">
-<col style="width: 41%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 38%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>ID</th>
+<th style="text-align: left;">ID</th>
 <th style="text-align: left;">Task</th>
 <th style="text-align: left;">Expected Output</th>
 <th style="text-align: left;">System Impact (ถ้าไม่ผ่าน)</th>
@@ -2091,14 +2183,14 @@ SECTIONS {
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>UT-02</strong></td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;">แรงดัน 4 ช่อง</td>
-<td style="text-align: left;"><strong>Data Inconsistency:</strong> ระบบไม่สามารถรายงานค่าจากเซ็นเซอร์ได้</td>
+<td style="text-align: left;"><strong>UT-02</strong></td>
+<td style="text-align: left;"><code>:MEAS:VOLT? 0</code></td>
+<td style="text-align: left;">แรงดันที่ขา A0</td>
+<td style="text-align: left;"><strong>Data not available:</strong> ระบบไม่สามารถตรวจสอบเซ็นเซอร์ได้</td>
 </tr>
 <tr class="even">
-<td><strong>UT-03</strong></td>
-<td style="text-align: left;"><code>:FORM:DATA</code></td>
+<td style="text-align: left;"><strong>UT-03</strong></td>
+<td style="text-align: left;"><code>:FORM:DATA ASCII</code></td>
 <td style="text-align: left;">เปลี่ยน Format ได้</td>
 <td style="text-align: left;"><strong>Integration Fail:</strong> แอปพลิเคชัน (LabVIEW) จะไม่สามารถ Parse ข้อมูลได้</td>
 </tr>
