@@ -48,87 +48,243 @@
 
     <!-- Project Info -->
     <div class="card p-4 mb-4">
-      <h4 class="section-title">ข้อมูลโครงการ</h4>
-      <p>
-        โครงการพัฒนาทักษะ (Upskill/Reskill) ด้านการพัฒนาเฟิร์มแวร์สำหรับระบบสื่อสาร CAN bus 
-        ในยานยนต์ มุ่งเน้นการพัฒนาทักษะ Embedded Systems และ Automotive Software
-      </p>
-      <ul>
-        <li>กลุ่มเป้าหมาย: นักศึกษา อาจารย์ และบุคลากรจากภาคอุตสาหกรรม</li>
-        <li>จำนวนผู้เข้าอบรม: ~90 คน</li>
-        <li>รูปแบบ: Onsite (Workshop)</li>
-        <li>ระยะเวลา: 3 วัน (18 ชั่วโมง)</li>
-      </ul>
+      <h4 class="section-title">📌 เกี่ยวกับโครงการ</h4>
+      <div class="row g-4">
+        <div class="col-md-7">
+          <p class="text-muted mb-2"><strong>ความจำเป็นของโครงการ:</strong></p>
+          <p class="mb-3" style="text-align: justify; line-height: 1.6;">
+            ยานยนต์สมัยใหม่และ EV ขับเคลื่อนด้วยซอฟต์แวร์ (Software-Defined Vehicles) แต่ในปัจจุบันประเทศไทยยังขาดแคลนบุคลากรที่มีทักษะวิศวกรรมเชิงลึกด้านระบบสมองกลฝังตัว (Embedded Systems) และการสื่อสารภายในรถยนต์ด้วยโปรโตคอลมาตรฐานอย่าง CAN bus โครงการนี้จึงจัดขึ้นเพื่อปิดช่องว่างทางทักษะดังกล่าว ทั้งในภาคการศึกษาและภาคอุตสาหกรรมชิ้นส่วนยานยนต์ไทย
+          </p>
+          <p class="text-muted mb-2"><strong>ผลลัพธ์และประโยชน์ที่ได้รับ:</strong></p>
+          <p class="mb-0" style="text-align: justify; line-height: 1.6;">
+            ผู้เข้าอบรมจะได้รับการพัฒนาทักษะการออกแบบและพัฒนาเฟิร์มแวร์ขั้นสูงด้วยเทคโนโลยี CAN-FD บนฮาร์ดแวร์มาตรฐานอุตสาหกรรม เพื่อยกระดับศักยภาพในการวิจัยและพัฒนาผลิตภัณฑ์ รองรับการเปลี่ยนผ่านสู่ห่วงโซ่อุปทานของตลาดยานยนต์แห่งอนาคต พร้อมต่อยอดสู่หลักสูตรต้นแบบ (Reference Curriculum) แก่สถาบันการศึกษาต่อไป
+          </p>
+        </div>
+        
+        <div class="col-md-5 bg-light p-3 rounded-3 border-start border-primary border-4">
+          <h6 class="fw-bold mb-3 text-primary">📊 รายละเอียดการจัดอบรม</h6>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2"><strong>🎯 กลุ่มเป้าหมาย:</strong> นักศึกษาปีสุดท้าย และวิศวกร/นักพัฒนาจากภาคอุตสาหกรรม</li>
+            <li class="mb-2"><strong>👥 จำนวนผู้เข้าอบรม:</strong> 90 คน (แบ่งจัดอบรม 3 รุ่น รุ่นละ 30 คน)</li>
+            <li class="mb-2"><strong>🏫 รูปแบบโครงการ:</strong> Onsite Workshop ณ ม.ธรรมศาสตร์</li>
+            <li><strong>⏱️ ระยะเวลาหลักสูตร:</strong> 3 วัน (บรรยาย 6 ชม. / ปฏิบัติการ 12 ชม.)</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <!-- Content link -->
     <div class="card p-4 mb-4">
-      <h4 class="section-title">ข้อมูลโครงการ</h4>
-      <p>
-      เนื้อหาของคอร์สอบรมแบ่งออกเป็น 3 วัน เพื่อครอบคลุม (1) หลักการ/เครื่องมือ/เทคนิคการพัฒนาเฟิร์มแวร์ (2) การสื่อสารด้วย CAN bus และ (3) กรณีศึกษาของการพัฒนาเฟิร์มแวร์สำหรับอุตสาหกรรมยานยนต์  ผู้สนใจสามารถดูเนื้อหาได้จาก
+      <h4 class="section-title">📅 กำหนดการและเนื้อหาหลักสูตร (18 ชั่วโมง)</h4>
+      <p class="text-muted mb-3">
+        เนื้อหาการอบรมเชิงปฏิบัติการ onsite 3 วัน แบ่งสัดส่วนเป็นบรรยาย 6 ชั่วโมง และปฏิบัติการ 12 ชั่วโมง โดยมีรายละเอียดหัวข้อและสื่อการเรียนรู้ดังนี้
       </p>
-      <ul>
-        <li> <a href=training_materials/day_01_dev_workflow.html>เนื้อหาวันแรก</a>: ฮาร์ดแวร์ของการอบรม (บอร์ด NUCLEO-C562RE), ชุดเครื่องมือพัฒนา (STM32CubeIDE for VS Code), กระบวนการและเทคนิคการพัฒนาเฟิร์มแวร์
-        <li> <a href=training_materials/day_02_CAN_firmware.html>เนื้อหาวันที่สอง</a>: เครือข่าย Controller Area Network, การใช้งาน FDCAN ของ STM32
-        <li> <a href=training_materials/day_03_CAN_workshop.html>เนื้อหาวันที่สาม</a>: invited talk โดยผู้เชี่ยวชาญจากบริษัท NETH/TDET และ workshop
-      </ul>
+      
+      <div class="table-responsive">
+        <table class="table table-hover align-middle border">
+          <thead class="table-light">
+            <tr>
+              <th style="width: 15%;">วันทีจัดอบรม</th>
+              <th style="width: 55%;">รายละเอียดเนื้อหาหลักสูตร</th>
+              <th style="width: 30%; text-align: center;">สื่อการเรียนรู้ / ลิงค์เนื้อหา</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Day 1 -->
+            <tr>
+              <td><span class="badge bg-primary px-2 py-2 w-100">วันแรก</span></td>
+              <td>
+                <strong>กระบวนการและเทคนิคการพัฒนาเฟิร์มแวร์</strong><br>
+                <small class="text-muted">สถาปัตยกรรมหน่วยประมวลผล ARM, การอ่านผังวงจรบอร์ด STM32, การใช้ชุดเครื่องมือ STM32CubeIDE for VS Code, การสร้าง ติดตั้ง และทดสอบเฟิร์มแวร์ด้วยเครื่องมือวัด</small>
+              </td>
+              <td class="text-center">
+                <a href="training_materials/day_01_dev_workflow.html" class="btn btn-sm btn-outline-primary w-75">
+                  📖 เนื้อหาวันแรก
+                </a>
+              </td>
+            </tr>
+            <!-- Day 2 -->
+            <tr>
+              <td><span class="badge bg-primary px-2 py-2 w-100">วันที่สอง</span></td>
+              <td>
+                <strong>เครือข่ายและการเขียนโค้ดระบบ CAN bus</strong><br>
+                <small class="text-muted">ทฤษฎีเครือข่าย Controller Area Network, การตั้งค่าและการใช้งานโมดูล FDCAN ของ STM32, การเขียนโค้ดเพื่อรับ-ส่งข้อมูลผ่าน filter และ mailbox</small>
+              </td>
+              <td class="text-center">
+                <a href="training_materials/day_02_CAN_firmware.html" class="btn btn-sm btn-outline-primary w-75">
+                  📖 เนื้อหาวันที่สอง
+                </a>
+              </td>
+            </tr>
+            <!-- Day 3 -->
+            <tr>
+              <td><span class="badge bg-primary px-2 py-2 w-100">วันที่สาม</span></td>
+              <td>
+                <strong>กรณีศึกษาและกิจกรรม Workshop จากภาคอุตสาหกรรม</strong><br>
+                <small class="text-muted">หัวข้อพิเศษ "Are your code SAFE?" และกรณีศึกษา CAN bus ในยานยนต์ โดยผู้เชี่ยวชาญจากบริษัท NETH/TDET พร้อมลงมือปฏิบัติจริงผ่านโครงงาน</small>
+              </td>
+              <td class="text-center">
+                <a href="training_materials/day_03_CAN_workshop.html" class="btn btn-sm btn-outline-primary w-75">
+                  📖 เนื้อหาวันที่สาม
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- KPI Placeholder -->
-    <div class="row g-4 mb-4">
-      <div class="col-md-3">
-        <div class="card p-3 text-center">
-          <h6>ผู้เข้าร่วม</h6>
-          <h3 id="kpi-users">-</h3>
+    <div class="row g-3 mb-4">
+      <h5 class="fw-bold mb-1 text-secondary">📊 ภาพรวมและตัวบ่งชี้ (KPIs) - <span id="kpi-round-date">กำลังโหลดข้อมูล...</span></h5>
+      
+      <!-- Card 1: ผู้เข้าร่วมอบรมทั้งหมด -->
+      <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 border-0 bg-white" style="box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div class="d-flex align-items-center mb-2">
+            <div class="p-2 bg-primary-subtle text-primary rounded-3 me-2">
+              <span class="fs-5">👥</span>
+            </div>
+            <span class="text-muted small fw-medium">ผู้เข้าอบรมจริง</span>
+          </div>
+          <h3 class="fw-bold my-2" id="kpi-total-participants">-</h3>
+          <div class="small text-muted pt-1 border-top mt-2">
+            <span class="text-success">●</span> เช็คชื่อ onsite รายวัน
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card p-3 text-center">
-          <h6>Completion Rate</h6>
-          <h3 id="kpi-completion">-</h3>
+
+      <!-- Card 2: ตัวชี้วัด 2 ภาพรวมของสังกัดผู้เข้าอบรม -->
+      <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 border-0 bg-white" style="box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div class="d-flex align-items-center mb-2">
+            <div class="p-2 bg-info-subtle text-info rounded-3 me-2">
+              <span class="fs-5">🏢</span>
+            </div>
+            <span class="text-muted small fw-medium">สัดส่วนสังกัดผู้เข้าอบรม</span>
+          </div>
+          <div class="pt-1" id="kpi-group-all-roles">
+            <!-- JavaScript จะมาวาดสัดส่วนตรงนี้ -->
+            กำลังประมวลผล...
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card p-3 text-center">
-          <h6>Assessment Score</h6>
-          <h3 id="kpi-score">-</h3>
+
+      <!-- Card 3: คะแนนการประเมินความรู้ (แบ่งสเกล เต็ม 10 และ เต็ม 20) -->
+      <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 border-0 bg-white" style="box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div class="d-flex align-items-center mb-2">
+            <div class="p-2 bg-success-subtle text-success rounded-3 me-2">
+              <span class="fs-5">📝</span>
+            </div>
+            <span class="text-muted small fw-medium">คะแนนประเมินความรู้</span>
+          </div>
+          <div class="my-1">
+            <div class="small text-muted mb-1">Pre-Test (เต็ม 10): <b class="text-dark fs-6" id="kpi-pre-avg">-</b></div>
+            <div class="small text-muted">Post-Test (เต็ม 20): <b class="text-success fs-6" id="kpi-post-avg">-</b></div>
+          </div>
+          <div class="small text-muted pt-1 border-top mt-2">
+            <span></span>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card p-3 text-center">
-          <h6>Satisfaction</h6>
-          <h3 id="kpi-satisfaction">-</h3>
+
+      <!-- Card 4: คะแนนความพึงพอใจ -->
+      <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 border-0 bg-white" style="box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div class="d-flex align-items-center mb-2">
+            <div class="p-2 bg-warning-subtle text-warning rounded-3 me-2">
+              <span class="fs-5">⭐</span>
+            </div>
+            <span class="text-muted small fw-medium">ความพึงพอใจภาพรวม</span>
+          </div>
+          <h3 class="fw-bold my-1 text-warning" id="kpi-satisfaction-score">-</h3>
+          <div class="small text-muted pt-1 border-top mt-2 text-truncate">
+            <span id="kpi-satisfaction-highlight">✨ กำลังโหลด...</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Chart Placeholder -->
-    <div class="row g-4">
+    <!-- Tabs -->
+    <div class="card p-4 mb-4">
+      <h5 class="fw-bold mb-3 text-secondary">📈 ผลการดำเนินงานและสถิติเชิงลึก</h5>
+      
+      <ul class="nav nav-pills mb-4 bg-light p-2 rounded-3" id="trainingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-item nav-link active px-3" id="round1-tab" data-bs-toggle="pill" data-bs-target="#round1-content" type="button" role="tab" aria-controls="round1-content" aria-selected="true">🗓️ รอบ 9-11 มิ.ย. 2569</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-item nav-link px-3" id="round2-tab" data-bs-toggle="pill" data-bs-target="#round2-content" type="button" role="tab" aria-controls="round2-content" aria-selected="false">🗓️ รอบ 23-25 มิ.ย. 2569</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-item nav-link px-3" id="round3-tab" data-bs-toggle="pill" data-bs-target="#round3-content" type="button" role="tab" aria-controls="round3-content" aria-selected="false">🗓️ รอบ 30 มิ.ย.-2 ก.ค. 2569</button>
+        </li>
+      </ul>
 
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h6 class="section-title">📈 Progress Chart</h6>
-          <canvas id="progressChart"></canvas>
+      <div class="tab-content" id="trainingTabsContent">
+        
+        <div class="tab-pane fade show active" id="round1-content" role="tabpanel" aria-labelledby="round1-tab">
+          
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="border rounded-3 p-2 bg-light text-center" id="photo-container-round1">
+                <span class="text-muted small mb-2 d-block">📸 ภาพบรรยากาศการอบรม รุ่นที่ 1</span>
+                <div class="spinner-border spinner-border-sm text-secondary my-3" role="status"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-5">
+              <div class="border rounded-3 p-3 h-100 bg-white shadow-sm text-center">
+                <h6 class="fw-bold mb-3 text-muted small">📊 สัดส่วนสังกัดของผู้เข้าร่วม</h6>
+                <div style="position: relative; height: 260px; width: 100%">
+                  <canvas id="chartPieRound1"></canvas>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-7">
+              <div class="border rounded-3 p-3 h-100 bg-white shadow-sm text-center">
+                <h6 class="fw-bold mb-2 text-muted small">⭐ คะแนนความพึงพอใจในแต่ละด้าน (เต็ม 5)</h6>
+                <div style="position: relative; height: 260px; width: 100%">
+                  <canvas id="chartBarRound1"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h6 class="section-title">👥 Demographics</h6>
-          <div id="demoChart"></div>
+        <div class="tab-pane fade" id="round2-content" role="tabpanel" aria-labelledby="round2-tab">
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="border rounded-3 p-3 bg-light text-center text-muted small">
+                📸 ภาพบรรยากาศการอบรม รุ่นที่ 2 (⏳ รออัปเดตเมื่อเสร็จสิ้นกิจกรรม)
+              </div>
+            </div>
+          </div>
+          <div class="border rounded-3 p-5 text-center bg-light text-muted">
+            📊 ระบบกำลังรอเชื่อมต่อฐานข้อมูลจาก data/round_02.json หลังจบการจัดอบรม
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-12">
-        <div class="card p-4">
-          <h6 class="section-title">📊 Skills Radar</h6>
-          <canvas id="radarChart"></canvas>
+        <div class="tab-pane fade" id="round3-content" role="tabpanel" aria-labelledby="round3-tab">
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="border rounded-3 p-3 bg-light text-center text-muted small">
+                📸 ภาพบรรยากาศการอบรม รุ่นที่ 3 (⏳ รออัปเดตเมื่อเสร็จสิ้นกิจกรรม)
+              </div>
+            </div>
+          </div>
+          <div class="border rounded-3 p-5 text-center bg-light text-muted">
+            📊 ระบบกำลังรอเชื่อมต่อฐานข้อมูลจาก data/round_03.json หลังจบการจัดอบรม
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
-
-  </div>
 
   <!-- Footer -->
   <footer class="text-center py-3 text-muted">
@@ -140,43 +296,157 @@
 
   <!-- Init Empty Charts -->
   <script>
-    // Chart.js placeholder
-    const ctx = document.getElementById('progressChart');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Progress',
-          data: []
-        }]
+    <!-- Script ดึงข้อมูลและอัปเดต KPI Dashboard ด้วยสเกลแบบใหม่ -->
+    async function loadTrainingKPI(roundFileName) {
+      try {
+        const response = await fetch(`data/${roundFileName}`);
+        if (!response.ok) throw new Error('ไม่สามารถโหลดไฟล์ข้อมูลได้');
+        
+        const data = await response.json();
+        
+        // 1. อัปเดตวันที่รอบอบรม
+        document.getElementById('kpi-round-date').innerText = `รอบวันที่ ${data.roundInfo.date}`;
+        
+        // 2. การ์ดที่ 1: จำนวนผู้เข้าอบรมจริง (เพียวๆ ไม่มีรายละเอียดสังกัด)
+        document.getElementById('kpi-total-participants').innerHTML = `${data.participants.total_attended} <span class="fs-6 fw-normal text-muted">คน</span>`;
+        
+        // 3. การ์ดที่ 2: ให้ภาพรวมสังกัดทั้งหมด (ใส่ Badge สรุปสัดส่วนกลุ่ม)
+        document.getElementById('kpi-group-all-roles').innerHTML = `
+          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">🏭 ยานยนต์:</span> <b>${data.participants.by_role.automotive_industry} คน</b></div>
+          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">🎓 นักศึกษา:</span> <b>${data.participants.by_role.student} คน</b></div>
+          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">💼 บุคลากรทั่วไป:</span> <b>${data.participants.by_role.general_worker} คน</b></div>
+          <div class="d-flex justify-content-between small"><span class="text-truncate">🏫 อาจารย์:</span> <b>${data.participants.by_role.lecturer} คน</b></div>
+        `;
+        
+        // 4. การ์ดที่ 3: คะแนนความรู้ปรับสเกล Pre (เต็ม 10) / Post (เต็ม 20)
+        document.getElementById('kpi-pre-avg').innerText = `${data.knowledge_assessment.pre_test_avg} / ${data.knowledge_assessment.pre_test_max}`;
+        document.getElementById('kpi-post-avg').innerText = `${data.knowledge_assessment.post_test_avg} / ${data.knowledge_assessment.post_test_max}`;
+        
+        // 5. การ์ดที่ 4: คะแนนความพึงพอใจ
+        document.getElementById('kpi-satisfaction-score').innerHTML = `${data.satisfaction.overall_score} <span class="fs-6 fw-normal text-muted">/ 5</span>`;
+        document.getElementById('kpi-satisfaction-highlight').innerText = `✨ วิทยากรรับเชิญสูงสุด (${data.satisfaction.categories.guest_speaker})`;
+        
+      } catch (error) {
+        console.error('Error loading KPI data:', error);
+        document.getElementById('kpi-round-date').innerText = 'เกิดข้อผิดพลาดในการโหลดข้อมูล';
       }
+    }
+
+    // ฟังก์ชันสำหรับดึงข้อมูลและวาดกราฟเฉพาะของรอบที่ 1
+    const loadedTabs = { round1: false, round2: false, round3: false };
+
+    function initRound1Charts() {
+      if (loadedTabs.round1) return;
+
+      // 1. โหลดรูปภาพแบบเต็มความกว้าง (Fit Width ด้วยคลาส w-100)
+      const photoContainer = document.getElementById('photo-container-round1');
+      photoContainer.innerHTML = `
+        <span class="text-muted small mb-2 d-block fw-medium">📸 ภาพบรรยากาศการอบรม รุ่นที่ 1</span>
+        <img src="images/round_01.jpg" alt="บรรยากาศการอบรม รุ่นที่ 1" class="img-fluid rounded w-100" style="max-height: 380px; object-fit: cover;" 
+             onerror="handleImageError(this, 'round_01.jpg')">
+      `;
+
+      // 2. เรียก Fetch ข้อมูล JSON มาวาดกราฟลงในการ์ด 2 ใบด้านล่าง
+      fetch('data/round_01.json')
+        .then(response => {
+          if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลสถิติได้');
+          return response.json();
+        })
+        .then(data => {
+          
+          // วาดกราฟวงกลม (Pie Chart) ด้านล่างซ้าย
+          const ctxPie1 = document.getElementById('chartPieRound1').getContext('2d');
+          new Chart(ctxPie1, {
+            type: 'pie',
+            data: {
+              labels: ['ยานยนต์', 'นักศึกษา', 'บุคคลทั่วไป', 'อาจารย์'],
+              datasets: [{
+                data: [
+                  data.participants.by_role.automotive_industry,
+                  data.participants.by_role.student,
+                  data.participants.by_role.general_worker,
+                  data.participants.by_role.lecturer
+                ],
+                backgroundColor: ['#0d6efd', '#0dcaf0', '#6c757d', '#ffc107'],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Prompt', size: 12 } } }
+              }
+            }
+          });
+
+          // วาดกราฟแท่งแนวนอน (Bar Chart) ด้านล่างขวา
+          const ctxBar1 = document.getElementById('chartBarRound1').getContext('2d');
+          new Chart(ctxBar1, {
+            type: 'bar',
+            data: {
+              labels: [
+                'ความเข้าใจสถาปัตยกรรม', 'การฝึกปฏิบัติ (Config)', 'การเขียนเฟิร์มแวร์',
+                'การใช้เครื่องมือวัด', 'ความเหมาะสมของเนื้อหา', 'ความเพียงพอของอุปกรณ์',
+                'คำอธิบายของวิทยากรหลัก', 'เนื้อหาวิทยากรรับเชิญ', 'สถานที่และอาหาร'
+              ],
+              datasets: [{
+                label: 'คะแนนเฉลี่ย',
+                data: [
+                  data.satisfaction.categories.architecture_understanding,
+                  data.satisfaction.categories.practical_config,
+                  data.satisfaction.categories.firmware_coding,
+                  data.satisfaction.categories.tool_usage,
+                  data.satisfaction.categories.content_suitability,
+                  data.satisfaction.categories.materials_adequacy,
+                  data.satisfaction.categories.lecturer_clarity,
+                  data.satisfaction.categories.guest_speaker,
+                  data.satisfaction.categories.facility_and_food
+                ],
+                backgroundColor: 'rgba(255, 193, 7, 0.85)',
+                borderColor: '#ffc107',
+                borderWidth: 1,
+                borderRadius: 4
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: { min: 0, max: 5, grid: { display: true } },
+                y: { ticks: { font: { family: 'Prompt', size: 11 } } }
+              },
+              plugins: { legend: { display: false } }
+            }
+          });
+
+          loadedTabs.round1 = true;
+        })
+        .catch(err => {
+          console.error('Error loading round 1 data:', err);
+        });
+    }
+
+    // ฟังก์ชันดักจับเหตุการณ์สลับแท็บของ Bootstrap
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. 
+      loadTrainingKPI('round_01.json')
+      
+      // 1. ตรวจสอบแท็บแรกที่ถูกเปิดใช้งานตอนเริ่มต้นหน้าจอ (Default Active Tab)
+      initRound1Charts();
+
+      // 2. ดักฟังเมื่อมีการกดเปลี่ยนแท็บใดๆ บนหน้าจอ
+      const tabElements = document.querySelectorAll('button[data-bs-toggle="pill"]');
+      tabElements.forEach(tab => {
+        tab.addEventListener('shown.bs.tab', (event) => {
+          if (event.target.id === 'round1-tab') {
+            initRound1Charts();
+          }
+        });
+      });
+
     });
-
-    const radarCtx = document.getElementById('radarChart');
-    new Chart(radarCtx, {
-      type: 'radar',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Skills',
-          data: []
-        }]
-      }
-    });
-
-    // ApexCharts placeholder
-    const options = {
-      series: [],
-      chart: {
-        type: 'donut',
-        height: 300
-      },
-      labels: []
-    };
-
-    const chart = new ApexCharts(document.querySelector("#demoChart"), options);
-    chart.render();
   </script>
 
 </body>
