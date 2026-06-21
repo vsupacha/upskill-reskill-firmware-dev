@@ -15,7 +15,7 @@
   },
   "knowledge_assessment": {
     "pre_test_avg": 54.4,
-    "pre_test_max": 8,
+    "pre_test_max": 80,
     "post_test_avg": 82.5,
     "post_test_max": 95,
     "total_tested": 19
