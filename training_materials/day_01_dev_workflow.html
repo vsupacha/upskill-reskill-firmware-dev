@@ -6,11 +6,11 @@
 <script src="day_01_dev_workflow_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="day_01_dev_workflow_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="day_01_dev_workflow_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="day_01_dev_workflow_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="day_01_dev_workflow_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-06-09">
+  <meta name="dcterms.date" content="2569-06-23">
   <title>UpSKILL / ReSKILL</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -208,7 +208,7 @@
 </div>
 </div>
 
-  <p class="date">June 9, 2569</p>
+  <p class="date">June 23, 2569</p>
 </section>
 <section id="course-objective" class="slide level2 smaller">
 <h2>Course objective</h2>
@@ -1531,6 +1531,81 @@ SECTIONS {
 <td style="text-align: left;"><code>:FORM:DATA ASCII</code></td>
 <td style="text-align: left;">เปลี่ยน Format ได้</td>
 <td style="text-align: left;"><strong>Integration Fail:</strong> แอปพลิเคชัน (LabVIEW) จะไม่สามารถ Parse ข้อมูลได้</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scpi-protocol" class="slide level2 smaller">
+<h2>4. SCPI protocol</h2>
+<p>Standard Commands for Programmable Instrumentation (SCPI) เป็นโปรโตคอลสำหรับคอมพิวเตอร์เชื่อมต่อผ่าน UART/USB/GPIB/LXI กับเครื่องมือวัด</p>
+<p><img data-src="figs/04_SCPI_protocol.jpg" alt="SCPI protocol"><br>
+</p>
+</section>
+<section id="practice-scpi" class="slide level2 smaller">
+<h2>4. Practice: SCPI</h2>
+<ol type="1">
+<li>เตรียม project ตัวอย่าง <strong>ex04_SCPI_demo</strong></li>
+<li>ยืนยันการได้รับคำสั่งผ่าน USART2 โดยใช้ breakpoint ใน <code>HAL_UART_RxCpltCallback()</code>
+<ul>
+<li>ส่งตัวอักษรด้วย Serial Monitor โดยเลือก Line ending เป็น None</li>
+</ul></li>
+<li>ตั้ง breakpoint ในส่วนตรวจจับ EOL ใน <code>SCPI_Parse_Char()</code>
+<ul>
+<li>ปรับ Line encoding เป็น CRLF และใช้ watch ตรวจสอบสถานะ <code>scpi_cmd</code></li>
+</ul></li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test case</th>
+<th style="text-align: left;">Input</th>
+<th style="text-align: left;">Expect <code>cmd_buf</code></th>
+<th style="text-align: left;">Expect <code>param_buf</code></th>
+<th style="text-align: left;">Expect <code>is_query</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><code>*IDN?</code></td>
+<td style="text-align: left;"><code>*IDN?</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">true</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
+<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">true</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><code>:MEAS:VOLT? 2</code></td>
+<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
+<td style="text-align: left;"><code>2</code></td>
+<td style="text-align: left;">true</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abnormal</td>
+<td style="text-align: left;"><code>12345:ABC 6</code></td>
+<td style="text-align: left;"><code>:ABC</code></td>
+<td style="text-align: left;"><code>6</code></td>
+<td style="text-align: left;">false</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abnormal</td>
+<td style="text-align: left;"><code>:*IDN?</code></td>
+<td style="text-align: left;"><code>:*IDN?</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">true</td>
 </tr>
 </tbody>
 </table>
