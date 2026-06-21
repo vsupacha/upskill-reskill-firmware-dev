@@ -6,8 +6,8 @@
 <script src="day_01_dev_workflow_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="day_01_dev_workflow_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="day_01_dev_workflow_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="day_01_dev_workflow_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.36">
+<link href="day_01_dev_workflow_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-06-09">
@@ -218,18 +218,16 @@
 <li>ฮาร์ดแวร์ของการอบรม: บอร์ด NUCLEO-C562RE</li>
 <li>ชุดเครื่องมือพัฒนา: STM32CubeIDE for VS Code</li>
 <li>กระบวนการและเทคนิคการพัฒนาเฟิร์มแวร์</li>
-<li><strong>workshop</strong>: เฟิร์มแวร์ USB2ADC - SCPI protocol</li>
+<li><strong>workshop</strong>: เฟิร์มแวร์ ADC -&gt; USB</li>
 </ul></li>
 <li><label><input type="checkbox">วันที่ 2 การสื่อสารด้วย CAN FD</label>
 <ul>
-<li>เครือข่าย Controller Area Network</li>
-<li>การใช้งาน FDCAN ของ STM32</li>
-<li><strong>workshop</strong>: เฟิร์มแวร์ USB2CAN - SLCAN protocol</li>
+<li><strong>workshop</strong>: เฟิร์มแวร์ CAN -&gt; USB</li>
 </ul></li>
 <li><label><input type="checkbox">วันที่ 3 เครือข่ายสื่อสารในยานยนต์</label>
 <ul>
-<li><strong>Invited talk (NETH/TDET)</strong>: Are your code SAFE? โดยคุณโกสินทร์ และ automotive CAN application โดยคุณหรรษา</li>
-<li><strong>workshop</strong>: เฟิร์มแวร์ ECU - UDS protocol</li>
+<li><strong>Invited talk (NETH/TDET)</strong></li>
+<li><strong>workshop</strong>: เฟิร์มแวร์ CAN protocol</li>
 </ul></li>
 </ul>
 </section>
@@ -262,21 +260,21 @@
 </ul>
 </section>
 <section id="stm32-microcontroller" class="slide level2 smaller">
-<h2>STM32 microcontroller</h2>
+<h2>1. STM32 microcontroller</h2>
 <ul>
 <li>ARM Cortex-M + memory (Flash/SRAM) + on-chip peripherals <img data-src="figs/01_STM32_products.jpg" alt="ไมโครคอนโทรลเลอร์ STM32"><br>
 </li>
 </ul>
 </section>
 <section id="stm32c5-mcu-family" class="slide level2 smaller">
-<h2>STM32C5 MCU family</h2>
+<h2>1. STM32C5 MCU family</h2>
 <ul>
 <li>ARM Cortex-M33 + FPU + DSP (ไม่มี TrustZone) ที่ 144 MHz สำหรับงานทั่วไป เน้นราคาถูก <img data-src="figs/01_STM32C5_family.jpg" style="width:75.0%" alt="ตระกูล STM32C5"><br>
 </li>
 </ul>
 </section>
 <section id="nucleo-c562re-board" class="slide level2 smaller">
-<h2>NUCLEO-C562RE board</h2>
+<h2>1. NUCLEO-C562RE board</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
@@ -292,7 +290,6 @@
 <ul>
 <li>Serial Wire Debug (SWD)</li>
 <li>Virtual COM port (VCP)</li>
-<li>Mass storage</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
@@ -301,49 +298,49 @@
 </div></div>
 </section>
 <section id="nucleo-c562re-schematics" class="slide level2 smaller">
-<h2>NUCLEO-C562RE <a href="https://www.st.com/en/evaluation-tools/nucleo-c562re.html#cad-resources">schematics</a></h2>
+<h2>1. NUCLEO-C562RE <a href="https://www.st.com/en/evaluation-tools/nucleo-c562re.html#cad-resources">schematics</a></h2>
 <ul>
 <li>ภาพรวม = องค์ประกอบของบอร์ด <img data-src="figs/01_schematic_overview.jpg" style="width:80.0%" alt="ภาพรวมของบอร์ด"><br>
 </li>
 </ul>
 </section>
 <section id="nucleo-c562re-schematics-1" class="slide level2 smaller scrollable">
-<h2>NUCLEO-C562RE schematics</h2>
+<h2>1. NUCLEO-C562RE schematics</h2>
 <ul>
 <li>การเชื่อมต่อ = หัวต่อ Arduino และ Morpho <img data-src="figs/01_schematic_pinout.jpg" alt="หัวต่อและขาสัญญาณ"><br>
 </li>
 </ul>
 </section>
 <section id="nucleo-c562re-schematics-2" class="slide level2 smaller scrollable">
-<h2>NUCLEO-C562RE schematics</h2>
+<h2>1. NUCLEO-C562RE schematics</h2>
 <ul>
 <li>ส่วน ST-Link = พอร์ท SWD และพอร์ทอนุกรม UART <img data-src="figs/01_schematic_uart.jpg" alt="การเชื่อมต่อ SWD"><br>
 </li>
 </ul>
 </section>
 <section id="nucleo-c562re-schematics-3" class="slide level2 smaller">
-<h2>NUCLEO-C562RE schematics</h2>
+<h2>1. NUCLEO-C562RE schematics</h2>
 <ul>
 <li>การเชื่อมโยงอุปกรณ์ = ขาสัญญาณ / pull-up/pull-down / active LOW/HIGH / … <img data-src="figs/01_schematic_onboard.jpg" style="width:80.0%" alt="อุปกรณ์บนบอร์ด"><br>
 </li>
 </ul>
 </section>
 <section id="stm32c562re-microcontroller" class="slide level2 smaller">
-<h2>STM32C562RE microcontroller</h2>
+<h2>1. STM32C562RE microcontroller</h2>
 <ul>
 <li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32c562re.html">STM32C562RE</a>: ARM Cortex-M33 + 512KB Flash + 64KB/64KB SRAM + LPDMA1/2 <img data-src="figs/01_C562RE_block_upper.jpg" alt="สถาปัตยกรรมส่วนคอร์"><br>
 </li>
 </ul>
 </section>
 <section id="stm32c562re-microcontroller-1" class="slide level2 smaller">
-<h2>STM32C562RE microcontroller</h2>
+<h2>1. STM32C562RE microcontroller</h2>
 <ul>
 <li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32c562re.html">STM32C562RE</a>: RCC + AHB/APB bridge + UART/SPI/I2C + Timer + ADC + … <img data-src="figs/01_C562RE_block_lower.jpg" alt="สถาปัตยกรรมส่วนเพอริเฟอรัล"><br>
 </li>
 </ul>
 </section>
 <section id="stm32c562ret6-microcontroller" class="slide level2 smaller">
-<h2>STM32C562RET6 microcontroller</h2>
+<h2>1. STM32C562RET6 microcontroller</h2>
 <ul>
 <li>ชิปแบบ LQFP64 มีขา GPIO 52 ขา (ขาแอนะล็อก 17 ขา)</li>
 <li>Timer x 12, SPI x 3, I2C x 2, UART x 6, FDCAN x1, RTC, USB</li>
@@ -352,27 +349,27 @@
 </ul>
 </section>
 <section id="nucleo-c562re-schematics-4" class="slide level2 smaller">
-<h2>NUCLEO-C562RE schematics</h2>
+<h2>1. NUCLEO-C562RE schematics</h2>
 <ul>
 <li><a href="https://www.microchip.com/en-us/product/mcp2562fd">MCP2562FD</a>: CAN-FD transceiver <img data-src="figs/01_schematic_canfd.jpg" alt="หัวต่อ CAN-FD"><br>
 </li>
 </ul>
 </section>
 <section id="mcp2562fd" class="slide level2 smaller">
-<h2>MCP2562FD</h2>
+<h2>1. MCP2562FD</h2>
 <ul>
 <li>CAN FD Transceiver รองรับ 8 MBits/sec <img data-src="figs/01_MCP2562FD.jpg" style="width:85.0%" alt="ชิป MCP2562FD"><br>
 </li>
 </ul>
 </section>
 <section id="push-in-connection-terminal-block" class="slide level2 smaller">
-<h2>Push-in connection terminal block</h2>
+<h2>1. Push-in connection terminal block</h2>
 <p><img data-src="figs/01_CAN_block.jpg" style="width:90.0%" alt="บอร์ด STM32 Nucleo-64"><br>
 </p>
 <p><a href="https://www.youtube.com/watch?v=1sulcXVK4t0">คลิปสาธิตการติดตั้งสาย</a></p>
 </section>
 <section id="hardware-for-workshop" class="slide level2 smaller">
-<h2>Hardware for workshop</h2>
+<h2>1. Hardware for workshop</h2>
 <div style="font-size: 95%; text-align: left;">
 <table class="caption-top">
 <colgroup>
@@ -431,12 +428,12 @@
 </ul>
 </section>
 <section id="software-development-life-cycle" class="slide level2 smaller">
-<h2>Software Development Life Cycle</h2>
+<h2>2. Software Development Life Cycle</h2>
 <p><strong>Artifacts</strong>: concept → requirement → architecture → detailed design → code → test report <img data-src="figs/02_V_model.jpg" style="width:80.0%" alt="V-model"><br>
 </p>
 </section>
 <section id="firmware-development" class="slide level2 smaller">
-<h2>Firmware development</h2>
+<h2>2. Firmware development</h2>
 <div class="columns">
 <div class="column" style="width:32%;">
 <h4 id="step-1-code-build">Step 1: code → build</h4>
@@ -469,7 +466,7 @@
 </div></div>
 </section>
 <section id="stm32-development-toolchain" class="slide level2 smaller">
-<h2>STM32 development toolchain</h2>
+<h2>2. STM32 development toolchain</h2>
 <div class="columns">
 <div class="column" style="width:32%;">
 <h4 id="platformio-st-stm32">PlatformIO: <a href="https://docs.platformio.org/en/latest/platforms/ststm32.html#platform-ststm32">ST STM32</a></h4>
@@ -505,14 +502,14 @@
 </div></div>
 </section>
 <section id="stm32cubemxstm32cubemx2" class="slide level2 smaller">
-<h2><a href="https://www.st.com/en/development-tools/stm32cubemx.html">STM32CubeMX/STM32CubeMX2</a></h2>
+<h2>2. <a href="https://www.st.com/en/development-tools/stm32cubemx.html">STM32CubeMX/STM32CubeMX2</a></h2>
 <ul>
 <li>เครื่องมือสำหรับสร้างโค้ดจัดการขาสัญญาณและเพอริเฟอรัลบนชิป <img data-src="figs/02_STM32CubeMX.jpg" style="width:75.0%" alt="เครื่องมือ STM32CubeMX"><br>
 </li>
 </ul>
 </section>
 <section id="stm32cubemx2-configuration" class="slide level2 smaller">
-<h2>STM32CubeMX2 configuration</h2>
+<h2>2. STM32CubeMX2 configuration</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="pin-configuration">Pin configuration</h4>
@@ -534,7 +531,7 @@
 </div></div>
 </section>
 <section id="stm32cubemx2-configuration-1" class="slide level2 smaller">
-<h2>STM32CubeMX2 configuration</h2>
+<h2>2. STM32CubeMX2 configuration</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="peripheral-configuration">Peripheral configuration</h4>
@@ -555,8 +552,22 @@
 </p>
 </div></div>
 </section>
+<section id="practice-stm32cubemx2" class="slide level2">
+<h2>2. Practice: STM32CubeMX2</h2>
+<ol type="1">
+<li>สร้าง project สำหรับบอร์ด NUCLEO-C562RE ด้วย STM32CubeMX2
+<ul>
+<li>configure ขา PA5 เป็น OUTPUT</li>
+<li>สร้าง project แบบ CMake - GCC</li>
+</ul></li>
+<li>นำเข้า project ด้วย STM32CubeIDE extension ใน VS Code
+<ul>
+<li>เลือก Setup STM32CubeIDE project เป็น GCC</li>
+</ul></li>
+</ol>
+</section>
 <section id="stm32cubemx-cmake-project" class="slide level2 smaller">
-<h2>STM32CubeMX<sup>1</sup> → CMake project<sup>2</sup></h2>
+<h2>2. STM32CubeMX<sup>1</sup> → CMake project<sup>2</sup></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="โครงสรางของ-cubemx">โครงสร้างของ CubeMX</h4>
@@ -584,17 +595,8 @@
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>ไฟล์ .ioc และ .ioc2 เก็บการตั้งค่าฮาร์ดแวร์</p></li><li id="fn2"><p><code>CMakeLists.txt</code>: ไฟล์กำหนดเครื่องมือและขั้นตอนการ build</p></li></ol></aside></section>
 <section id="practice-led-blink" class="slide level2 smaller scrollable">
-<h2>Practice: LED blink</h2>
+<h2>2. Practice: LED blink</h2>
 <ol type="1">
-<li>สร้าง project สำหรับบอร์ด NUCLEO-C562RE ด้วย STM32CubeMX2
-<ul>
-<li>configure ขา PA5 เป็น OUTPUT</li>
-<li>สร้าง project แบบ CMake - GCC</li>
-</ul></li>
-<li>นำเข้า project ด้วย STM32CubeIDE extension ใน VS Code
-<ul>
-<li>เลือก Setup STM32CubeIDE project เป็น GCC</li>
-</ul></li>
 <li>เขียนโค้ด build และ run
 <ul>
 <li><p>เพิ่มโค้ดใน loop ของ main.c</p>
@@ -607,7 +609,7 @@
 </ol>
 </section>
 <section id="stm32cubeide-for-vs-code-2" class="slide level2 smaller">
-<h2><a href="https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension">STM32CubeIDE for VS Code</a></h2>
+<h2>2. <a href="https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension">STM32CubeIDE for VS Code</a></h2>
 <div class="columns">
 <div class="column" style="width:33%;">
 <h4 id="cmake">CMake</h4>
@@ -630,7 +632,7 @@
 </p>
 </section>
 <section id="cmakelists.txt" class="slide level2 smaller scrollable">
-<h2>CMakeLists.txt</h2>
+<h2>2. CMakeLists.txt</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="root-settings">Root settings</h4>
@@ -691,7 +693,7 @@
 </div></div>
 </section>
 <section id="stm32cube-packages" class="slide level2 smaller">
-<h2>STM32Cube packages</h2>
+<h2>2. STM32Cube packages</h2>
 <ul>
 <li><a href="https://www.st.com/en/embedded-software/stm32cube-mcu-mpu-packages.html">HAL/LL API</a>: STM32CubeF0/F1/…/F7, STM32CubeL0/../L5, …, STM32CubeH5/H7</li>
 <li><a href="https://dev.st.com/stm32cube-docs/stm32c5-mcu-package/2.0.0/en/index.html">HAL2/LL API</a>: STM32CubeC5 <img data-src="figs/02_HAL_API.jpg" alt="การใช้ HAL API"><br>
@@ -699,7 +701,7 @@
 </ul>
 </section>
 <section id="practice-hello-world" class="slide level2 smaller">
-<h2>Practice: Hello, world</h2>
+<h2>2. Practice: Hello, world</h2>
 <ol type="1">
 <li>เปิดใช้งาน USART2 สำหรับบอร์ด NUCLEO-C562RE ด้วย STM32CubeMX2
 <ul>
@@ -717,6 +719,87 @@
 </ul></li>
 </ol>
 <aside><ol class="aside-footnotes"><li id="fn3"><p>โค้ดของ USART2 อยู่ในโฟลเดอร์ generated\hal\mx_usart2.c</p></li></ol></aside></section>
+<section id="on-chip-debugger" class="slide level2 smaller">
+<h2>2. On-chip debugger</h2>
+<h4 id="การตรวจสอบสถานะของหนวยประมวลผล">การตรวจสอบสถานะของหน่วยประมวลผล<sup>1</sup></h4>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Features</th>
+<th style="text-align: left;">Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HW breakpoint</td>
+<td style="text-align: left;">เข้าโหมด debug เมื่อประมวลผลคำสั่งที่ ADDR</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SW breakpoint</td>
+<td style="text-align: left;">เข้าโหมด debug เมื่อประมวลผลคำสั่ง BKPT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HW watchpoint</td>
+<td style="text-align: left;">เข้าโหมด debug เมื่อเข้าถึงข้อมูลที่ ADDR</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Single-step</td>
+<td style="text-align: left;">ประมวลผล 1 instruction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Memory-access</td>
+<td style="text-align: left;">เข้าถึงหน่วยความจำ (register/flash/RAM/peripheral)</td>
+</tr>
+</tbody>
+</table>
+<p><img data-src="figs/04_debug_flow.jpg" alt="Debug workflow"><br>
+</p>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><a href="https://www.eetimes.com/a-developers-insight-into-arm-cortex-m-debugging/">A developer’s insight into ARM Cortex M debugging</a></p></li></ol></aside></section>
+<section id="st-link-gdb-server-arm-cortex-m" class="slide level2 smaller">
+<h2>2. ST-Link GDB server ⇆ ARM Cortex-M</h2>
+<p>โปรแกรมสำหรับดีบั๊กการทำงานของเฟิร์มแวร์ผ่านกลไกของ GDB<sup>1</sup> ที่เข้าถึงและควบคุมส่วน ARM Cortex-M ผ่าน ST-Link</p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<ul>
+<li>ติดตั้งเฟิร์มแวร์ผ่าน STM32CubeProgrammer</li>
+<li>ตั้งตำแหน่งของ breakpoint, watchpoint, tracepoint</li>
+<li>ควบคุมการทำงานของหน่วยประมวลผล</li>
+<li>อ่านสถานะภายในหน่วยความจำ</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Commands</th>
+<th style="text-align: left;">Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>&gt;help</code></td>
+<td style="text-align: left;">แสดงรายการของคำสั่ง</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>&gt;continue</code></td>
+<td style="text-align: left;">เริ่มประมวลผลต่อ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>&gt;break ?</code></td>
+<td style="text-align: left;">ตั้ง breakpoint ในโค้ด (บรรทัด, ชื่อฟังก์ชัน, *address)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>&gt;watch ?</code></td>
+<td style="text-align: left;">ตั้ง watchpoint ของตัวแปร</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:35%;">
+<p><img data-src="figs/04_stlink_gdb.jpg" alt="ST-Link GDB server"><br>
+</p>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>GNU Project debugger</p></li></ol></aside></section>
+<section id="practice-breakpoint---watch---step" class="slide level2 smaller">
+<h2>2. Practice: breakpoint - watch - step</h2>
+</section>
 <section id="qa" class="slide level2">
 <h2>Q&amp;A</h2>
 <ol type="1">
@@ -739,7 +822,7 @@
 </ul>
 </section>
 <section id="arm-cortex-m33" class="slide level2 smaller scrollable">
-<h2>ARM Cortex-M33</h2>
+<h2>3. ARM Cortex-M33</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="processor-architecture">Processor architecture</h4>
@@ -756,7 +839,7 @@
 <span id="cb6-4"><a href=""></a>uxtb    r3<span class="op">,</span> r3              <span class="co">; extract 8-bits</span></span>
 <span id="cb6-5"><a href=""></a>strb    r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">7</span><span class="op">]</span>        <span class="co">; store 1 byte</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>โค้ด <code>u32 = f32a + f32b</code></li>
+<li>โค้ด <code>u32 = f32a / f32b</code></li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb7-1"><a href=""></a>vldr    s13<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">12</span><span class="op">]</span>      <span class="co">; load into FPU</span></span>
 <span id="cb7-2"><a href=""></a>vldr    s14<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">8</span><span class="op">]</span>       </span>
@@ -765,7 +848,7 @@
 <span id="cb7-5"><a href=""></a>vmov    r3<span class="op">,</span> s15</span>
 <span id="cb7-6"><a href=""></a><span class="bu">str</span> r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">4</span><span class="op">]</span>            <span class="co">; store in memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>โค้ด <code>f32 = u32a + u32b</code></li>
+<li>โค้ด <code>f32 = u32a / u32b</code></li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb8-1"><a href=""></a>ldr r2<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">12</span><span class="op">]</span></span>
 <span id="cb8-2"><a href=""></a>ldr r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">8</span><span class="op">]</span></span>
@@ -774,9 +857,9 @@
 <span id="cb8-5"><a href=""></a>vcvt<span class="op">.</span>f32<span class="op">.</span>u32    s15<span class="op">,</span> s15    <span class="co">; float assignment</span></span>
 <span id="cb8-6"><a href=""></a>vstr    s15<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">4</span><span class="op">]</span>       <span class="co">; store in memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>ใช้คำสั่ง &gt;disassemble /m ใน GDB prompt</p></li><li id="fn5"><p>ใช้ <code>volatile</code> ไม่ให้ optimize</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn6"><p>ใช้คำสั่ง &gt;disassemble /m ใน GDB prompt</p></li><li id="fn7"><p>ใช้ <code>volatile</code> ไม่ให้ optimize</p></li></ol></aside></section>
 <section id="memory-map" class="slide level2 smaller">
-<h2>Memory map</h2>
+<h2>3. Memory map</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="figs/03_memory_map.jpg" alt="Memory map"><br>
@@ -810,7 +893,7 @@ SECTIONS {
 </div></div>
 </section>
 <section id="memory-mapped-io" class="slide level2 smaller">
-<h2>Memory-mapped I/O</h2>
+<h2>3. Memory-mapped I/O</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p><img data-src="figs/03_mmio.jpg" alt="MMIO"><br>
@@ -841,7 +924,7 @@ SECTIONS {
 </div></div>
 </section>
 <section id="special-function-register" class="slide level2 smaller scrollable">
-<h2>Special Function Register</h2>
+<h2>3. Special Function Register</h2>
 <ul>
 <li>การประกาศโครงสร้าง</li>
 </ul>
@@ -874,13 +957,16 @@ SECTIONS {
 </p>
 </div></div>
 </section>
+<section id="practice-hardware-access-with-gdb" class="slide level2">
+<h2>3. Practice: hardware access with GDB</h2>
+</section>
 <section id="stm32-gpio-configuration" class="slide level2 smaller">
-<h2>STM32 GPIO configuration</h2>
+<h2>3. STM32 GPIO configuration</h2>
 <p><img data-src="figs/03_STM32_gpio_reg.jpg" alt="GPIO MODER"><br>
 </p>
 </section>
 <section id="stm32-5v-tolerant-io" class="slide level2 smaller">
-<h2>STM32 5V-tolerant I/O</h2>
+<h2>3. STM32 5V-tolerant I/O</h2>
 <ul>
 <li>Control registers: <code>GPIOx_MODER</code>, <code>GPIOx_OTYPER</code>, <code>GPIOx_PUPDR</code>, <code>GPIOx_OSPEEDR</code></li>
 <li>Data registers: <code>GPIOx_ODR</code>, <code>GPIOx_IDR</code>, <code>GPIOx_BSRR</code></li>
@@ -896,7 +982,7 @@ SECTIONS {
 </div></div>
 </section>
 <section id="stm32-alternate-function-io" class="slide level2 smaller">
-<h2>STM32 alternate function I/O</h2>
+<h2>3. STM32 alternate function I/O</h2>
 <ul>
 <li>Selection by <code>GPIOx_MODER</code> + <code>GPIOx_AFRL/H</code> registers</li>
 </ul>
@@ -904,7 +990,7 @@ SECTIONS {
 </p>
 </section>
 <section id="embedded-c-programming" class="slide level2 smaller">
-<h2>Embedded C programming</h2>
+<h2>3. Embedded C programming</h2>
 <ul>
 <li>ตัวกระทำระดับบิต</li>
 </ul>
@@ -958,7 +1044,7 @@ SECTIONS {
 </div>
 </section>
 <section id="practice-bare-metal-coding" class="slide level2 smaller scrollable">
-<h2>Practice: bare-metal coding</h2>
+<h2>3. Practice: bare-metal coding</h2>
 <ol type="1">
 <li>ตั้งค่า RCC เพื่อเปิดใช้งานพอร์ท A และ C</li>
 </ol>
@@ -982,7 +1068,7 @@ SECTIONS {
 <span id="cb21-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="stm32-usart" class="slide level2 smaller">
-<h2>STM32 USART</h2>
+<h2>3. STM32 USART</h2>
 <ul>
 <li>Control registers: <code>USARTx_CR1</code>, <code>USARTx_CR2</code>, <code>USARTx_CR3</code>, <code>USARTx_BRR</code>, <code>USARTx_PRESC</code></li>
 <li>Data registers: <code>USARTx_RDR</code>, <code>USARTx_TDR</code></li>
@@ -993,7 +1079,7 @@ SECTIONS {
 </p>
 </section>
 <section id="stm32cube-api" class="slide level2 smaller">
-<h2>STM32Cube API</h2>
+<h2>3. STM32Cube API</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="hal-api">HAL API</h4>
@@ -1043,7 +1129,7 @@ SECTIONS {
 </div></div>
 </section>
 <section id="hal-based-api" class="slide level2 smaller">
-<h2>HAL-based API</h2>
+<h2>3. HAL-based API</h2>
 <h4 id="การเขาถงฮารดแวรแบบ-polling">การเข้าถึงฮาร์ดแวร์แบบ polling</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb30-1"><a href=""></a>hal_status_t HAL_USART_Transmit<span class="op">(</span>hal_usart_handle_t <span class="op">*</span>husart<span class="op">,</span> <span class="op">...,</span> <span class="dt">uint32_t</span> timeout_ms<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb30-2"><a href=""></a>    <span class="cf">while</span> <span class="op">(</span>huart<span class="op">-&gt;</span>tx_xfer_count <span class="op">&gt;</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1068,13 +1154,13 @@ SECTIONS {
 <span id="cb31-13"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="stm32-uart-interrupt" class="slide level2 smaller">
-<h2>STM32 UART interrupt</h2>
+<h2>3. STM32 UART interrupt</h2>
 <p><strong>Flow</strong>: enable INT source → unmask NVIC → IRQ → NVIC vector table → <strong>interrupt handler</strong> → clear IRQ flag</p>
 <p><img data-src="figs/03_STM32_USART_reg.jpg" alt="STM32 - USART reg"><br>
 </p>
 </section>
 <section id="practice-hal-based-coding" class="slide level2 smaller">
-<h2>Practice: HAL-based coding</h2>
+<h2>3. Practice: HAL-based coding</h2>
 <ol type="1">
 <li>ตั้งการทำงานของ USART2 สำหรับขา PA2/PA3 ใน STM32CubeMX2</li>
 <li>สร้าง CMake project</li>
@@ -1106,9 +1192,9 @@ SECTIONS {
 <ol start="4" type="1">
 <li>ใช้ออสซิลโลสโคปร่วมกับ TRIGGER เพื่อตรวจสอบความกว้างของพัลส์</li>
 </ol>
-<aside><ol class="aside-footnotes"><li id="fn6"><p>การสลับสถานะของขาสัญญาณเพื่อแสดงจุดเริ่มต้น/สิ้นสุดของเหตุการณ์</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn8"><p>การสลับสถานะของขาสัญญาณเพื่อแสดงจุดเริ่มต้น/สิ้นสุดของเหตุการณ์</p></li></ol></aside></section>
 <section id="firmware-behaviour" class="slide level2 smaller">
-<h2>Firmware behaviour</h2>
+<h2>3. Firmware behaviour</h2>
 <p><strong><code>UARTx_TDR</code> (Tx data register) มีขนาด 1 ไบต์</strong>: การส่งข้อความ “hello” ทำอย่างไร</p>
 <div class="columns">
 <div class="column" style="width:32%;">
@@ -1133,9 +1219,9 @@ SECTIONS {
 <li>ไม่มีการขัดจังหวะ ยกเว้นกำหนด DMA IRQ (โอนย้ายข้อมูลครบแล้ว)</li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn7"><p>Interrupt Request, IRQ</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>Interrupt Request, IRQ</p></li></ol></aside></section>
 <section id="practice-dma-programming" class="slide level2 smaller scrollable">
-<h2>Practice: DMA programming</h2>
+<h2>3. Practice: DMA programming</h2>
 <ol type="1">
 <li>ตั้งการทำงานของ USART2 สำหรับขา PA2/PA3 ใน STM32CubeMX2</li>
 <li>ตั้งค่า DMA เพื่อส่งผ่านข้อมูลจากหน่วยความจำ (C array) ไป USART2</li>
@@ -1187,7 +1273,7 @@ SECTIONS {
 <span id="cb36-3"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="embedded-programming-issues" class="slide level2 smaller">
-<h2>Embedded programming issues</h2>
+<h2>3. Embedded programming issues</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="ปญหาจาก-interrupt-request">ปัญหาจาก Interrupt Request</h4>
@@ -1224,7 +1310,7 @@ SECTIONS {
 <li>ปัญหา memory alignment ตอนโอนย้ายด้วย DMA</li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn8"><p>แย่งกันเขียนค่าตัวแปร</p></li><li id="fn9"><p>ค่าในหน่วยความจำถูกอัพเดทซ้ำซ้อน</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn10"><p>แย่งกันเขียนค่าตัวแปร</p></li><li id="fn11"><p>ค่าในหน่วยความจำถูกอัพเดทซ้ำซ้อน</p></li></ol></aside></section>
 <section id="qa-1" class="slide level2">
 <h2>Q&amp;A</h2>
 <ol type="1">
@@ -1234,513 +1320,15 @@ SECTIONS {
 </ol>
 </section></section>
 <section>
-<section id="firmware-testing" class="title-slide slide level1 center">
-<h1>04 Firmware testing</h1>
+<section id="usb2adc-workshop" class="title-slide slide level1 center">
+<h1>4. USB2ADC workshop</h1>
 <ul>
-<li>Firmware defects</li>
-<li>Testing concepts</li>
-<li>Hardware/software for testing</li>
-<li>Design For Testability</li>
+<li>Problem statement</li>
+<li>Firmware requirements → design</li>
 </ul>
 </section>
-<section id="firmware-defect-error-impact" class="slide level2 smaller scrollable">
-<h2>Firmware defect → error → impact</h2>
-<div class="columns">
-<div class="column" style="width:80%;">
-<h4 id="microsoft-zune-portable-media-player">Microsoft Zune (portable media player):</h4>
-<ul>
-<li><strong>Defect/bug</strong>: โค้ดจาก Freescale ที่เป็น supplier</li>
-<li><strong>Error</strong>: เกิดขึ้นครั้งแรกวันที่ 31 ธันวาคม 2008 (leap year)</li>
-<li><strong>Impact</strong>: อุปกรณ์ freeze เป็นเวลา 1 วัน</li>
-</ul>
-</div><div class="column" style="width:20%;">
-<p><img data-src="figs/04_MS_Zune.jpg" style="width:50.0%" alt="Zune 30G"><br>
-</p>
-</div></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb40-1"><a href=""></a>BOOL ConvertDays<span class="op">(</span>UINT32 days<span class="op">,</span> SYSTEMTIME<span class="op">*</span> lpTime<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb40-2"><a href=""></a>    <span class="dt">int</span> dayofweek<span class="op">,</span> month<span class="op">,</span> year<span class="op">;</span></span>
-<span id="cb40-3"><a href=""></a>    UINT8 <span class="op">*</span>month_tab<span class="op">;</span></span>
-<span id="cb40-4"><a href=""></a> </span>
-<span id="cb40-5"><a href=""></a>    dayofweek <span class="op">=</span> GetDayOfWeek<span class="op">(</span>days<span class="op">);</span> <span class="co">// Calculate current day of the week</span></span>
-<span id="cb40-6"><a href=""></a></span>
-<span id="cb40-7"><a href=""></a>    year <span class="op">=</span> ORIGINYEAR<span class="op">;</span></span>
-<span id="cb40-8"><a href=""></a>    <span class="cf">while</span> <span class="op">(</span>days <span class="op">&gt;</span> <span class="dv">365</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb40-9"><a href=""></a>        <span class="cf">if</span> <span class="op">(</span>IsLeapYear<span class="op">(</span>year<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb40-10"><a href=""></a>            <span class="cf">if</span> <span class="op">(</span>days <span class="op">&gt;</span> <span class="dv">366</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb40-11"><a href=""></a>                days <span class="op">-=</span> <span class="dv">366</span><span class="op">;</span></span>
-<span id="cb40-12"><a href=""></a>                year <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb40-13"><a href=""></a>            <span class="op">}</span></span>
-<span id="cb40-14"><a href=""></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb40-15"><a href=""></a>            days <span class="op">-=</span> <span class="dv">365</span><span class="op">;</span></span>
-<span id="cb40-16"><a href=""></a>            year <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb40-17"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb40-18"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb40-19"><a href=""></a>    </span>
-<span id="cb40-20"><a href=""></a>    month_tab <span class="op">=</span> <span class="op">(</span>UINT8 <span class="op">*)((</span>IsLeapYear<span class="op">(</span>year<span class="op">))</span> <span class="op">?</span> monthtable_leap <span class="op">:</span> monthtable<span class="op">);</span> <span class="co">// Check leap year</span></span>
-<span id="cb40-21"><a href=""></a> </span>
-<span id="cb40-22"><a href=""></a>    <span class="cf">for</span> <span class="op">(</span>month<span class="op">=</span><span class="dv">0</span><span class="op">;</span> month<span class="op">&lt;</span><span class="dv">12</span><span class="op">;</span> month<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb40-23"><a href=""></a>        <span class="cf">if</span> <span class="op">(</span>days <span class="op">&lt;=</span> month_tab<span class="op">[</span>month<span class="op">])</span></span>
-<span id="cb40-24"><a href=""></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb40-25"><a href=""></a>        days <span class="op">-=</span> month_tab<span class="op">[</span>month<span class="op">];</span></span>
-<span id="cb40-26"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb40-27"><a href=""></a>    month <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb40-28"><a href=""></a>    </span>
-<span id="cb40-29"><a href=""></a>    lpTime<span class="op">-&gt;</span>wDay <span class="op">=</span> <span class="op">(</span>WORD<span class="op">)</span> days<span class="op">;</span></span>
-<span id="cb40-30"><a href=""></a>    lpTime<span class="op">-&gt;</span>wDayOfWeek <span class="op">=</span> <span class="op">(</span>WORD<span class="op">)</span> dayofweek<span class="op">;</span></span>
-<span id="cb40-31"><a href=""></a>    lpTime<span class="op">-&gt;</span>wMonth <span class="op">=</span> <span class="op">(</span>WORD<span class="op">)</span> month<span class="op">;</span></span>
-<span id="cb40-32"><a href=""></a>    lpTime<span class="op">-&gt;</span>wYear <span class="op">=</span> <span class="op">(</span>WORD<span class="op">)</span> year<span class="op">;</span></span>
-<span id="cb40-33"><a href=""></a> </span>
-<span id="cb40-34"><a href=""></a>    <span class="cf">return</span> TRUE<span class="op">;</span></span>
-<span id="cb40-35"><a href=""></a><span class="op">}</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="firmware-quality" class="slide level2 smaller">
-<h2>Firmware quality</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 40%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Factors</th>
-<th>Metrics</th>
-<th>Tools/methods</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Reliability</td>
-<td>consistency and dependability</td>
-<td>testing</td>
-</tr>
-<tr class="even">
-<td>Safety</td>
-<td>potential risks and hazards</td>
-<td>static analysis</td>
-</tr>
-<tr class="odd">
-<td>Compliance</td>
-<td>regulation compliance</td>
-<td>static analysis</td>
-</tr>
-<tr class="even">
-<td>Performance</td>
-<td>resource and throughput</td>
-<td>testing + instrument</td>
-</tr>
-<tr class="odd">
-<td>Portability and maintainability</td>
-<td>code quality</td>
-<td>code review + static analysis</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><strong>Firmware testing</strong>: ยืนยันว่าเฟิร์มแวร์ทำงานตาม functional / non-functional requirements</li>
-<li><strong>Instrument</strong>: ใช้เครื่องมือวัดตรวจสอบ</li>
-<li><strong>Code review</strong>: ร่วมกันอ่านทบทวนในการประชุม</li>
-<li><strong>Static analysis</strong>: ซอฟต์แวร์ตรวจสอบว่าส่วนโค้ดเป็นไปตามแนวทางปฏิบัติ</li>
-</ul>
-</section>
-<section id="c-traps-and-pitfalls" class="slide level2 smaller">
-<h2>C traps and pitfalls</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="ประเภทขอมล">ประเภทข้อมูล</h4>
-<ul>
-<li>การ overflow ของ integer</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb41-1"><a href=""></a><span class="dt">uint8_t</span> u8 <span class="op">=</span> <span class="dv">200</span><span class="op">;</span></span>
-<span id="cb41-2"><a href=""></a>u8 <span class="op">+=</span> <span class="dv">60</span><span class="op">;</span>  <span class="co">// u8 มีค่าเป็น 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>การกลับเครื่องหมายของ signed integer</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb42-1"><a href=""></a><span class="dt">int8_t</span> s8 <span class="op">=</span> <span class="dv">120</span><span class="op">;</span></span>
-<span id="cb42-2"><a href=""></a>s8 <span class="op">+=</span> <span class="dv">10</span><span class="op">;</span> <span class="co">// s8 มีค่าเป็น -126</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>การตรวจสอบค่า float</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb43-1"><a href=""></a><span class="dt">float</span> f32 <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="fl">3.0</span><span class="op">;</span></span>
-<span id="cb43-2"><a href=""></a><span class="cf">if</span> <span class="op">(</span>f32<span class="op">*</span><span class="fl">3.0</span> <span class="op">==</span> <span class="fl">1.0</span><span class="op">)</span> <span class="co">// เงื่อนไขเป็นเท็จ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:50%;">
-<h4 id="ตวกระทำเงอนไข">ตัวกระทำ/เงื่อนไข</h4>
-<ul>
-<li>ลำดับของตัวกระทำ</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb44-1"><a href=""></a><span class="cf">if</span> <span class="op">(</span>V1 <span class="op">&amp;&amp;</span> V2 <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="co">// ผลขึ้นกับ V2 เท่านั้น</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div style="font-size: 75%; text-align: left;">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Category</th>
-<th>Operator</th>
-<th>Associativity</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>~</td>
-<td>~</td>
-<td>~</td>
-</tr>
-<tr class="even">
-<td>Equal</td>
-<td><code>== !=</code></td>
-<td>L → R</td>
-</tr>
-<tr class="odd">
-<td>Bit AND</td>
-<td><code>&amp;</code></td>
-<td>L → R</td>
-</tr>
-<tr class="even">
-<td>Bit XOR</td>
-<td><code>^</code></td>
-<td>L → R</td>
-</tr>
-<tr class="odd">
-<td>Bit OR</td>
-<td><code>|</code></td>
-<td>L → R</td>
-</tr>
-<tr class="even">
-<td>Logic AND</td>
-<td><code>&amp;&amp;</code></td>
-<td>L → R</td>
-</tr>
-<tr class="odd">
-<td>Logic OR</td>
-<td><code>||</code></td>
-<td>L → R</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>เงื่อนไขที่ไม่มีทางเป็น false/true</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb45-1"><a href=""></a><span class="cf">if</span> <span class="op">(</span>u32 <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span> <span class="co">// เป็น false เสมอ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="memory-in-c" class="slide level2 smaller">
-<h2>Memory in C</h2>
-<div class="columns">
-<div class="column" style="width:33%;">
-<h4 id="static">Static</h4>
-<ul>
-<li>จัดสรรสำหรับตัวแปรแบบ global และ <code>static</code></li>
-<li>ขนาดถูกตรวจสอบและจองในขั้นตอนคอมไพล์: <code>.data</code> และ <code>.bss</code></li>
-<li>ตำแหน่งหน่วยความจำไม่เปลี่ยนแปลง</li>
-<li>หากไม่ประกาศค่าเริ่มต้น มีค่าเป็น 0</li>
-</ul>
-</div><div class="column" style="width:33%;">
-<h4 id="stack">Stack</h4>
-<ul>
-<li>จองชั่วคราว: ตัวแปร local, ส่งผ่านค่าตัวแปร, push/pop รีจิสเตอร์ก่อน branch</li>
-<li>ขนาดขึ้นกับการประกาศใน linker script</li>
-<li>พื้นที่หน่วยความจำที่ใช้ร่วมกันทั้งโค้ด</li>
-<li>มีตำแหน่ง/ค่าเริ่มต้นไม่แน่นอน</li>
-<li>ความเสี่ยงหลักคือ <strong>stack overflow</strong></li>
-</ul>
-</div><div class="column" style="width:33%;">
-<h4 id="heap">Heap</h4>
-<ul>
-<li>จองเมื่อเรียกใช้ <code>malloc()</code> และคืนพื้นที่เมื่อเรียกใช้ <code>free()</code></li>
-<li>ขนาดขึ้นกับการประกาศใน linker script</li>
-<li>ความเสี่ยงหลักคือ <strong>memory flagmentation</strong> และ <strong>memory leak</strong></li>
-</ul>
-</div></div>
-</section>
-<section id="memory-access-in-c" class="slide level2 smaller">
-<h2>Memory access in C</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="การใช-keywords">การใช้ keywords</h4>
-<ul>
-<li><code>volatile</code> ป้องกัน compiler ทำ optimize</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb46-1"><a href=""></a><span class="dt">volatile</span> <span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// global ใน main.c</span></span>
-<span id="cb46-2"><a href=""></a><span class="dt">void</span> isr_handler<span class="op">()</span> <span class="op">{</span> count<span class="op">++;</span> <span class="op">}</span> <span class="co">// โค้ดใน isr.c</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>static</code> คงค่าตัวแปรในหน่วยความจำ แต่ล็อกไว้เฉพาะใน scope</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb47-1"><a href=""></a><span class="dt">void</span> tick<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb47-2"><a href=""></a>    <span class="dt">uint32_t</span> prev_tick <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb47-3"><a href=""></a>    prev_tick<span class="op">++;</span></span>
-<span id="cb47-4"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>const</code> ประกาศค่าแบบ read-only</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb48-1"><a href=""></a><span class="dt">const</span> <span class="dt">float</span> PI <span class="op">=</span> <span class="fl">22.0</span><span class="op">/</span><span class="dv">7</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>extern</code> ช่องทางอ้างถึงตัวแปร</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb49-1"><a href=""></a><span class="dt">int</span> status <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// ตัวแปร global ในไฟล์ main.c</span></span>
-<span id="cb49-2"><a href=""></a><span class="kw">extern</span> <span class="dt">int</span> status<span class="op">;</span> <span class="co">// ประกาศ public ในไฟล์ main.h</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:50%;">
-<h4 id="ฟงกชนในภาษา-c">ฟังก์ชันในภาษา C</h4>
-<ul>
-<li>การ pass-by-reference</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb50-1"><a href=""></a><span class="dt">void</span> recv_data<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>count<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb50-2"><a href=""></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> len<span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb50-3"><a href=""></a>        buf<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> value_i<span class="op">;</span></span>
-<span id="cb50-4"><a href=""></a>    <span class="op">*</span>count <span class="op">=</span> len<span class="op">;</span></span>
-<span id="cb50-5"><a href=""></a><span class="op">}</span></span>
-<span id="cb50-6"><a href=""></a><span class="dt">int</span> array<span class="op">[</span><span class="dv">10</span><span class="op">],</span> count<span class="op">;</span></span>
-<span id="cb50-7"><a href=""></a>recv_data<span class="op">(&amp;</span>buf<span class="op">,</span> <span class="op">&amp;</span>count<span class="op">)</span> <span class="op">{</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>function pointer</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb51-1"><a href=""></a><span class="dt">int</span> do_A<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
-<span id="cb51-2"><a href=""></a><span class="dt">int</span> do_B<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
-<span id="cb51-3"><a href=""></a><span class="dt">int</span> <span class="op">(*</span>pfunc<span class="op">)(</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="op">=</span> do_A<span class="op">;</span> <span class="co">// หรือ do_B</span></span>
-<span id="cb51-4"><a href=""></a><span class="dt">int</span> ans <span class="op">=</span> pfunc<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>interrupt handler</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb52-1"><a href=""></a><span class="dt">const</span> VECTOR_TABLE_Type __VECTOR_TABLE<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span> <span class="op">...</span></span>
-<span id="cb52-2"><a href=""></a>    SysTick_Handler<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb52-3"><a href=""></a><span class="op">}</span> <span class="co">// ไฟล์ startup_stm32c562xx.c</span></span>
-<span id="cb52-4"><a href=""></a><span class="dt">void</span> SysTick_Handler<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span> <span class="co">// ไฟล์ mx_system.c</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="c-memory-issues" class="slide level2 smaller">
-<h2>C memory issues</h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<h4 id="pointer-ตำแหนงหนวยความจำ">pointer: ตำแหน่งหน่วยความจำ</h4>
-<ul>
-<li>ปัญหา null pointer</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb53-1"><a href=""></a><span class="dt">int</span> <span class="op">*</span>pdata <span class="op">=</span> NULL<span class="op">;</span> <span class="op">...</span></span>
-<span id="cb53-2"><a href=""></a><span class="op">*</span>pdata <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>ปัญหา memory violation</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb54-1"><a href=""></a><span class="dt">int</span> arr<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
-<span id="cb54-2"><a href=""></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb54-3"><a href=""></a>    arr<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb54-4"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>ปัญหา memory leak</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb55-1"><a href=""></a><span class="dt">int</span> <span class="op">*</span>pbuf <span class="op">=</span> malloc<span class="op">(</span><span class="dv">10</span> <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span> <span class="co">// no free(pbuf)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:45%;">
-<h4 id="coding-guideline">Coding guideline</h4>
-<ul>
-<li><a href="https://misra.org.uk/">MISRA C</a></li>
-<li><a href="https://www.ipa.go.jp/archive/publish/qv6pgp00000011mh-att/000065271.pdf">Embedded System development Coding Reference guide - C Language Edition</a></li>
-<li><a href="https://barrgroup.com/embedded-c-coding-standard">BARR’s Embedded C Coding Standard</a></li>
-<li><a href="https://www.sei.cmu.edu/forms/secure-coding-form/">SEI CERT C</a> <img data-src="figs/02_EmbC_guideline_01.jpg" alt="ตัวอย่าง rule ระดับ reliability"><br>
-<img data-src="figs/02_EmbC_guideline_02.jpg" alt="ตัวอย่าง rule ระดับ maintainability"><br>
-</li>
-</ul>
-</div></div>
-</section>
-<section id="if-embedded-c" class="slide level2 smaller">
-<h2><code>if !(embedded C)</code></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="micropython-ทางงาย">MicroPython (ทางง่าย)</h4>
-<ul>
-<li>ไม่มี pointer ← object + garbage collector</li>
-<li>ประสิทธิ (ความเร็ว/หน่วยความจำ) ด้อยกว่า</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href=""></a><span class="im">import</span> machine</span>
-<span id="cb56-2"><a href=""></a><span class="im">import</span> time</span>
-<span id="cb56-3"><a href=""></a>led <span class="op">=</span> machine.Pin(<span class="dv">15</span>, machine.Pin.OUT)</span>
-<span id="cb56-4"><a href=""></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb56-5"><a href=""></a>    led.high()</span>
-<span id="cb56-6"><a href=""></a>    time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb56-7"><a href=""></a>    led.low()</span>
-<span id="cb56-8"><a href=""></a>    time.sleep(<span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:50%;">
-<h4 id="embedded-rust-ทางยาก">Embedded Rust (ทางยาก)</h4>
-<ul>
-<li>ไม่ใช้บริการ OS และไม่มี default main</li>
-<li>ป้องกันหน่วยความจำด้วย reference, borrowing, mutable state</li>
-<li>svd2rust สร้าง Peripheral Access Crate</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource rust number-lines code-with-copy"><code class="sourceCode rust"><span id="cb57-1"><a href=""></a><span class="at">#![</span>no_std<span class="at">]</span></span>
-<span id="cb57-2"><a href=""></a><span class="at">#![</span>no_main<span class="at">]</span></span>
-<span id="cb57-3"><a href=""></a><span class="kw">use</span> cortex_m_rt <span class="kw">as</span> rt<span class="op">;</span></span>
-<span id="cb57-4"><a href=""></a><span class="kw">use</span> stm32f4xx_hal <span class="kw">as</span> hal<span class="op">;</span></span>
-<span id="cb57-5"><a href=""></a><span class="at">#[</span><span class="pp">rt::</span>entry<span class="at">]</span></span>
-<span id="cb57-6"><a href=""></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="op">!</span> <span class="op">{</span></span>
-<span id="cb57-7"><a href=""></a>  <span class="cf">if</span> <span class="kw">let</span> <span class="cn">Some</span>(peripherals) <span class="op">=</span> <span class="pp">hal::stm32::Peripherals::</span>take() <span class="op">{</span></span>
-<span id="cb57-8"><a href=""></a>    <span class="kw">let</span> gpioa <span class="op">=</span> peripherals<span class="op">.</span>GPIOA<span class="op">.</span>split()<span class="op">;</span></span>
-<span id="cb57-9"><a href=""></a>    <span class="kw">let</span> <span class="kw">mut</span> led <span class="op">=</span> gpioa<span class="op">.</span>pa5<span class="op">.</span>into_push_pull_output()<span class="op">;</span></span>
-<span id="cb57-10"><a href=""></a>    <span class="cf">loop</span> <span class="op">{</span></span>
-<span id="cb57-11"><a href=""></a>      <span class="cf">if</span> button<span class="op">.</span>is_high()<span class="op">.</span>unwrap() <span class="op">{</span></span>
-<span id="cb57-12"><a href=""></a>        led<span class="op">.</span>set_low()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb57-13"><a href=""></a>      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> led<span class="op">.</span>set_high()<span class="op">.</span>unwrap()<span class="op">;</span> <span class="op">}</span></span>
-<span id="cb57-14"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb57-15"><a href=""></a>  <span class="op">}</span></span>
-<span id="cb57-16"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="testing-debugging" class="slide level2 smaller">
-<h2>Testing != debugging</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="testing">Testing</h4>
-<ul>
-<li>ตรวจหา <strong>defect</strong> ในซอฟต์แวร์
-<ul>
-<li><strong>defect</strong> = จุดที่ซอฟต์แวร์ไม่ทำงานตาม <strong>requirement</strong></li>
-</ul></li>
-<li><strong>requirement</strong> → ขั้นตอนและเงื่อนไขการทดสอบ (test case)</li>
-<li>ผลลัพธ์ของการทดสอบ = <strong>test report</strong> ที่สรุปผล PASS/FAIL</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="debugging">Debugging</h4>
-<ul>
-<li>ตรวจสอบต้นเหตุของ <strong>error</strong> ในซอฟต์แวร์
-<ul>
-<li><strong>error</strong> = ความแตกต่างของผลลัพธ์เมื่อพิจารณาจาก <strong>requirement</strong></li>
-</ul></li>
-<li>การทดสอบที่ FAIL → ตำแหน่งที่ดีบั๊ก</li>
-<li>ผลลัพธ์ของการดีบั๊ก = ตำแหน่งและวิธีแก้โค้ดที่เป็น <strong>defect</strong></li>
-</ul>
-</div></div>
-<p><img data-src="figs/04_test_debug.jpg" alt="test vs debug"><br>
-</p>
-</section>
-<section id="instrument-for-hardware-testing" class="slide level2 smaller">
-<h2>Instrument for hardware testing</h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<h4 id="multimeter">Multimeter<sup>1</sup></h4>
-<ul>
-<li>ตรวจสอบแรงดันไฟฟ้า</li>
-<li>ทดสอบสถานะ open/short ในวงจร</li>
-</ul>
-</div><div class="column" style="width:30%;">
-<p><img data-src="figs/04_multimeter.jpg" alt="มิเตอร์">&nbsp;</p>
-</div></div>
-<div class="columns">
-<div class="column" style="width:75%;">
-<h4 id="oscilloscope">Oscilloscope<sup>2</sup></h4>
-<ul>
-<li>ตรวจสอบรูปคลื่นสัญญาณ</li>
-<li>ตรวจจับเหตุการณ์ด้วย TRIGGER</li>
-</ul>
-</div><div class="column" style="width:25%;">
-<p><img data-src="figs/04_oscilloscope.jpg" alt="ออสซิลโลสโคป">&nbsp;</p>
-</div></div>
-<div class="columns">
-<div class="column" style="width:60%;">
-<h4 id="logic-analyzer">Logic analyzer<sup>3</sup></h4>
-<ul>
-<li>ตรวจจับ pulse train ด้วยเงื่อนไข</li>
-<li>decode โพรโทคอลของ pulse train</li>
-</ul>
-</div><div class="column" style="width:40%;">
-<p><img data-src="figs/04_logic_analyzer.jpg" alt="Logic analyzer">&nbsp;</p>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn10"><p><a href="https://th.rs-online.com/web/content/discovery/ideas-and-advice/digital-multimeters-guide">What is a Digital Multimeter &amp; How to Use One</a></p></li><li id="fn11"><p><a href="https://www.tek.com/en/documents/primer/xyzs-oscilloscopes-primer">XYZs of Oscilloscopes Primer</a></p></li><li id="fn12"><p><a href="https://www.tek.com/en/documents/primer/logic-analyzer-fundamentals">What is a Logic Analyzer?</a></p></li></ol></aside></section>
-<section id="hw-access-arm-debug-and-trace" class="slide level2 smaller">
-<h2>HW access: ARM debug and trace</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="องคประกอบ-arm-coresight">องค์ประกอบ ARM CoreSight</h4>
-<ul>
-<li>Debug control: ควบคุม brakepoint และการทำงาน</li>
-<li>Trace (ETM, STM, ITM): รายงานสถานะ<sup>1</sup>ของ ARM core แบบเรียลไทม์</li>
-<li>Timestamp generator <img data-src="figs/04_ARM_core.jpg" style="width:50.0%" alt="ส่วน ARM"><br>
-</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="สวนเชอมตอ">ส่วนเชื่อมต่อ</h4>
-<ul>
-<li>JTAG (IEEE 1149.1): ขา TDI, TDO, TCK, TMS</li>
-<li>SWD (Serial Wire Debug): SWDIO, SWCLK <img data-src="figs/04_DAP.jpg" style="width:100.0%" alt="ส่วนดีบั๊ก"><br>
-</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn13"><p>instruction, data trace, instrumentation</p></li></ol></aside></section>
-<section id="on-chip-debugger" class="slide level2 smaller">
-<h2>On-chip debugger</h2>
-<h4 id="การตรวจสอบสถานะของหนวยประมวลผล">การตรวจสอบสถานะของหน่วยประมวลผล<sup>1</sup></h4>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Features</th>
-<th style="text-align: left;">Operations</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">HW breakpoint</td>
-<td style="text-align: left;">เข้าโหมด debug เมื่อประมวลผลคำสั่งที่ ADDR</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SW breakpoint</td>
-<td style="text-align: left;">เข้าโหมด debug เมื่อประมวลผลคำสั่ง BKPT</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">HW watchpoint</td>
-<td style="text-align: left;">เข้าโหมด debug เมื่อเข้าถึงข้อมูลที่ ADDR</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Single-step</td>
-<td style="text-align: left;">ประมวลผล 1 instruction</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Memory-access</td>
-<td style="text-align: left;">เข้าถึงหน่วยความจำ (register/flash/RAM/peripheral)</td>
-</tr>
-</tbody>
-</table>
-<p><img data-src="figs/04_debug_flow.jpg" alt="Debug workflow"><br>
-</p>
-<aside><ol class="aside-footnotes"><li id="fn14"><p><a href="https://www.eetimes.com/a-developers-insight-into-arm-cortex-m-debugging/">A developer’s insight into ARM Cortex M debugging</a></p></li></ol></aside></section>
-<section id="st-link-gdb-server-arm-cortex-m" class="slide level2 smaller">
-<h2>ST-Link GDB server ⇆ ARM Cortex-M</h2>
-<p>โปรแกรมสำหรับดีบั๊กการทำงานของเฟิร์มแวร์ผ่านกลไกของ GDB<sup>1</sup> ที่เข้าถึงและควบคุมส่วน ARM Cortex-M ผ่าน ST-Link</p>
-<div class="columns">
-<div class="column" style="width:65%;">
-<ul>
-<li>ติดตั้งเฟิร์มแวร์ผ่าน STM32CubeProgrammer</li>
-<li>ตั้งตำแหน่งของ breakpoint, watchpoint, tracepoint</li>
-<li>ควบคุมการทำงานของหน่วยประมวลผล</li>
-<li>อ่านสถานะภายในหน่วยความจำ</li>
-</ul>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Commands</th>
-<th style="text-align: left;">Operations</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>&gt;help</code></td>
-<td style="text-align: left;">แสดงรายการของคำสั่ง</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>&gt;continue</code></td>
-<td style="text-align: left;">เริ่มประมวลผลต่อ</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>&gt;break ?</code></td>
-<td style="text-align: left;">ตั้ง breakpoint ในโค้ด (บรรทัด, ชื่อฟังก์ชัน, *address)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>&gt;watch ?</code></td>
-<td style="text-align: left;">ตั้ง watchpoint ของตัวแปร</td>
-</tr>
-</tbody>
-</table>
-</div><div class="column" style="width:35%;">
-<p><img data-src="figs/04_stlink_gdb.jpg" alt="ST-Link GDB server"><br>
-</p>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn15"><p>GNU Project debugger</p></li></ol></aside></section>
 <section id="stm32c5-analog-peripherals" class="slide level2 smaller">
-<h2>STM32C5 analog peripherals</h2>
+<h2>4. STM32C5 analog peripherals</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="analog-to-digital-converter-adc">Analog-to-Digital Converter (ADC)</h4>
@@ -1761,7 +1349,7 @@ SECTIONS {
 </div></div>
 </section>
 <section id="adc-loopback" class="slide level2 smaller">
-<h2>ADC loopback</h2>
+<h2>4. ADC loopback</h2>
 <ul>
 <li><strong>ADC features</strong>: regular/injected group, single/cont./discont. conversion, SW/HW triggers, analog watchdogs</li>
 <li><strong>DAC mode</strong>: 12-bit DAC, single/waveform output, SW/HW triggers</li>
@@ -1769,8 +1357,8 @@ SECTIONS {
 <p><img data-src="figs/04_STM32_ADC_loopback.jpg" alt="ADC loopback"><br>
 </p>
 </section>
-<section id="practice-gdb-debugger" class="slide level2 smaller">
-<h2>Practice: GDB debugger</h2>
+<section id="practice-dac-to-adc" class="slide level2 smaller">
+<h2>4. Practice: DAC to ADC</h2>
 <ol type="1">
 <li>เตรียม project ตัวอย่าง <strong>ex04_ADC_loopback</strong></li>
 <li>ตรวจสอบการทำงาน main loop ด้วย breakpoint, step และ watch
@@ -1786,258 +1374,8 @@ SECTIONS {
 <li>ยืนยันเงื่อนไขการตรวจสอบด้วย breakpoint</li>
 </ol>
 </section>
-<section id="software-testing" class="slide level2 smaller">
-<h2>Software testing</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="กระบวนการ">กระบวนการ</h4>
-<ul>
-<li>Unit testing: ทีละฟังก์ชัน</li>
-<li>Integration testing: กลุ่มฟังก์ชันที่ทำงานร่วมกัน</li>
-<li>System test: โค้ดของทั้งซอฟต์แวร์</li>
-<li>Acceptance test: ให้ลูกค้าทำ</li>
-</ul>
-<h4 id="การทดสอบอตโนมต">การทดสอบอัตโนมัติ</h4>
-<ul>
-<li>Regression testing: หากปรับแก้โค้ดให้ทดสอบทั้งหมด</li>
-<li>CI/CD<sup>1</sup>: ปรับปรุงโค้ด → build/test/release เฟิร์มแวร์<sup>2</sup></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="เทคนค">เทคนิค</h4>
-<ul>
-<li>black box: ป้อนอินพุต ดูเอาต์พุต</li>
-<li>white box: ไล่ตามการทำงานของโค้ด
-<ul>
-<li>Statement coverage</li>
-<li>Branch coverage</li>
-</ul></li>
-<li>performance: ตรวจสอบทรัพยากร/ความเร็ว</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn16"><p>Continuous Integration/Continuous Delivery</p></li><li id="fn17"><p><a href="https://piolabs.com/blog/insights/cicd-testing-coverage-versioning.html">PlatformIO for CI/CD</a></p></li></ol></aside></section>
-<section id="blackbox-testing-assertion" class="slide level2 smaller">
-<h2>Blackbox testing: assertion</h2>
-<p><img data-src="figs/04_test_code.jpg" alt="โค้ดสำหรับทดสอบ"><br>
-</p>
-</section>
-<section id="firmware-testing-test-case" class="slide level2 smaller">
-<h2>Firmware testing: test case</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 15%">
-<col style="width: 12%">
-<col style="width: 15%">
-<col style="width: 12%">
-<col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">ID</th>
-<th style="text-align: left;">Objective</th>
-<th style="text-align: left;">Prerequisite</th>
-<th style="text-align: left;">Steps</th>
-<th style="text-align: left;">Input data</th>
-<th style="text-align: left;">Expected output</th>
-<th style="text-align: left;">Actual output</th>
-<th style="text-align: left;">Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">U2A-01</td>
-<td style="text-align: left;">blink at boot</td>
-<td style="text-align: left;">build success</td>
-<td style="text-align: left;">1. reset</td>
-<td style="text-align: left;">reset signal</td>
-<td style="text-align: left;">blink at 2Hz</td>
-<td style="text-align: left;">ON 500 ms / OFF 500 ms</td>
-<td style="text-align: left;">P</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">U2A-02</td>
-<td style="text-align: left;">blink stop after self-test</td>
-<td style="text-align: left;">blink at boot</td>
-<td style="text-align: left;">1. run self-test</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">self-test pass</td>
-<td style="text-align: left;">hard fault, inf loop</td>
-<td style="text-align: left;">F</td>
-</tr>
-</tbody>
-</table>
-<p><img data-src="figs/04_emb_tdd.jpg" style="width:90.0%" alt="ลำดับการทดสอบ"><br>
-</p>
-</section>
-<section id="scpi-protocol" class="slide level2 smaller">
-<h2>SCPI protocol</h2>
-<p>Standard Commands for Programmable Instrumentation (SCPI) เป็นโปรโตคอลสำหรับคอมพิวเตอร์เชื่อมต่อผ่าน UART/USB/GPIB/LXI กับเครื่องมือวัด</p>
-<p><img data-src="figs/04_SCPI_protocol.jpg" alt="SCPI protocol"><br>
-</p>
-</section>
-<section id="practice-unit-testing" class="slide level2 smaller">
-<h2>Practice: unit testing</h2>
-<ol type="1">
-<li>เตรียม project ตัวอย่าง <strong>ex04_SCPI_demo</strong></li>
-<li>ยืนยันการได้รับคำสั่งผ่าน USART2 โดยใช้ breakpoint ใน <code>HAL_UART_RxCpltCallback()</code>
-<ul>
-<li>ส่งตัวอักษรด้วย Serial Monitor โดยเลือก Line ending เป็น None</li>
-</ul></li>
-<li>ตั้ง breakpoint ในส่วนตรวจจับ EOL ใน <code>SCPI_Parse_Char()</code>
-<ul>
-<li>ปรับ Line encoding เป็น CRLF และใช้ watch ตรวจสอบสถานะ <code>scpi_cmd</code></li>
-</ul></li>
-</ol>
-<table class="caption-top">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 15%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Test case</th>
-<th style="text-align: left;">Input</th>
-<th style="text-align: left;">Expect <code>cmd_buf</code></th>
-<th style="text-align: left;">Expect <code>param_buf</code></th>
-<th style="text-align: left;">Expect <code>is_query</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">normal</td>
-<td style="text-align: left;"><code>*IDN?</code></td>
-<td style="text-align: left;"><code>*IDN?</code></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">true</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">normal</td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">true</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">normal</td>
-<td style="text-align: left;"><code>:MEAS:VOLT? 2</code></td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;"><code>2</code></td>
-<td style="text-align: left;">true</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">abnormal</td>
-<td style="text-align: left;"><code>12345:ABC 6</code></td>
-<td style="text-align: left;"><code>:ABC</code></td>
-<td style="text-align: left;"><code>6</code></td>
-<td style="text-align: left;">false</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">abnormal</td>
-<td style="text-align: left;"><code>:*IDN?</code></td>
-<td style="text-align: left;"><code>:*IDN?</code></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">true</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="functional-safety-package-for-stm32" class="slide level2 smaller">
-<h2>Functional safety package for STM32</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="figs/04_self_test.jpg" alt="self-test"><br>
-</p>
-</div><div class="column" style="width:50%;">
-<p>Set of test and diagnostic methods<sup>1</sup> to detect random hardware failures.</p>
-<ul>
-<li><strong>CPU</strong>: register stuck, program counter stuck</li>
-<li><strong>Interrupt</strong>: no interrupt, too-frequent interrupts</li>
-<li><strong>Clock</strong>: wrong frequency</li>
-<li><strong>Memory</strong>: single-bit faults, DC fault, address stuck</li>
-<li><strong>Peripherals</strong>: developer responsibility</li>
-<li><strong>Ext comm.</strong>: developer responsibility</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn18"><p><a href="https://www.st.com/en/embedded-software/x-cube-classb.html">Functional safety package for IEC 60730-1 and IEC 60335-1 safety standards</a></p></li></ol></aside></section>
-<section id="design-for-testability" class="slide level2 smaller">
-<h2>Design For Testability</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="ฮารดแวร">ฮาร์ดแวร์<sup>1</sup></h4>
-<ul>
-<li>Debug header หรือ pad บน PCB</li>
-<li>Test pad หรือ pin บน PCB <img data-src="figs/04_PCB_testpad.jpg" alt="PCB testpad"><br>
-</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="ซอฟตแวร">ซอฟต์แวร์<sup>2</sup></h4>
-<ul>
-<li>Logging: <br>การรายงานสถานะผ่าน UART หรือบันทึกในหน่วยความจำ</li>
-<li>Built In Self-Test (BIST): <br> โค้ดสำหรับทดสอบและรายงานสถานะของหน่วยประมวลผล/ชิปต่างๆบน PCB/การเชื่อมต่อ</li>
-<li>Diagnostic mode: <br> โหมดพิเศษเพื่อเข้าถึงและควบคุมสถานะต่างๆของฮาร์ดแวร์/เฟิร์มแวร์</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn19"><p><a href="https://resources.pcb.cadence.com/blog/er-pcb-design-testability-a-practical-guide-for-beginners">PCB Design Testability: A Practical Guide for Beginners</a></p></li><li id="fn20"><p><a href="https://insight.averna.com/en/resources/blog/design-for-testability">Design for Testability (DFT): Techniques and Applications</a></p></li></ol></aside></section>
-<section id="automated-test-equipment-ate" class="slide level2 smaller">
-<h2>Automated Test Equipment (ATE)</h2>
-<p>Computer-controlled systems designed to automatically perform measurements and analyze functional, performance, or stress characteristics of electronic devices</p>
-<div class="columns">
-<div class="column" style="width:70%;">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Functions</th>
-<th style="text-align: left;">Specifications</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Analog input</td>
-<td style="text-align: left;">channel count, grounded/floating<sup>1</sup>, voltage range, sample rate</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Analog output</td>
-<td style="text-align: left;">channel count, grounded/floating, voltage range, update rate, current output</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Digital I/O</td>
-<td style="text-align: left;">channel count, grounded/floating, data rate, current output</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Interface</td>
-<td style="text-align: left;">In-Circuit Test<sup>2</sup> , flying probe, Hardware-In-the-Loop</td>
-</tr>
-</tbody>
-</table>
-</div><div class="column" style="width:30%;">
-<p><img data-src="figs/04_ATE_ICT.jpg" alt="In-Circuit Tester"><br>
-<img data-src="figs/04_ATE_FPT.jpg" alt="Flying Probe Tester"><br>
-</p>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn21"><p>Or differential/singled-ended</p></li><li id="fn22"><p>Use using bed of nails fixture: <a href="https://www.digikey.com/en/articles/the-basics-of-pogo-pin-connectors">pogo pins</a></p></li></ol></aside></section>
-<section id="qa-2" class="slide level2">
-<h2>Q&amp;A</h2>
-<ol type="1">
-<li>ทำไมการ debugging จึงไม่สามารถครอบคลุมปัญหาเท่าการ testing ?</li>
-<li>การใช้ breakpoint ใน UART interrupt มีผลข้างเคียงอะไร ?</li>
-<li>หากทำ unit test ผ่านครบถ้วน แต่อุปกรณ์จริงกลับทำงานผิดพลาด น่าจะเกิดจากสาเหตุอะไร ?</li>
-</ol>
-</section></section>
-<section>
-<section id="usb2adc-workshop" class="title-slide slide level1 center">
-<h1>5. USB2ADC workshop</h1>
-<ul>
-<li>Problem statement</li>
-<li>Firmware requirements → design</li>
-</ul>
-</section>
 <section id="problem-statement" class="slide level2 smaller">
-<h2>Problem statement</h2>
+<h2>4. Problem statement</h2>
 <p>เฟิร์มแวร์ <strong>USB2ADC</strong> สำหรับบอร์ด NUCLEO-C562RE เป็นระบบบันทึกค่าแรงดันไฟฟ้าหลายช่องสัญญาณ โดยระบบคำสั่งตามมาตรฐาน <a href="https://www.ivifoundation.org/About-IVI/scpi.html"><strong>SCPI</strong></a> standard</p>
 <table class="caption-top">
 <thead>
@@ -2087,7 +1425,7 @@ SECTIONS {
 </table>
 </section>
 <section id="firmware-design" class="slide level2 smaller">
-<h2>Firmware design</h2>
+<h2>4. Firmware design</h2>
 <div class="columns">
 <div class="column" style="width:75%;">
 <p><img data-src="figs/05_Main_STmachine.jpg" alt="State machine"><br>
@@ -2098,7 +1436,7 @@ SECTIONS {
 </div></div>
 </section>
 <section id="firmware-architecture" class="slide level2 smaller">
-<h2>Firmware architecture</h2>
+<h2>4. Firmware architecture</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 27%">
@@ -2137,7 +1475,7 @@ SECTIONS {
 </table>
 </section>
 <section id="practice-project-development" class="slide level2 smaller">
-<h2>Practice: project development</h2>
+<h2>4. Practice: project development</h2>
 <h4 id="problem-scope">Problem scope</h4>
 <table class="caption-top">
 <thead>

@@ -9,30 +9,30 @@
     "by_role": {
       "lecturer": 10,
       "student": 4,
-      "automotive_industry": 24,
+      "automotive_industry": 14,
       "general_worker": 0
     }
   },
   "knowledge_assessment": {
-    "pre_test_avg": 4.15,
-    "pre_test_max": 10,
-    "post_test_avg": 13.82,
-    "post_test_max": 20,
-    "total_tested": 28
+    "pre_test_avg": 54.4,
+    "pre_test_max": 8,
+    "post_test_avg": 82.5,
+    "post_test_max": 95,
+    "total_tested": 19
   },
   "satisfaction": {
     "overall_score": 4.54,
     "total_responses": 28,
     "categories": {
-      "architecture_understanding": 4.50,
-      "practical_config": 4.57,
-      "firmware_coding": 4.54,
-      "tool_usage": 4.46,
-      "content_suitability": 4.39,
+      "architecture_understanding": 4.39,
+      "practical_config": 4.39,
+      "firmware_coding": 4.28,
+      "tool_usage": 4.28,
+      "content_suitability": 4.33,
       "materials_adequacy": 4.61,
-      "lecturer_clarity": 4.57,
-      "guest_speaker": 4.64,
-      "facility_and_food": 4.57
+      "lecturer_clarity": 4.5,
+      "guest_speaker": 4.67,
+      "facility_and_food": 4.67
     }
   }
 }
