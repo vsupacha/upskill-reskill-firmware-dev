@@ -6,8 +6,8 @@
 <script src="day_02_CAN_firmware_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="day_02_CAN_firmware_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="day_02_CAN_firmware_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="day_02_CAN_firmware_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.36">
+<link href="day_02_CAN_firmware_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-06-24">
@@ -196,7 +196,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="figs/00_upskill_reskill_logo.jpg" data-background-opacity="0.1" data-background-size="contain" class="quarto-title-block center">
+<section id="title-slide" data-background-image="figs/00_upskill_reskill_logo.jpg" data-background-opacity="0.2" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">UpSKILL / ReSKILL</h1>
   <p class="subtitle">การพัฒนาเฟิร์มแวร์สำหรับระบบสื่อสาร CAN bus ในยานยนต์</p>
 
@@ -233,7 +233,7 @@
 </section>
 <section>
 <section id="firmware-testing" class="title-slide slide level1 center">
-<h1>05 Firmware testing</h1>
+<h1>04 Firmware testing</h1>
 <ul>
 <li>Firmware defects</li>
 <li>Testing concepts</li>
@@ -242,7 +242,7 @@
 </ul>
 </section>
 <section id="firmware-defect-error-impact" class="slide level2 smaller scrollable">
-<h2>5. Firmware defect → error → impact</h2>
+<h2>4. Firmware defect → error → impact</h2>
 <div class="columns">
 <div class="column" style="width:80%;">
 <h4 id="microsoft-zune-portable-media-player">Microsoft Zune (portable media player):</h4>
@@ -292,7 +292,7 @@
 <span id="cb1-35"><a href=""></a><span class="op">}</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="firmware-quality" class="slide level2 smaller">
-<h2>5. Firmware quality</h2>
+<h2>4. Firmware quality</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 20%">
@@ -341,8 +341,128 @@
 <li><strong>Static analysis</strong>: ซอฟต์แวร์ตรวจสอบว่าส่วนโค้ดเป็นไปตามแนวทางปฏิบัติ</li>
 </ul>
 </section>
+<section id="software-development-life-cycle" class="slide level2 smaller">
+<h2>4. Software Development Life Cycle</h2>
+<p><strong>Artifacts</strong>: concept → requirement → architecture → detailed design → code → test report <img data-src="figs/04_V_model.jpg" style="width:80.0%" alt="V-model"><br>
+</p>
+</section>
+<section id="testing-debugging" class="slide level2 smaller">
+<h2>4. Testing != debugging</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="testing">Testing</h4>
+<ul>
+<li>ตรวจหา <strong>defect</strong> ในซอฟต์แวร์
+<ul>
+<li><strong>defect</strong> = จุดที่ซอฟต์แวร์ไม่ทำงานตาม <strong>requirement</strong></li>
+</ul></li>
+<li><strong>requirement</strong> → ขั้นตอนและเงื่อนไขการทดสอบ (test case)</li>
+<li>ผลลัพธ์ของการทดสอบ = <strong>test report</strong> ที่สรุปผล PASS/FAIL</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="debugging">Debugging</h4>
+<ul>
+<li>ตรวจสอบต้นเหตุของ <strong>error</strong> ในซอฟต์แวร์
+<ul>
+<li><strong>error</strong> = ความแตกต่างของผลลัพธ์เมื่อพิจารณาจาก <strong>requirement</strong></li>
+</ul></li>
+<li>การทดสอบที่ FAIL → ตำแหน่งที่ดีบั๊ก</li>
+<li>ผลลัพธ์ของการดีบั๊ก = ตำแหน่งและวิธีแก้โค้ดที่เป็น <strong>defect</strong></li>
+</ul>
+</div></div>
+<p><img data-src="figs/04_test_debug.jpg" alt="test vs debug"><br>
+</p>
+</section>
+<section id="software-testing" class="slide level2 smaller">
+<h2>4. Software testing</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="กระบวนการ">กระบวนการ</h4>
+<ul>
+<li>Unit testing: ทีละฟังก์ชัน</li>
+<li>Integration testing: กลุ่มฟังก์ชันที่ทำงานร่วมกัน</li>
+<li>System test: โค้ดของทั้งซอฟต์แวร์</li>
+<li>Acceptance test: ให้ลูกค้าทำ</li>
+</ul>
+<h4 id="การทดสอบอตโนมต">การทดสอบอัตโนมัติ</h4>
+<ul>
+<li>Regression testing: หากปรับแก้โค้ดให้ทดสอบทั้งหมด</li>
+<li>CI/CD<sup>1</sup>: ปรับปรุงโค้ด → build/test/release เฟิร์มแวร์<sup>2</sup></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="เทคนค">เทคนิค</h4>
+<ul>
+<li>black box: ป้อนอินพุต ดูเอาต์พุต</li>
+<li>white box: ไล่ตามการทำงานของโค้ด
+<ul>
+<li>Statement coverage</li>
+<li>Branch coverage</li>
+</ul></li>
+<li>performance: ตรวจสอบทรัพยากร/ความเร็ว</li>
+</ul>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Continuous Integration/Continuous Delivery</p></li><li id="fn2"><p><a href="https://piolabs.com/blog/insights/cicd-testing-coverage-versioning.html">PlatformIO for CI/CD</a></p></li></ol></aside></section>
+<section id="blackbox-testing-assertion" class="slide level2 smaller">
+<h2>4. Blackbox testing: assertion</h2>
+<p><img data-src="figs/04_test_code.jpg" alt="โค้ดสำหรับทดสอบ"><br>
+</p>
+</section>
+<section id="firmware-testing-test-case" class="slide level2 smaller">
+<h2>4. Firmware testing: test case</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Objective</th>
+<th style="text-align: left;">Prerequisite</th>
+<th style="text-align: left;">Steps</th>
+<th style="text-align: left;">Input data</th>
+<th style="text-align: left;">Expected output</th>
+<th style="text-align: left;">Actual output</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">U2A-01</td>
+<td style="text-align: left;">blink at boot</td>
+<td style="text-align: left;">build success</td>
+<td style="text-align: left;">1. reset</td>
+<td style="text-align: left;">reset signal</td>
+<td style="text-align: left;">blink at 2Hz</td>
+<td style="text-align: left;">ON 500 ms / OFF 500 ms</td>
+<td style="text-align: left;">P</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">U2A-02</td>
+<td style="text-align: left;">blink stop after self-test</td>
+<td style="text-align: left;">blink at boot</td>
+<td style="text-align: left;">1. run self-test</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">self-test pass</td>
+<td style="text-align: left;">hard fault, inf loop</td>
+<td style="text-align: left;">F</td>
+</tr>
+</tbody>
+</table>
+<p><img data-src="figs/04_emb_tdd.jpg" style="width:90.0%" alt="ลำดับการทดสอบ"><br>
+</p>
+</section>
+<section id="practice-test-case" class="slide level2 smaller">
+<h2>4. Practice: test case</h2>
+</section>
 <section id="c-traps-and-pitfalls" class="slide level2 smaller">
-<h2>5. C traps and pitfalls</h2>
+<h2>4. C traps and pitfalls</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="ประเภทขอมล">ประเภทข้อมูล</h4>
@@ -421,11 +541,8 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href=""></a><span class="cf">if</span> <span class="op">(</span>u32 <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span> <span class="co">// เป็น false เสมอ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="practice-c-coding" class="slide level2 smaller">
-<h2>5. Practice: C coding</h2>
-</section>
 <section id="memory-in-c" class="slide level2 smaller">
-<h2>5. Memory in C</h2>
+<h2>4. Memory in C</h2>
 <div class="columns">
 <div class="column" style="width:33%;">
 <h4 id="static">Static</h4>
@@ -454,7 +571,7 @@
 </div></div>
 </section>
 <section id="memory-access-in-c" class="slide level2 smaller">
-<h2>5. Memory access in C</h2>
+<h2>4. Memory access in C</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="การใช-keywords">การใช้ keywords</h4>
@@ -508,7 +625,7 @@
 </div></div>
 </section>
 <section id="c-memory-issues" class="slide level2 smaller">
-<h2>5. C memory issues</h2>
+<h2>4. C memory issues</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <h4 id="pointer-ตำแหนงหนวยความจำ">pointer: ตำแหน่งหน่วยความจำ</h4>
@@ -540,11 +657,11 @@
 </ul>
 </div></div>
 </section>
-<section id="practice" class="slide level2 smaller">
-<h2>5. Practice:</h2>
+<section id="practice-c-coding" class="slide level2 smaller">
+<h2>4. Practice: C coding</h2>
 </section>
 <section id="if-embedded-c" class="slide level2 smaller">
-<h2>5. <code>if !(embedded C)</code></h2>
+<h2>4. <code>if !(embedded C)</code></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="micropython-ทางงาย">MicroPython (ทางง่าย)</h4>
@@ -585,35 +702,27 @@
 <span id="cb18-16"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="testing-debugging" class="slide level2 smaller">
-<h2>5. Testing != debugging</h2>
+<section id="design-for-testability" class="slide level2 smaller">
+<h2>4. Design For Testability</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h4 id="testing">Testing</h4>
+<h4 id="ฮารดแวร">ฮาร์ดแวร์<sup>1</sup></h4>
 <ul>
-<li>ตรวจหา <strong>defect</strong> ในซอฟต์แวร์
-<ul>
-<li><strong>defect</strong> = จุดที่ซอฟต์แวร์ไม่ทำงานตาม <strong>requirement</strong></li>
-</ul></li>
-<li><strong>requirement</strong> → ขั้นตอนและเงื่อนไขการทดสอบ (test case)</li>
-<li>ผลลัพธ์ของการทดสอบ = <strong>test report</strong> ที่สรุปผล PASS/FAIL</li>
+<li>Debug header หรือ pad บน PCB</li>
+<li>Test pad หรือ pin บน PCB <img data-src="figs/04_PCB_testpad.jpg" alt="PCB testpad"><br>
+</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h4 id="debugging">Debugging</h4>
+<h4 id="ซอฟตแวร">ซอฟต์แวร์<sup>2</sup></h4>
 <ul>
-<li>ตรวจสอบต้นเหตุของ <strong>error</strong> ในซอฟต์แวร์
-<ul>
-<li><strong>error</strong> = ความแตกต่างของผลลัพธ์เมื่อพิจารณาจาก <strong>requirement</strong></li>
-</ul></li>
-<li>การทดสอบที่ FAIL → ตำแหน่งที่ดีบั๊ก</li>
-<li>ผลลัพธ์ของการดีบั๊ก = ตำแหน่งและวิธีแก้โค้ดที่เป็น <strong>defect</strong></li>
+<li>Logging: <br>การรายงานสถานะผ่าน UART หรือบันทึกในหน่วยความจำ</li>
+<li>Built In Self-Test (BIST): <br> โค้ดสำหรับทดสอบและรายงานสถานะของหน่วยประมวลผล/ชิปต่างๆบน PCB/การเชื่อมต่อ</li>
+<li>Diagnostic mode: <br> โหมดพิเศษเพื่อเข้าถึงและควบคุมสถานะต่างๆของฮาร์ดแวร์/เฟิร์มแวร์</li>
 </ul>
 </div></div>
-<p><img data-src="figs/04_test_debug.jpg" alt="test vs debug"><br>
-</p>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://resources.pcb.cadence.com/blog/er-pcb-design-testability-a-practical-guide-for-beginners">PCB Design Testability: A Practical Guide for Beginners</a></p></li><li id="fn4"><p><a href="https://insight.averna.com/en/resources/blog/design-for-testability">Design for Testability (DFT): Techniques and Applications</a></p></li></ol></aside></section>
 <section id="instrument-for-hardware-testing" class="slide level2 smaller">
-<h2>5. Instrument for hardware testing</h2>
+<h2>4. Instrument for hardware testing</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
 <h4 id="multimeter">Multimeter<sup>1</sup></h4>
@@ -644,9 +753,9 @@
 </div><div class="column" style="width:40%;">
 <p><img data-src="figs/04_logic_analyzer.jpg" alt="Logic analyzer">&nbsp;</p>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://th.rs-online.com/web/content/discovery/ideas-and-advice/digital-multimeters-guide">What is a Digital Multimeter &amp; How to Use One</a></p></li><li id="fn2"><p><a href="https://www.tek.com/en/documents/primer/xyzs-oscilloscopes-primer">XYZs of Oscilloscopes Primer</a></p></li><li id="fn3"><p><a href="https://www.tek.com/en/documents/primer/logic-analyzer-fundamentals">What is a Logic Analyzer?</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><a href="https://th.rs-online.com/web/content/discovery/ideas-and-advice/digital-multimeters-guide">What is a Digital Multimeter &amp; How to Use One</a></p></li><li id="fn6"><p><a href="https://www.tek.com/en/documents/primer/xyzs-oscilloscopes-primer">XYZs of Oscilloscopes Primer</a></p></li><li id="fn7"><p><a href="https://www.tek.com/en/documents/primer/logic-analyzer-fundamentals">What is a Logic Analyzer?</a></p></li></ol></aside></section>
 <section id="hw-access-arm-debug-and-trace" class="slide level2 smaller">
-<h2>5. HW access: ARM debug and trace</h2>
+<h2>4. HW access: ARM debug and trace</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="องคประกอบ-arm-coresight">องค์ประกอบ ARM CoreSight</h4>
@@ -664,131 +773,9 @@
 </li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>instruction, data trace, instrumentation</p></li></ol></aside></section>
-<section id="software-testing" class="slide level2 smaller">
-<h2>5. Software testing</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="กระบวนการ">กระบวนการ</h4>
-<ul>
-<li>Unit testing: ทีละฟังก์ชัน</li>
-<li>Integration testing: กลุ่มฟังก์ชันที่ทำงานร่วมกัน</li>
-<li>System test: โค้ดของทั้งซอฟต์แวร์</li>
-<li>Acceptance test: ให้ลูกค้าทำ</li>
-</ul>
-<h4 id="การทดสอบอตโนมต">การทดสอบอัตโนมัติ</h4>
-<ul>
-<li>Regression testing: หากปรับแก้โค้ดให้ทดสอบทั้งหมด</li>
-<li>CI/CD<sup>1</sup>: ปรับปรุงโค้ด → build/test/release เฟิร์มแวร์<sup>2</sup></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="เทคนค">เทคนิค</h4>
-<ul>
-<li>black box: ป้อนอินพุต ดูเอาต์พุต</li>
-<li>white box: ไล่ตามการทำงานของโค้ด
-<ul>
-<li>Statement coverage</li>
-<li>Branch coverage</li>
-</ul></li>
-<li>performance: ตรวจสอบทรัพยากร/ความเร็ว</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn5"><p>Continuous Integration/Continuous Delivery</p></li><li id="fn6"><p><a href="https://piolabs.com/blog/insights/cicd-testing-coverage-versioning.html">PlatformIO for CI/CD</a></p></li></ol></aside></section>
-<section id="blackbox-testing-assertion" class="slide level2 smaller">
-<h2>5. Blackbox testing: assertion</h2>
-<p><img data-src="figs/04_test_code.jpg" alt="โค้ดสำหรับทดสอบ"><br>
-</p>
-</section>
-<section id="firmware-testing-test-case" class="slide level2 smaller">
-<h2>5. Firmware testing: test case</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 15%">
-<col style="width: 12%">
-<col style="width: 15%">
-<col style="width: 12%">
-<col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">ID</th>
-<th style="text-align: left;">Objective</th>
-<th style="text-align: left;">Prerequisite</th>
-<th style="text-align: left;">Steps</th>
-<th style="text-align: left;">Input data</th>
-<th style="text-align: left;">Expected output</th>
-<th style="text-align: left;">Actual output</th>
-<th style="text-align: left;">Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">U2A-01</td>
-<td style="text-align: left;">blink at boot</td>
-<td style="text-align: left;">build success</td>
-<td style="text-align: left;">1. reset</td>
-<td style="text-align: left;">reset signal</td>
-<td style="text-align: left;">blink at 2Hz</td>
-<td style="text-align: left;">ON 500 ms / OFF 500 ms</td>
-<td style="text-align: left;">P</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">U2A-02</td>
-<td style="text-align: left;">blink stop after self-test</td>
-<td style="text-align: left;">blink at boot</td>
-<td style="text-align: left;">1. run self-test</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">self-test pass</td>
-<td style="text-align: left;">hard fault, inf loop</td>
-<td style="text-align: left;">F</td>
-</tr>
-</tbody>
-</table>
-<p><img data-src="figs/04_emb_tdd.jpg" style="width:90.0%" alt="ลำดับการทดสอบ"><br>
-</p>
-</section>
-<section id="functional-safety-for-stm32" class="slide level2 smaller">
-<h2>5. Functional safety for STM32</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="figs/04_self_test.jpg" alt="self-test"><br>
-</p>
-</div><div class="column" style="width:50%;">
-<p>Set of test and diagnostic methods<sup>1</sup> to detect random hardware failures.</p>
-<ul>
-<li><strong>CPU</strong>: register stuck, program counter stuck</li>
-<li><strong>Interrupt</strong>: no interrupt, too-frequent interrupts</li>
-<li><strong>Clock</strong>: wrong frequency</li>
-<li><strong>Memory</strong>: single-bit faults, DC fault, address stuck</li>
-<li><strong>Peripherals</strong>: developer responsibility</li>
-<li><strong>Ext comm.</strong>: developer responsibility</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn7"><p><a href="https://www.st.com/en/embedded-software/x-cube-classb.html">Functional safety package for IEC 60730-1 and IEC 60335-1 safety standards</a></p></li></ol></aside></section>
-<section id="design-for-testability" class="slide level2 smaller">
-<h2>5. Design For Testability</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="ฮารดแวร">ฮาร์ดแวร์<sup>1</sup></h4>
-<ul>
-<li>Debug header หรือ pad บน PCB</li>
-<li>Test pad หรือ pin บน PCB <img data-src="figs/04_PCB_testpad.jpg" alt="PCB testpad"><br>
-</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="ซอฟตแวร">ซอฟต์แวร์<sup>2</sup></h4>
-<ul>
-<li>Logging: <br>การรายงานสถานะผ่าน UART หรือบันทึกในหน่วยความจำ</li>
-<li>Built In Self-Test (BIST): <br> โค้ดสำหรับทดสอบและรายงานสถานะของหน่วยประมวลผล/ชิปต่างๆบน PCB/การเชื่อมต่อ</li>
-<li>Diagnostic mode: <br> โหมดพิเศษเพื่อเข้าถึงและควบคุมสถานะต่างๆของฮาร์ดแวร์/เฟิร์มแวร์</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn8"><p><a href="https://resources.pcb.cadence.com/blog/er-pcb-design-testability-a-practical-guide-for-beginners">PCB Design Testability: A Practical Guide for Beginners</a></p></li><li id="fn9"><p><a href="https://insight.averna.com/en/resources/blog/design-for-testability">Design for Testability (DFT): Techniques and Applications</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn8"><p>instruction, data trace, instrumentation</p></li></ol></aside></section>
 <section id="automated-test-equipment-ate" class="slide level2 smaller">
-<h2>5. Automated Test Equipment (ATE)</h2>
+<h2>4. Automated Test Equipment (ATE)</h2>
 <p>Computer-controlled systems designed to automatically perform measurements and analyze functional, performance, or stress characteristics of electronic devices</p>
 <div class="columns">
 <div class="column" style="width:70%;">
@@ -823,7 +810,25 @@
 <img data-src="figs/04_ATE_FPT.jpg" alt="Flying Probe Tester"><br>
 </p>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn10"><p>Or differential/singled-ended</p></li><li id="fn11"><p>Use using bed of nails fixture: <a href="https://www.digikey.com/en/articles/the-basics-of-pogo-pin-connectors">pogo pins</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>Or differential/singled-ended</p></li><li id="fn10"><p>Use using bed of nails fixture: <a href="https://www.digikey.com/en/articles/the-basics-of-pogo-pin-connectors">pogo pins</a></p></li></ol></aside></section>
+<section id="functional-safety-for-stm32" class="slide level2 smaller">
+<h2>4. Functional safety for STM32</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="figs/04_self_test.jpg" alt="self-test"><br>
+</p>
+</div><div class="column" style="width:50%;">
+<p>Set of test and diagnostic methods<sup>1</sup> to detect random hardware failures.</p>
+<ul>
+<li><strong>CPU</strong>: register stuck, program counter stuck</li>
+<li><strong>Interrupt</strong>: no interrupt, too-frequent interrupts</li>
+<li><strong>Clock</strong>: wrong frequency</li>
+<li><strong>Memory</strong>: single-bit faults, DC fault, address stuck</li>
+<li><strong>Peripherals</strong>: developer responsibility</li>
+<li><strong>Ext comm.</strong>: developer responsibility</li>
+</ul>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn11"><p><a href="https://www.st.com/en/embedded-software/x-cube-classb.html">Functional safety package for IEC 60730-1 and IEC 60335-1 safety standards</a></p></li></ol></aside></section>
 <section id="qa" class="slide level2">
 <h2>Q&amp;A</h2>
 <ol type="1">
@@ -834,7 +839,7 @@
 </section></section>
 <section>
 <section id="automotive-network" class="title-slide slide level1 center">
-<h1>06 Automotive network</h1>
+<h1>05 Automotive network</h1>
 <ul>
 <li>Processor communication</li>
 <li>Networks of ECUs</li>
@@ -842,7 +847,7 @@
 </ul>
 </section>
 <section id="on-boardintra-board-connectivity" class="slide level2 smaller">
-<h2>6. On-board/intra-board connectivity</h2>
+<h2>5. On-board/intra-board connectivity</h2>
 <p>การสื่อสารแบบอนุกรม (เรียงข้อมูลเป็นบิต) ได้รับผลกระทบของปัญหา cross-talk น้อยกว่า</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -864,21 +869,21 @@
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img data-src="figs/06_processor_comm.jpg" alt="Processor comm"><br>
+<p><img data-src="figs/05_processor_comm.jpg" alt="Processor comm"><br>
 </p>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn12"><p>asynchronous คือไม่มี clock signal เข้าจังหวะ</p></li></ol></aside></section>
 <section id="asyncsync-serial-timing" class="slide level2 smaller">
-<h2>6. Async/Sync serial: timing</h2>
+<h2>5. Async/Sync serial: timing</h2>
 <h4 id="uart">UART</h4>
-<p><img data-src="figs/06_UART_timing.jpg" style="width:75.0%" alt="UART timing"><br>
+<p><img data-src="figs/05_UART_timing.jpg" style="width:75.0%" alt="UART timing"><br>
 </p>
 <h4 id="spi">SPI</h4>
-<p><img data-src="figs/06_SPI_timing.jpg" style="width:75.0%" alt="SPI timing"><br>
+<p><img data-src="figs/05_SPI_timing.jpg" style="width:75.0%" alt="SPI timing"><br>
 </p>
 </section>
 <section id="processor-to-chip-protocol" class="slide level2 smaller">
-<h2>6. Processor-to-chip protocol</h2>
+<h2>5. Processor-to-chip protocol</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="uart-protocol">UART protocol</h4>
@@ -888,9 +893,9 @@
 <li>มักใช้กับ processor-to-processor</li>
 <li>มีขาเพิ่ม RTS / CTS สำหรับ handshake<sup>1</sup></li>
 </ul></li>
-<li>โครงสร้าง command/data frame แบบ custom <img data-src="figs/06_UART_frame.jpg" alt="UART frame"><br>
+<li>โครงสร้าง command/data frame แบบ custom <img data-src="figs/05_UART_frame.jpg" alt="UART frame"><br>
 </li>
-<li>รูปแบบ AT command <img data-src="figs/06_UART_AT.jpg" alt="UART AT cmd"><br>
+<li>รูปแบบ AT command <img data-src="figs/05_UART_AT.jpg" alt="UART AT cmd"><br>
 </li>
 </ul>
 </div><div class="column" style="width:50%;">
@@ -901,47 +906,47 @@
 <li>SPI ใช้ขา CS</li>
 <li>I2C ใช้ device address</li>
 </ul></li>
-<li>สั่งการผ่านระบบ register ของตัว chip <img data-src="figs/06_I2C_register.jpg" alt="I2C register"><br>
+<li>สั่งการผ่านระบบ register ของตัว chip <img data-src="figs/05_I2C_register.jpg" alt="I2C register"><br>
 </li>
 </ul>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn13"><p>Request-To-Send และ Clear-To-Send</p></li></ol></aside></section>
 <section id="automotive-network-1" class="slide level2 smaller">
-<h2>6. Automotive network</h2>
-<p><strong>Electronic Control Unit (ECU)</strong>: embedded system in automotive electronics that controls one or more of the electrical systems or subsystems in a car or other motor vehicle. <img data-src="figs/06_automotive_network.jpg" alt="Automotive network"><br>
+<h2>5. Automotive network</h2>
+<p><strong>Electronic Control Unit (ECU)</strong>: embedded system in automotive electronics that controls one or more of the electrical systems or subsystems in a car or other motor vehicle. <img data-src="figs/05_automotive_network.jpg" alt="Automotive network"><br>
 </p>
 </section>
 <section id="ecus-in-vehicle" class="slide level2 smaller">
-<h2>6. ECUs in vehicle</h2>
+<h2>5. ECUs in vehicle</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="safety-ecu">Safety ECU</h4>
-<p><img data-src="figs/06_ECU_safety.jpg" alt="ECU safety"><br>
+<p><img data-src="figs/05_ECU_safety.jpg" alt="ECU safety"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="passenger-ecu">Passenger ECU</h4>
-<p><img data-src="figs/06_ECU_passenger.jpg" alt="ECU HVAC"><br>
+<p><img data-src="figs/05_ECU_passenger.jpg" alt="ECU HVAC"><br>
 </p>
 </div></div>
 </section>
 <section id="ecus-in-vehicle-1" class="slide level2 smaller">
-<h2>6. ECUs in vehicle</h2>
+<h2>5. ECUs in vehicle</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="safety-ecu-1">Safety ECU</h4>
-<p><img data-src="figs/06_ECU_engine.jpg" alt="ECU engine"><br>
+<p><img data-src="figs/05_ECU_engine.jpg" alt="ECU engine"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="battery-ecu">Battery ECU</h4>
-<p><img data-src="figs/06_ECU_battery.jpg" alt="ECU BMS"><br>
+<p><img data-src="figs/05_ECU_battery.jpg" alt="ECU BMS"><br>
 </p>
 </div></div>
 </section>
 <section id="in-vehicle-network" class="slide level2 smaller">
-<h2>6. In-vehicle network</h2>
+<h2>5. In-vehicle network</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<p><img data-src="figs/06_CAN_LIN.jpg" alt="CAN/LIN network"><br>
+<p><img data-src="figs/05_CAN_LIN.jpg" alt="CAN/LIN network"><br>
 </p>
 </div><div class="column" style="width:70%;">
 <h4 id="เงอนไขของการสอสาร">เงื่อนไขของการสื่อสาร</h4>
@@ -982,7 +987,7 @@
 </div></div>
 </section>
 <section id="in-vehicle-network-1" class="slide level2 smaller">
-<h2>6. In-vehicle network</h2>
+<h2>5. In-vehicle network</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="can-transceiver">CAN transceiver</h4>
@@ -990,7 +995,7 @@
 <li>CAN controller → TXD, RXD pins</li>
 <li>CAN transceiver → CANH, CANL pins</li>
 </ul>
-<p><img data-src="figs/06_CAN_transceiver.jpg" alt="CAN/LIN network"><br>
+<p><img data-src="figs/05_CAN_transceiver.jpg" alt="CAN/LIN network"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="lin-transceiver">LIN transceiver</h4>
@@ -998,12 +1003,12 @@
 <li>UART → TXD, RXD pins</li>
 <li>LIN transceiver → LIN pin</li>
 </ul>
-<p><img data-src="figs/06_LIN_transceiver.jpg" alt="CAN/LIN network"><br>
+<p><img data-src="figs/05_LIN_transceiver.jpg" alt="CAN/LIN network"><br>
 </p>
 </div></div>
 </section>
 <section id="can-bus" class="slide level2 smaller">
-<h2>6. CAN bus</h2>
+<h2>5. CAN bus</h2>
 <p>โครงข่ายของกลุ่ม ECU ที่สื่อสารแบบ broadcast เน้นความน่าเชื่อถือและกรอบเวลาแน่นอน</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1015,11 +1020,11 @@
 <li>short message (8 byte/64 byte)</li>
 </ul>
 </div></div>
-<p><img data-src="figs/06_CAN_layers.jpg" alt="CAN layer"><br>
+<p><img data-src="figs/05_CAN_layers.jpg" alt="CAN layer"><br>
 </p>
 </section>
 <section id="can-bus-topology" class="slide level2 smaller">
-<h2>6. CAN bus topology</h2>
+<h2>5. CAN bus topology</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
 <h4 id="components">Components<sup>1</sup></h4>
@@ -1030,21 +1035,21 @@
 <li><strong>Gateway</strong>: อุปกรณ์ทำหน้าที่เชื่อมโยงระหว่าง CAN bus กับโครงข่ายอื่น</li>
 </ul>
 </div><div class="column" style="width:65%;">
-<p><img data-src="figs/06_CAN_line_topology.jpg" alt="CAN topology"><br>
-<img data-src="figs/06_CAN_topology.jpg" alt="CAN topology"><br>
+<p><img data-src="figs/05_CAN_line_topology.jpg" alt="CAN topology"><br>
+<img data-src="figs/05_CAN_topology.jpg" alt="CAN topology"><br>
 </p>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn14"><p><a href="https://www.hms-networks.com/tech-blog/blogpost/hms-blog/2024/06/18/the-can-topology-from-the-bus-topology-to-the-tree-topology-and-beyond">The CAN topology</a></p></li></ol></aside></section>
 <section id="can-bus-signaling" class="slide level2 smaller">
-<h2>6. CAN bus signaling</h2>
+<h2>5. CAN bus signaling</h2>
 <ul>
-<li>สายสัญญาณแบบ twisted-pair (CANH-CANL) + 120 <span class="math inline">\(\Omega\)</span> termination <img data-src="figs/06_CAN_twisted.jpg" style="width:90.0%" alt="CAN cable"><br>
+<li>สายสัญญาณแบบ twisted-pair (CANH-CANL) + 120 <span class="math inline">\(\Omega\)</span> termination <img data-src="figs/05_CAN_twisted.jpg" style="width:90.0%" alt="CAN cable"><br>
 </li>
 <li>สถานะ logical ของ CAN: Dominant (logic 0) Recession (logic 1)</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="figs/06_CAN_dom_rec.jpg" alt="CAN logic"><br>
+<p><img data-src="figs/05_CAN_dom_rec.jpg" alt="CAN logic"><br>
 </p>
 </div><div class="column" style="width:40%;">
 <ul>
@@ -1054,11 +1059,11 @@
 </div></div>
 </section>
 <section id="can-sniffer-usb2canfd" class="slide level2 smaller">
-<h2>6. CAN sniffer: USB2CANFD</h2>
+<h2>5. CAN sniffer: USB2CANFD</h2>
 <p>บอร์ด <a href="https://github.com/WeActStudio/WeActStudio.USB2CANFDV1">USB2CANFD</a> ใช้ส่ง/ตรวจจับ CAN message โดยส่ง command ผ่าน USB serial</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p><img data-src="figs/06_USB2CANFD.jpg" alt="CAN USB"><br>
+<p><img data-src="figs/05_USB2CANFD.jpg" alt="CAN USB"><br>
 </p>
 </div><div class="column" style="width:60%;">
 <ul>
@@ -1125,21 +1130,21 @@
 </div></div>
 </section>
 <section id="cangaroo" class="slide level2 smaller">
-<h2>6. CANgaroo</h2>
+<h2>5. CANgaroo</h2>
 <p><a href="https://github.com/Schildkroet/CANgaroo">Open-source CAN bus analyzer</a>: SLCAN, candleLight, Vector, Kvaser, PEAK PCAN, …</p>
 <ul>
 <li><a href="https://docs.openvehicles.com/en/latest/components/vehicle_dbc/docs/dbc-primer.html">DBC</a>: รูปแบบไฟล์ที่อธิบายโครงสร้างของ CAN data frame → ถอดและแปลงข้อมูลจาก CAN data frame เป็นข้อมูลทางภายภาพ</li>
 </ul>
-<p><img data-src="figs/06_CANgaroo.jpg" style="width:80.0%" alt="CANgaroo"><br>
+<p><img data-src="figs/05_CANgaroo.jpg" style="width:80.0%" alt="CANgaroo"><br>
 </p>
 </section>
 <section id="can-sniffer-oscilloscope" class="slide level2 smaller">
-<h2>6. CAN sniffer: oscilloscope</h2>
-<p>การตรวจสอบสถานะ 0/1 ของสัญญาณ CANH/CANL ด้วยออสซิลโลสโคป<sup>1</sup> <img data-src="figs/06_CAN_scope.jpg" alt="CAN scope"><br>
+<h2>5. CAN sniffer: oscilloscope</h2>
+<p>การตรวจสอบสถานะ 0/1 ของสัญญาณ CANH/CANL ด้วยออสซิลโลสโคป<sup>1</sup> <img data-src="figs/05_CAN_scope.jpg" alt="CAN scope"><br>
 </p>
 <aside><ol class="aside-footnotes"><li id="fn15"><p><a href="https://www.digikey.com/en/blog/how-to-simplify-the-test-of-can-bus-networks">How to Simplify the Test of CAN Bus Networks Using the Right Oscilloscope</a></p></li></ol></aside></section>
 <section id="practice-can-sniffer" class="slide level2 smaller">
-<h2>6. Practice: CAN sniffer</h2>
+<h2>5. Practice: CAN sniffer</h2>
 <h4 id="การตรวจสอบ-can-message-ดวยบอรด-usb2canfd">การตรวจสอบ CAN message ด้วยบอร์ด USB2CANFD</h4>
 <ol type="1">
 <li>เชื่อมต่อสาย CANH/CANL/GND ระหว่างบอร์ด USB2CANFD</li>
@@ -1164,8 +1169,8 @@
 </ol>
 </section>
 <section id="can-messages" class="slide level2 smaller">
-<h2>6. CAN messages</h2>
-<p><img data-src="figs/06_CAN_frame.jpg" alt="CAN frame"><br>
+<h2>5. CAN messages</h2>
+<p><img data-src="figs/05_CAN_frame.jpg" alt="CAN frame"><br>
 </p>
 <table class="caption-top">
 <colgroup>
@@ -1200,20 +1205,20 @@
 </table>
 <aside><ol class="aside-footnotes"><li id="fn16"><p>โหนดที่ส่ง bit ของ ID เป็น <strong>1</strong> ก่อน → priority ต่ำกว่า จึงถอยไปรอ</p></li></ol></aside></section>
 <section id="can-dataremote-frame" class="slide level2 smaller">
-<h2>6. CAN data/remote frame</h2>
+<h2>5. CAN data/remote frame</h2>
 <h4 id="can-2.0-frame">CAN 2.0 frame</h4>
 <ul>
-<li>ข้อมูลจำกัดที่ 8 byte, ความเร็วสูงสุด 1 Mbps <img data-src="figs/06_CAN20_frame.jpg" alt="CAN2.0 frame"><br>
+<li>ข้อมูลจำกัดที่ 8 byte, ความเร็วสูงสุด 1 Mbps <img data-src="figs/05_CAN20_frame.jpg" alt="CAN2.0 frame"><br>
 </li>
 </ul>
 <h4 id="can-fd-frame">CAN-FD frame</h4>
 <ul>
-<li>ข้อมูล 0-8/12/16/…/64 byte, ช่วง data field ปรับ bit rate ได้ถึง 8 Mbps <img data-src="figs/06_CANFD_frame.jpg" alt="CANFD frame"><br>
+<li>ข้อมูล 0-8/12/16/…/64 byte, ช่วง data field ปรับ bit rate ได้ถึง 8 Mbps <img data-src="figs/05_CANFD_frame.jpg" alt="CANFD frame"><br>
 </li>
 </ul>
 </section>
 <section id="can-bus-reliability" class="slide level2 smaller">
-<h2>6. CAN bus reliability<sup>1</sup></h2>
+<h2>5. CAN bus reliability<sup>1</sup></h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 17%">
@@ -1271,7 +1276,7 @@
 </section></section>
 <section>
 <section id="stm32-fdcan-programming" class="title-slide slide level1 center">
-<h1>07 STM32 FDCAN programming</h1>
+<h1>06 STM32 FDCAN programming</h1>
 <ul>
 <li>STM32 FDCAN</li>
 <li>FDCAN configuration</li>
@@ -1280,24 +1285,24 @@
 </ul>
 </section>
 <section id="nucleo-c562re" class="slide level2 smaller">
-<h2>7. NUCLEO-C562RE</h2>
+<h2>6. NUCLEO-C562RE</h2>
 <p>บอร์ด NUCLEO-C562RE ใช้ <a href="https://www.microchip.com/en-us/product/mcp2562fd">MCP2562FD</a> เป็น CAN transceiver</p>
 <ul>
 <li>ขาสัญญาณ PB8 (FDCAN.RX), PB9 (FDCAN.TX), PE2 (HIGH = STANDBY)</li>
 </ul>
-<p><img data-src="figs/07_NUCLEO_FDCAN.jpg" alt="CAN-FD interface"><br>
+<p><img data-src="figs/06_NUCLEO_FDCAN.jpg" alt="CAN-FD interface"><br>
 </p>
 </section>
 <section id="bxcan-vs-fdcan" class="slide level2 smaller scrollable">
-<h2>7. BxCAN vs FDCAN</h2>
-<p><img data-src="figs/07_BxCAN_FDCAN.jpg" alt="BxCAN vs FDCAN"><br>
+<h2>6. BxCAN vs FDCAN</h2>
+<p><img data-src="figs/06_BxCAN_FDCAN.jpg" alt="BxCAN vs FDCAN"><br>
 </p>
 </section>
 <section id="stm32-fdcan" class="slide level2 smaller">
-<h2>7. STM32 FDCAN</h2>
+<h2>6. STM32 FDCAN</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
-<p><img data-src="figs/07_STM32_FDCAN.jpg" alt="FDCAN component"><br>
+<p><img data-src="figs/06_STM32_FDCAN.jpg" alt="FDCAN component"><br>
 </p>
 </div><div class="column" style="width:35%;">
 <h4 id="stmc562-ม-fdcan-x-1">STMC562 มี FDCAN x 1</h4>
@@ -1315,8 +1320,8 @@
 </div></div>
 </section>
 <section id="bit-timing" class="slide level2 smaller">
-<h2>7. Bit timing</h2>
-<p><img data-src="figs/07_FDCAN_bit_timing.jpg" style="width:80.0%" alt="FDCAN bit timing"><br>
+<h2>6. Bit timing</h2>
+<p><img data-src="figs/06_FDCAN_bit_timing.jpg" style="width:80.0%" alt="FDCAN bit timing"><br>
 </p>
 <ul>
 <li>ความถี่ของ Time Quantum (<code>fdcan_tq_ck = fdcan_ker_ck/DIV</code>) ต่อบิตควรมีค่า 8–25
@@ -1330,17 +1335,17 @@
 </ul>
 </section>
 <section id="stm32cubemx2-fdcan" class="slide level2 smaller">
-<h2>7. STM32CubeMX2 → FDCAN</h2>
-<p><strong>ขั้นตอนพื้นฐาน</strong>: FDCAN activation → mode + frame format + data rate → Tx/Rx pins <img data-src="figs/07_FDCAN_CubeMX2.jpg" alt="CubeMX2 - FDCAN"><br>
+<h2>6. STM32CubeMX2 → FDCAN</h2>
+<p><strong>ขั้นตอนพื้นฐาน</strong>: FDCAN activation → mode + frame format + data rate → Tx/Rx pins <img data-src="figs/06_FDCAN_CubeMX2.jpg" alt="CubeMX2 - FDCAN"><br>
 </p>
 </section>
 <section id="fdcan-state-machine" class="slide level2 smaller">
-<h2>7. FDCAN state machine</h2>
-<p><img data-src="figs/07_FDCAN_STmachine.jpg" alt="FDCAN state machine"><br>
+<h2>6. FDCAN state machine</h2>
+<p><img data-src="figs/06_FDCAN_STmachine.jpg" alt="FDCAN state machine"><br>
 </p>
 </section>
 <section id="stm32-hal-api" class="slide level2 smaller">
-<h2>7. STM32 HAL API</h2>
+<h2>6. STM32 HAL API</h2>
 <ul>
 <li>การใช้ <strong>Union</strong> ร่วมกับ struct แบบ <strong>bit field</strong></li>
 </ul>
@@ -1368,9 +1373,9 @@
 </ul>
 </section>
 <section id="practice-fdcan-tx-programming" class="slide level2 smaller">
-<h2>7. Practice: FDCAN Tx programming</h2>
+<h2>6. Practice: FDCAN Tx programming</h2>
 <ol type="1">
-<li>เตรียม project ตัวอย่าง <strong>ex07_CAN_basics</strong></li>
+<li>เตรียม project ตัวอย่าง <strong>ex06_CAN_basics</strong></li>
 <li>เปิด FDCAN peripheral ด้วย <code>HAL_FDCAN_Start()</code></li>
 <li>ปลด STANDBY ของ MCP2562 โดย <code>PE2 -&gt; LOW</code></li>
 <li>กำหนด CAN header โดยเข้าถึง <code>hal_fdcan_tx_header_t</code> ผ่าน <strong>bit field</strong></li>
@@ -1392,10 +1397,10 @@
 </ol>
 </section>
 <section id="buffers-in-fdcan" class="slide level2 smaller">
-<h2>7. Buffers in FDCAN</h2>
+<h2>6. Buffers in FDCAN</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
-<p><img data-src="figs/07_FDCAN_msgram.jpg" alt="FDCAN msg RAM"><br>
+<p><img data-src="figs/06_FDCAN_msgram.jpg" alt="FDCAN msg RAM"><br>
 </p>
 <ul>
 <li>32-bit aligned memory / 212 words</li>
@@ -1416,8 +1421,8 @@
 </div></div>
 </section>
 <section id="acceptance-filter" class="slide level2 smaller">
-<h2>7. Acceptance filter</h2>
-<p><strong>Std-ID filter</strong>: แฟลก SFT ตั้งโหมด และแฟลก SFEC คุมการส่งข้อมูลไป FIFO <img data-src="figs/07_FDCAN_filter.jpg" alt="FDCAN filter"><br>
+<h2>6. Acceptance filter</h2>
+<p><strong>Std-ID filter</strong>: แฟลก SFT ตั้งโหมด และแฟลก SFEC คุมการส่งข้อมูลไป FIFO <img data-src="figs/06_FDCAN_filter.jpg" alt="FDCAN filter"><br>
 </p>
 <table class="caption-top">
 <colgroup>
@@ -1453,14 +1458,14 @@
 <p><strong>Ext-ID filter</strong>: โหมดและ FIFO ขึ้นกับแฟลก EFEC/EFT และเงื่อนไขคือค่า EFID1/EFID2</p>
 <aside><ol class="aside-footnotes"><li id="fn18"><p>เงื่อนไข mask bit: <strong>0</strong> คือไม่สนใจ <strong>1</strong> คือเลือก</p></li></ol></aside></section>
 <section id="rx-handler" class="slide level2 smaller scrollable">
-<h2>7. RX handler</h2>
-<p><img data-src="figs/07_FDCAN_rx_filter.jpg" alt="FDCAN RX filter"><br>
+<h2>6. RX handler</h2>
+<p><img data-src="figs/06_FDCAN_rx_filter.jpg" alt="FDCAN RX filter"><br>
 </p>
 </section>
 <section id="practice-fdcan-rx-filter" class="slide level2 smaller">
-<h2>7. Practice: FDCAN Rx filter</h2>
+<h2>6. Practice: FDCAN Rx filter</h2>
 <ol type="1">
-<li>เตรียม project ตัวอย่าง <strong>ex07_CAN_filter</strong>
+<li>เตรียม project ตัวอย่าง <strong>ex06_CAN_filter</strong>
 <ul>
 <li>standard frame filter0 แบบ dual 0x0A/0x0B → RXFIFO0</li>
 <li>standard frame filter1 แบบ range 0x10~0x1F → RXFIFO1</li>
@@ -1481,7 +1486,7 @@
 </ol>
 <aside><ol class="aside-footnotes"><li id="fn19"><p>โปรแกรม CANgaroo ของ WeAct Studio มี UI bug ไม่ต้องเลือก FD/BRS</p></li></ol></aside></section>
 <section id="fdcan-interrupts" class="slide level2 smaller">
-<h2>7. FDCAN interrupts<sup>1</sup></h2>
+<h2>6. FDCAN interrupts<sup>1</sup></h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <h4 id="irq-sources">IRQ sources</h4>
@@ -1497,12 +1502,12 @@
 </ul>
 <p><strong>หมายเหตุ</strong>: สามารถจัด prior/subprior group แยกกัน</p>
 </div><div class="column" style="width:55%;">
-<p><img data-src="figs/07_FDCAN_interrupts.jpg" alt="FDCAN interrupts"><br>
+<p><img data-src="figs/06_FDCAN_interrupts.jpg" alt="FDCAN interrupts"><br>
 </p>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn20"><p><a href="https://community.st.com/t5/stm32-mcus/understanding-fdcan-interrupts-grouping-in-applicable-stm32-mcus/ta-p/852823">Understanding FDCAN interrupts grouping in applicable STM32 MCUs with an example</a></p></li></ol></aside></section>
 <section id="fdcan-irq-handler" class="slide level2 smaller">
-<h2>7. FDCAN IRQ handler</h2>
+<h2>6. FDCAN IRQ handler</h2>
 <ul>
 <li>อย่าลืม enable กลไกอินเตอร์รัพต์ (NVIC global และ IRQ source) ในส่วนโค้ด</li>
 </ul>
@@ -1525,9 +1530,9 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb26-1"><a href=""></a>HAL_FDCAN_ReqTransmitMsgFromFIFOQ<span class="op">(...);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="practice-fdcan-irq-handler" class="slide level2 smaller">
-<h2>7. Practice: FDCAN IRQ handler</h2>
+<h2>6. Practice: FDCAN IRQ handler</h2>
 <ol type="1">
-<li>เตรียม project ตัวอย่าง <strong>ex07_CAN_irq</strong>
+<li>เตรียม project ตัวอย่าง <strong>ex06_CAN_irq</strong>
 <ul>
 <li>standard frame filter0 แบบ dual 0x0A/0x0B → RXFIFO0</li>
 <li>global filter policy เป็น accept non-matching std frame ทั้งหมด → RXFIFO1</li>
@@ -1537,7 +1542,7 @@
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb27-1"><a href=""></a><span class="dt">void</span> HAL_FDCAN_RxFifo0Callback<span class="op">(</span>hal_fdcan_handle_t <span class="op">*</span>hfdcan<span class="op">,</span> <span class="dt">uint32_t</span> rx_fifo0_interrupts<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb27-2"><a href=""></a>    <span class="cf">if</span> <span class="op">((</span>rx_fifo0_interrupts <span class="op">&amp;</span> HAL_FDCAN_FLAG_RX_FIFO_0_NEW_MSG<span class="op">)</span> <span class="op">!=</span> RESET<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb27-3"><a href=""></a></span>
+<span id="cb27-3"><a href=""></a>        <span class="co">// code to handle CAN msg ID 0x0A and 0x0B</span></span>
 <span id="cb27-4"><a href=""></a>    <span class="op">}</span></span>
 <span id="cb27-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
@@ -1545,7 +1550,7 @@
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb28-1"><a href=""></a><span class="dt">void</span> HAL_FDCAN_RxFifo1Callback<span class="op">(</span>hal_fdcan_handle_t <span class="op">*</span>hfdcan<span class="op">,</span> <span class="dt">uint32_t</span> rx_fifo1_interrupts<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb28-2"><a href=""></a>    <span class="cf">if</span> <span class="op">((</span>rx_fifo1_interrupts <span class="op">&amp;</span> HAL_FDCAN_FLAG_RX_FIFO_1_NEW_MSG<span class="op">)</span> <span class="op">!=</span> RESET<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb28-3"><a href=""></a>    </span>
+<span id="cb28-3"><a href=""></a>        <span class="co">// code to handle other CAN msgs</span></span>
 <span id="cb28-4"><a href=""></a>    <span class="op">}</span></span>
 <span id="cb28-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -1556,22 +1561,14 @@
 <li>การเลือกวิธีส่งข้อมูลด้วย data frame และ RTR frame มีสถานการณ์ต่างกันอย่างไร?</li>
 <li>การประกาศโครงสร้าง bit field สำหรับ CAN header ส่งผลกระทบต่อการเขียนโค้ดอย่างไร?</li>
 </ol>
+
 </section></section>
-<section id="workshop-usb2can" class="title-slide slide level1 center">
-<h1>Workshop: USB2CAN</h1>
-<ul>
-<li>Requirement, design, and implementation</li>
-<li>FDCAN configuration</li>
-</ul>
-
-</section>
-
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="figs/TSE_logo.svg" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>คอร์สอบรมนี้ได้รับการสนับสนุนงบประมาณจาก สป.อว.</p>
+<p>คอร์สอบรมนี้ได้รับการสนับสนุนงบประมาณจาก สป.อว. ปี 2569</p>
 </div>
 </div></div>
 

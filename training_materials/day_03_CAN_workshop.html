@@ -6,8 +6,8 @@
 <script src="day_03_CAN_workshop_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="day_03_CAN_workshop_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="day_03_CAN_workshop_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="day_03_CAN_workshop_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.36">
+<link href="day_03_CAN_workshop_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-06-25">
@@ -196,7 +196,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="figs/00_upskill_reskill_logo.jpg" data-background-opacity="0.1" data-background-size="contain" class="quarto-title-block center">
+<section id="title-slide" data-background-image="figs/00_upskill_reskill_logo.jpg" data-background-opacity="0.2" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">UpSKILL / ReSKILL</h1>
   <p class="subtitle">การพัฒนาเฟิร์มแวร์สำหรับระบบสื่อสาร CAN bus ในยานยนต์</p>
 
@@ -230,17 +230,17 @@
 </section>
 <section>
 <section id="can-firmware" class="title-slide slide level1 center">
-<h1>09 CAN firmware</h1>
+<h1>07 CAN firmware</h1>
 <ul>
 <li>USB2CAN: CANable and candleLight</li>
 <li>AUTOSAR firmware</li>
 </ul>
 </section>
 <section id="obd-ii-on-board-diagnostics" class="slide level2 smaller">
-<h2>9. <a href="https://www.csselectronics.com/pages/obd2-explained-simple-intro">OBD-II (On-board diagnostics)</a></h2>
+<h2>7. <a href="https://www.csselectronics.com/pages/obd2-explained-simple-intro">OBD-II (On-board diagnostics)</a></h2>
 <div class="columns">
 <div class="column" style="width:35%;">
-<p><img data-src="figs/06_CAN_OBD-II.jpg" alt="OBD-II port"><br>
+<p><img data-src="figs/07_CAN_OBD-II.jpg" alt="OBD-II port"><br>
 </p>
 </div><div class="column" style="width:65%;">
 <h4 id="obd-ii-over-can-iso-15765-4">OBD-II over CAN (ISO 15765-4)</h4>
@@ -283,7 +283,7 @@
 </table>
 </section>
 <section id="j1939-transport-protocol" class="slide level2 smaller scrollable">
-<h2>9. <a href="https://www.csselectronics.com/pages/j1939-explained-simple-intro-tutorial">J1939 Transport Protocol</a></h2>
+<h2>7. <a href="https://www.csselectronics.com/pages/j1939-explained-simple-intro-tutorial">J1939 Transport Protocol</a></h2>
 <p>มาตรฐานของ SAE International เพื่อกำหนด layer ที่ต่อยอดโครงข่าย CAN bus</p>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -297,16 +297,16 @@
 <li>PGN 59904 (payload = PGN) ใช้ร้องขอข้อมูล</li>
 </ul></li>
 <li>โครงสร้างข้อมูลใน frame กำหนดด้วย Suspect Parameter Number (SPN)</li>
-<li>รองรับ transport layer <img data-src="figs/06_CAN_J1939_transport.jpg" alt="J1939 transport"><br>
+<li>รองรับ transport layer <img data-src="figs/07_CAN_J1939_transport.jpg" alt="J1939 transport"><br>
 </li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="figs/06_CAN_J1939.jpg" alt="J1939"><br>
+<p><img data-src="figs/07_CAN_J1939.jpg" alt="J1939"><br>
 </p>
 </div></div>
 </section>
 <section id="ccpxcp-protocol" class="slide level2 smaller">
-<h2>9. <a href="https://www.csselectronics.com/pages/ccp-xcp-on-can-bus-calibration-protocol">CCP/XCP protocol</a></h2>
+<h2>7. <a href="https://www.csselectronics.com/pages/ccp-xcp-on-can-bus-calibration-protocol">CCP/XCP protocol</a></h2>
 <p>CCP (CAN Calibration Protocol) และ XCP (Universal Measurement and Calibration Protocol) เป็นโปรโตคอลแบบ master (PC) - slave (ECU) สำหรับตรวจสอบ ECU parameter และ calibration</p>
 <ul>
 <li>CCP ใช้กับ CAN เท่านั้น ส่วน XCP รองรับ CAN, CAN-FD, Ethernet, FlexRay, …</li>
@@ -357,27 +357,27 @@
 </table>
 </section>
 <section id="ecu-data-recording" class="slide level2 smaller">
-<h2>9. ECU data recording</h2>
+<h2>7. ECU data recording</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="figs/06_ECU_DAQ.jpg" alt="CCP/XCP DAQ"><br>
+<p><img data-src="figs/07_ECU_DAQ.jpg" alt="CCP/XCP DAQ"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="approach">Approach</h4>
 <ul>
 <li>CCP/XCP polling</li>
-<li>CCP/XCP DAQ: ลำดับของ CRO/CRM เพื่อกำหนด address/length ในการทำ DAQ <img data-src="figs/06_CCP_DAQ.jpg" alt="CCP/XCP DAQ"><br>
+<li>CCP/XCP DAQ: ลำดับของ CRO/CRM เพื่อกำหนด address/length ในการทำ DAQ <img data-src="figs/07_CCP_DAQ.jpg" alt="CCP/XCP DAQ"><br>
 </li>
 </ul>
 </div></div>
-<p><img data-src="figs/06_CCP_polling.jpg" alt="CCP/XCP polling"><br>
+<p><img data-src="figs/07_CCP_polling.jpg" alt="CCP/XCP polling"><br>
 </p>
 </section>
 <section id="canable-device" class="slide level2 smaller">
-<h2>9. CANable device<sup>1</sup></h2>
+<h2>7. CANable device<sup>1</sup></h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p><img data-src="figs/08_CANable_device.jpg" alt="CANble device"><br>
+<p><img data-src="figs/07_CANable_device.jpg" alt="CANble device"><br>
 </p>
 <h4 id="specification">Specification</h4>
 <ul>
@@ -432,8 +432,8 @@
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://canable.io/">CANable</a></p></li><li id="fn2"><p><a href="https://github.com/normaldotcom/canable2-fw">CANable 2.0 Firmware</a></p></li></ol></aside></section>
 <section id="canable-firmware" class="slide level2 smaller">
-<h2>9. CANable firmware</h2>
-<p><img data-src="figs/08_SLCAN_arch.jpg" alt="SLCAN firmware"><br>
+<h2>7. CANable firmware</h2>
+<p><img data-src="figs/07_SLCAN_arch.jpg" alt="SLCAN firmware"><br>
 </p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -450,10 +450,10 @@
 </div></div>
 </section>
 <section id="candlelight-fd-device" class="slide level2 smaller">
-<h2>9. candleLight FD device</h2>
+<h2>7. candleLight FD device</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p><img data-src="figs/08_candleLight_device.jpg" alt="candleLight device"><br>
+<p><img data-src="figs/07_candleLight_device.jpg" alt="candleLight device"><br>
 </p>
 <h4 id="specification-1">Specification</h4>
 <ul>
@@ -493,8 +493,8 @@
 </div></div>
 </section>
 <section id="candlelight-firmware" class="slide level2 smaller">
-<h2>9. candleLight firmware<sup>1</sup></h2>
-<p><img data-src="figs/08_candleLight_arch.jpg" style="width:90.0%" alt="candleLight firmware"><br>
+<h2>7. candleLight firmware<sup>1</sup></h2>
+<p><img data-src="figs/07_candleLight_arch.jpg" style="width:90.0%" alt="candleLight firmware"><br>
 </p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -511,7 +511,7 @@
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://github.com/candle-usb/candleLight_fw">candleLight_gsusb</a></p></li></ol></aside></section>
 <section id="ring-buffer-implementation" class="slide level2 smaller">
-<h2>9. Ring buffer implementation</h2>
+<h2>7. Ring buffer implementation</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="การประกาศ-struct-สำหรบ-can-frame">การประกาศ struct สำหรับ CAN frame</h4>
@@ -561,12 +561,12 @@
 </div></div>
 </section>
 <section id="autosar-standard" class="slide level2 smaller">
-<h2>9. AUTOSAR standard</h2>
+<h2>7. AUTOSAR standard</h2>
 <p><a href="https://www.autosar.org/standards/adaptive-platform">Adaptive platform</a>: high-performance computing ECUs</p>
 <p><a href="https://www.autosar.org/standards/classic-platform">Classic platform</a>: embedded systems with hard real-time and safety constraints</p>
 <div class="columns">
 <div class="column" style="width:70%;">
-<p><img data-src="figs/08_AUTOSAR_layers.jpg" alt="AUTOSAR layer"><br>
+<p><img data-src="figs/07_AUTOSAR_layers.jpg" alt="AUTOSAR layer"><br>
 </p>
 </div><div class="column" style="width:30%;">
 <ul>
@@ -582,10 +582,10 @@
 </div></div>
 </section>
 <section id="can-with-autosar" class="slide level2 smaller">
-<h2>9. CAN with AUTOSAR</h2>
+<h2>7. CAN with AUTOSAR</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<p><img data-src="figs/08_AUTOSAR_arch.jpg" alt="AUTOSAR arch"><br>
+<p><img data-src="figs/07_AUTOSAR_arch.jpg" alt="AUTOSAR arch"><br>
 </p>
 </div><div class="column" style="width:45%;">
 <h4 id="api-layers">API layers</h4>
@@ -608,20 +608,20 @@
 </div></div>
 </section>
 <section id="autosar-can-rxtx-flow" class="slide level2 smaller scrollable">
-<h2>9. AUTOSAR CAN RX/TX flow</h2>
+<h2>7. AUTOSAR CAN RX/TX flow</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="tx-flow">TX flow</h4>
-<p><img data-src="figs/08_AUTOSAR_TxFlow.jpg" alt="AUTOSAR Tx Flow"><br>
+<p><img data-src="figs/07_AUTOSAR_TxFlow.jpg" alt="AUTOSAR Tx Flow"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="rx-flow">RX flow</h4>
-<p><img data-src="figs/08_AUTOSAR_RxFlow.jpg" alt="AUTOSAR Rx Flow"><br>
+<p><img data-src="figs/07_AUTOSAR_RxFlow.jpg" alt="AUTOSAR Rx Flow"><br>
 </p>
 </div></div>
 </section>
 <section id="autosar-firmware" class="slide level2 smaller">
-<h2>9. AUTOSAR firmware<sup>1</sup></h2>
+<h2>7. AUTOSAR firmware<sup>1</sup></h2>
 <ul>
 <li>AUTOSAR firmware พัฒนาบน FreeRTOS
 <ul>
@@ -678,47 +678,6 @@
 <li>หากเขียนโค้ด ring buffer แบบ copy ทั้ง header + frame จะมีผลกระทบอะไรบ้าง?</li>
 <li>การใช้ mailbox (candleLight firmware) แทนการส่งแบบ direct (SLCAN firmware) มีผลกระทบต่อ reliability/ throughput/ latency / firmware complexity อย่างไร</li>
 </ol>
-</section></section>
-<section>
-<section id="workshop-uds4ecu" class="title-slide slide level1 center">
-<h1>Workshop: UDS4ECU</h1>
-<ul>
-<li>UDS protocol: requirement, design, and implementation</li>
-</ul>
-</section>
-<section id="uds-protocol" class="slide level2 smaller">
-<h2>UDS protocol</h2>
-<p>Unified Diagnostic Services (UDS, ISO 14229) เป็นโปรโตคอลสำหรับการตรวจสอบ ECU</p>
-<p><img data-src="figs/11_UDS_layer.jpg" alt="UDS OSI layers"><br>
-</p>
-</section>
-<section id="uds-protocol-1" class="slide level2 smaller">
-<h2>UDS protocol</h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<h4 id="request-message">Request message</h4>
-<p><img data-src="figs/11_UDS_request_msg.jpg" alt="UDS req msg"><br>
-</p>
-</div><div class="column" style="width:30%;">
-<h4 id="frame">Frame</h4>
-<ul>
-<li>PCI:</li>
-<li>SID เช่น <code>0x22</code> (Read Data by Identifier)</li>
-<li>Data Identifier (DID): 2 ไบต์</li>
-</ul>
-</div></div>
-<h4 id="response-message-positive">Response message (positive)</h4>
-<ul>
-<li>มีโครงสร้างเดียวกับ request msg, SID + 0x40</li>
-</ul>
-<div class="columns">
-<div class="column" style="width:70%;">
-<h4 id="response-message-negative">Response message (negative)</h4>
-<p><img data-src="figs/11_UDS_neg_resp_msg.jpg" alt="UDS neg resp msg"><br>
-</p>
-</div><div class="column" style="width:30%;">
-
-</div></div>
 
 </section></section>
 
@@ -726,7 +685,7 @@
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="figs/TSE_logo.svg" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>คอร์สอบรมนี้ได้รับการสนับสนุนงบประมาณจาก สป.อว.</p>
+<p>คอร์สอบรมนี้ได้รับการสนับสนุนงบประมาณจาก สป.อว. ปี 2569</p>
 </div>
 </div></div>
 

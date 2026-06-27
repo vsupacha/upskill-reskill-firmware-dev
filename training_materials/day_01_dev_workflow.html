@@ -6,8 +6,8 @@
 <script src="day_01_dev_workflow_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="day_01_dev_workflow_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="day_01_dev_workflow_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="day_01_dev_workflow_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.36">
+<link href="day_01_dev_workflow_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-06-23">
@@ -196,7 +196,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="figs/00_upskill_reskill_logo.jpg" data-background-opacity="0.1" data-background-size="contain" class="quarto-title-block center">
+<section id="title-slide" data-background-image="figs/00_upskill_reskill_logo.jpg" data-background-opacity="0.2" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">UpSKILL / ReSKILL</h1>
   <p class="subtitle">การพัฒนาเฟิร์มแวร์สำหรับระบบสื่อสาร CAN bus ในยานยนต์</p>
 
@@ -250,6 +250,28 @@
 </p>
 </div></div>
 </section>
+<section id="c-quick-tutorial" class="slide level2 smaller">
+<h2>C quick tutorial</h2>
+<p><strong>เรียนรู้ประเด็นภาษา C:</strong> เครื่องมือออนไลน์ <a href="https://www.onlinegdb.com/">OnlineGDB</a></p>
+<ol type="1">
+<li>การใช้ integer ระบุ signed/unsigned และจำนวนบิตผ่าน <code>#include &lt;stdint.h&gt;</code>
+<ul>
+<li>ประกาศตัวแปร <code>uint8_t u8</code> และ <code>int8_t s8</code></li>
+<li>ขอบเขต <code>u8 += 300;</code></li>
+<li>การเปรียบเทียบ <code>if (u8 &lt; -1)</code></li>
+</ul></li>
+<li>การคำนวณและเปรียบเทียบ <code>float</code>
+<ul>
+<li>การแปลงค่า <code>float pi = 22/7;</code></li>
+<li>การเปรียบเทียบ <code>if (f32 * 3.0 == 1.0)</code></li>
+</ul></li>
+<li>การใช้ <strong>pointer</strong>
+<ul>
+<li>การใช้ argument แบบ pass-by-value และ pass-by-reference</li>
+<li>การอัพเดทตำแหน่ง <code>*(pvar + 1) = 10</code></li>
+</ul></li>
+</ol>
+</section>
 <section>
 <section id="hardware" class="title-slide slide level1 center">
 <h1>01 Hardware</h1>
@@ -269,7 +291,7 @@
 <section id="stm32c5-mcu-family" class="slide level2 smaller">
 <h2>1. STM32C5 MCU family</h2>
 <ul>
-<li>ARM Cortex-M33 + FPU + DSP (ไม่มี TrustZone) ที่ 144 MHz สำหรับงานทั่วไป เน้นราคาถูก <img data-src="figs/01_STM32C5_family.jpg" style="width:75.0%" alt="ตระกูล STM32C5"><br>
+<li>ARM Cortex-M33 + FPU + DSP (<strong>ไม่มี TrustZone</strong>) ที่ 144 MHz สำหรับงานทั่วไป เน้นราคาถูก <img data-src="figs/01_STM32C5_family.jpg" style="width:75.0%" alt="ตระกูล STM32C5"><br>
 </li>
 </ul>
 </section>
@@ -278,7 +300,11 @@
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>ไมโครคอนโทรลเลอร์ STM32C562RET6: LQFP 64</li>
+<li>ไมโครคอนโทรลเลอร์ STM32C562RET6: LQFP 64
+<ul>
+<li>พอร์ท USB</li>
+<li>พอร์ท CAN (+CAN transceiver)</li>
+</ul></li>
 <li>หัวต่อ Arduino UNO + Morpho (CN7, CN10)
 <ul>
 <li>CN9: D0-D7 pins</li>
@@ -427,11 +453,6 @@
 <li>Development tools</li>
 </ul>
 </section>
-<section id="software-development-life-cycle" class="slide level2 smaller">
-<h2>2. Software Development Life Cycle</h2>
-<p><strong>Artifacts</strong>: concept → requirement → architecture → detailed design → code → test report <img data-src="figs/02_V_model.jpg" style="width:80.0%" alt="V-model"><br>
-</p>
-</section>
 <section id="firmware-development" class="slide level2 smaller">
 <h2>2. Firmware development</h2>
 <div class="columns">
@@ -508,6 +529,51 @@
 </li>
 </ul>
 </section>
+<section id="practice-stm32cubemx2" class="slide level2 smaller">
+<h2>2. Practice: STM32CubeMX2</h2>
+<ol type="1">
+<li>สร้าง project สำหรับบอร์ด NUCLEO-C562RE ด้วย STM32CubeMX2
+<ul>
+<li>configure ขา PA5 เป็น OUTPUT</li>
+<li>สร้าง project แบบ CMake - GCC</li>
+</ul></li>
+<li>นำเข้า project ด้วย STM32CubeIDE extension ใน VS Code
+<ul>
+<li>เลือก Setup STM32CubeIDE project เป็น GCC</li>
+</ul></li>
+</ol>
+<h4 id="วธสงการ-ui-ของ-cubemx2">วิธีสั่งการ UI ของ CubeMX2</h4>
+<table class="caption-top">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">สิ่งที่จะทำ</th>
+<th style="text-align: left;">shortcuts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">เลื่อนจุดมองไปทั่วๆ</td>
+<td style="text-align: left;">กดปุ่ม scroll ของเมาส์ค้างแล้วเลื่อนเมาส์<br>กดปุ่ม SPACE + คลิกปุ่มซ้ายค้างแล้วเลื่อนเมาส์</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zoom เข้า/ออกที่จุดต่างๆ</td>
+<td style="text-align: left;">กดปุ่ม CTRL ค้างแล้ว scroll ขึ้น (ขยาย) / ลง (ย่อ)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ย้ายมุมมองกลับจุดเริ่มต้น</td>
+<td style="text-align: left;">กดปุ่ม HOME</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">เปิดเมนูตั้งค่า</td>
+<td style="text-align: left;">คลิกเลือกด้วยปุ่มขวา</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="stm32cubemx2-configuration" class="slide level2 smaller">
 <h2>2. STM32CubeMX2 configuration</h2>
 <div class="columns">
@@ -552,20 +618,6 @@
 </p>
 </div></div>
 </section>
-<section id="practice-stm32cubemx2" class="slide level2">
-<h2>2. Practice: STM32CubeMX2</h2>
-<ol type="1">
-<li>สร้าง project สำหรับบอร์ด NUCLEO-C562RE ด้วย STM32CubeMX2
-<ul>
-<li>configure ขา PA5 เป็น OUTPUT</li>
-<li>สร้าง project แบบ CMake - GCC</li>
-</ul></li>
-<li>นำเข้า project ด้วย STM32CubeIDE extension ใน VS Code
-<ul>
-<li>เลือก Setup STM32CubeIDE project เป็น GCC</li>
-</ul></li>
-</ol>
-</section>
 <section id="stm32cubemx-cmake-project" class="slide level2 smaller">
 <h2>2. STM32CubeMX<sup>1</sup> → CMake project<sup>2</sup></h2>
 <div class="columns">
@@ -597,15 +649,14 @@
 <section id="practice-led-blink" class="slide level2 smaller scrollable">
 <h2>2. Practice: LED blink</h2>
 <ol type="1">
-<li>เขียนโค้ด build และ run
-<ul>
-<li><p>เพิ่มโค้ดใน loop ของ main.c</p>
+<li>เพิ่มโค้ดใน loop ของ main.c</li>
+</ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span>
-<span id="cb1-2"><a href=""></a>HAL_Delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>จาก Run and Debug เลือก STM32 Launch STLink GDB Server</p></li>
-<li><p>หลังจาก GDB เชื่อมต่อ กดปุ่ม Continue <img data-src="figs/02_project_RUN.jpg" alt="การ run เฟิร์มแวร์"><br>
-</p></li>
-</ul></li>
+<span id="cb1-2"><a href=""></a>HAL_Delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>จาก Run and Debug เลือก STM32 Launch STLink GDB Server</li>
+<li>หลังจาก GDB เชื่อมต่อ กดปุ่ม Continue <img data-src="figs/02_project_RUN.jpg" alt="การ run เฟิร์มแวร์"><br>
+</li>
 </ol>
 </section>
 <section id="stm32cubeide-for-vs-code-2" class="slide level2 smaller">
@@ -700,6 +751,24 @@
 </li>
 </ul>
 </section>
+<section id="build-process-configuration" class="slide level2 smaller">
+<h2>2. Build process configuration</h2>
+<p>การกำหนดเงือนไขในกระบวนการ build เฟิร์มแวร์ → แก้ไขไฟล์ CMakeLists.txt</p>
+<ul>
+<li>การเพิ่มไฟล์โค้ด (*.c) เช่น <code>my_logic.c</code></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cmake number-lines code-with-copy"><code class="sourceCode cmake"><span id="cb5-1"><a href=""></a><span class="kw">target_sources</span>(<span class="dv">${CMAKE_PROJECT_NAME}</span> <span class="bn">PRIVATE</span></span>
+<span id="cb5-2"><a href=""></a>  <span class="co"># Add additional source files here</span></span>
+<span id="cb5-3"><a href=""></a>  my_logic.c</span>
+<span id="cb5-4"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>เพิ่มเงื่อนไขในการลิงค์ เช่น อนุญาตให้พิมพ์เลขทศนิยมม</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cmake number-lines code-with-copy"><code class="sourceCode cmake"><span id="cb6-1"><a href=""></a><span class="kw">target_link_options</span>(<span class="dv">${CMAKE_PROJECT_NAME}</span> <span class="bn">PUBLIC</span></span>
+<span id="cb6-2"><a href=""></a>  <span class="co"># Add additional linker flags here</span></span>
+<span id="cb6-3"><a href=""></a>  -u <span class="va">_printf_float</span></span>
+<span id="cb6-4"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="practice-hello-world" class="slide level2 smaller">
 <h2>2. Practice: Hello, world</h2>
 <ol type="1">
@@ -708,7 +777,8 @@
 <li><p>จากขา PA2/PA3 หรือ Connectivity เปิดใช้งาน USART2 โหมด Async</p></li>
 <li><p>ตั้งค่า 115200, 8, n, 1</p></li>
 <li><p>เพิ่มโค้ดใน loop ของ main.c<sup>1</sup></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> <span class="st">"Hello</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href=""></a><span class="dt">char</span> buf<span class="op">[</span><span class="dv">7</span><span class="op">]</span> <span class="op">=</span> <span class="st">"Hello</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb7-2"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ul></li>
 <li>เลือก Run and Debug แล้วกดปุ่ม Continue</li>
 <li>ติดตั้ง <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-serial-monitor">Serial Monitor</a> extension
@@ -797,8 +867,34 @@
 </p>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn5"><p>GNU Project debugger</p></li></ol></aside></section>
+<section id="debug-session-in-vs-code" class="slide level2 smaller">
+<h2>Debug session in VS Code</h2>
+<p><a href="https://dev.st.com/stm32cube-docs/stm32cubeide-vscode/latest/en/docs/markup/development/debug.html">STM32CubeIDE - Debug Session</a> ทำงานหลังจากหยุด (หลังรีเซ็ต/breakpoint)</p>
+<ul>
+<li>แสดงข้อมูลของหน่วยประมวลผล: (1) Local/Global Variables (2) CPU Registers (3) Watch (4) Peripheral View (5) Memory View</li>
+</ul>
+<p><img data-src="figs/04_stlink_gdb.jpg" alt="ST-Link GDB Viewpoint"><br>
+</p>
+</section>
 <section id="practice-breakpoint---watch---step" class="slide level2 smaller">
 <h2>2. Practice: breakpoint - watch - step</h2>
+<ol type="1">
+<li>เลือก Run and Debug</li>
+<li>คลิกที่ด้านซ้ายของโค้ดบรรทัดที่จะหยุด</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href=""></a><span class="dt">char</span> buf<span class="op">[</span><span class="dv">7</span><span class="op">]</span> <span class="op">=</span> <span class="st">"Hello</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb8-2"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span> <span class="co">// ตั้ง breakpoint บรรทัดนี้</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>กดปุ่ม Continue
+<ul>
+<li>หากหยุด = ทำงานตาม flow ที่คิด</li>
+<li>หากไม่หยุด = โค้ดไม่อยู่ใน flow</li>
+</ul></li>
+<li>ตรวจสอบสถานะตัวแปร <code>buf[]</code> ในแถบแสดงข้อมูล</li>
+<li>ทดลองปรับแก้ข้อมูลใน <code>buf[]</code> เป็น <code>"hello"</code></li>
+<li>กดปุ่ม <strong>Step over</strong> เพื่อประมวลผลทีละบรรทัด</li>
+<li>ทดลองเพิ่ม Watch expression โดยพิมพ์ <code>buf[0]</code></li>
+</ol>
 </section>
 <section id="qa" class="slide level2">
 <h2>Q&amp;A</h2>
@@ -833,29 +929,29 @@
 <ul>
 <li>โค้ด <code>u8++;</code><sup>2</sup></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb6-1"><a href=""></a>ldrb    r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">7</span><span class="op">]</span></span>
-<span id="cb6-2"><a href=""></a>uxtb    r3<span class="op">,</span> r3              <span class="co">; extract 8-bits</span></span>
-<span id="cb6-3"><a href=""></a>adds    r3<span class="op">,</span> <span class="op">#</span><span class="dv">1</span></span>
-<span id="cb6-4"><a href=""></a>uxtb    r3<span class="op">,</span> r3              <span class="co">; extract 8-bits</span></span>
-<span id="cb6-5"><a href=""></a>strb    r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">7</span><span class="op">]</span>        <span class="co">; store 1 byte</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb9-1"><a href=""></a>ldrb    r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">7</span><span class="op">]</span></span>
+<span id="cb9-2"><a href=""></a>uxtb    r3<span class="op">,</span> r3              <span class="co">; extract 8-bits</span></span>
+<span id="cb9-3"><a href=""></a>adds    r3<span class="op">,</span> <span class="op">#</span><span class="dv">1</span></span>
+<span id="cb9-4"><a href=""></a>uxtb    r3<span class="op">,</span> r3              <span class="co">; extract 8-bits</span></span>
+<span id="cb9-5"><a href=""></a>strb    r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">7</span><span class="op">]</span>        <span class="co">; store 1 byte</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>โค้ด <code>u32 = f32a / f32b</code></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb7-1"><a href=""></a>vldr    s13<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">12</span><span class="op">]</span>      <span class="co">; load into FPU</span></span>
-<span id="cb7-2"><a href=""></a>vldr    s14<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">8</span><span class="op">]</span>       </span>
-<span id="cb7-3"><a href=""></a>vdiv<span class="op">.</span>f32    s15<span class="op">,</span> s13<span class="op">,</span> s14   <span class="co">; float division</span></span>
-<span id="cb7-4"><a href=""></a>vcvt<span class="op">.</span>u32<span class="op">.</span>f32    s15<span class="op">,</span> s15</span>
-<span id="cb7-5"><a href=""></a>vmov    r3<span class="op">,</span> s15</span>
-<span id="cb7-6"><a href=""></a><span class="bu">str</span> r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">4</span><span class="op">]</span>            <span class="co">; store in memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb10-1"><a href=""></a>vldr    s13<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">12</span><span class="op">]</span>      <span class="co">; load into FPU</span></span>
+<span id="cb10-2"><a href=""></a>vldr    s14<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">8</span><span class="op">]</span>       </span>
+<span id="cb10-3"><a href=""></a>vdiv<span class="op">.</span>f32    s15<span class="op">,</span> s13<span class="op">,</span> s14   <span class="co">; float division</span></span>
+<span id="cb10-4"><a href=""></a>vcvt<span class="op">.</span>u32<span class="op">.</span>f32    s15<span class="op">,</span> s15</span>
+<span id="cb10-5"><a href=""></a>vmov    r3<span class="op">,</span> s15</span>
+<span id="cb10-6"><a href=""></a><span class="bu">str</span> r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">4</span><span class="op">]</span>            <span class="co">; store in memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>โค้ด <code>f32 = u32a / u32b</code></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb8-1"><a href=""></a>ldr r2<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">12</span><span class="op">]</span></span>
-<span id="cb8-2"><a href=""></a>ldr r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">8</span><span class="op">]</span></span>
-<span id="cb8-3"><a href=""></a>udiv    r3<span class="op">,</span> r2<span class="op">,</span> r3          <span class="co">; integer division</span></span>
-<span id="cb8-4"><a href=""></a>vmov    s15<span class="op">,</span> r3             <span class="co">; load into FPU</span></span>
-<span id="cb8-5"><a href=""></a>vcvt<span class="op">.</span>f32<span class="op">.</span>u32    s15<span class="op">,</span> s15    <span class="co">; float assignment</span></span>
-<span id="cb8-6"><a href=""></a>vstr    s15<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">4</span><span class="op">]</span>       <span class="co">; store in memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource asm number-lines code-with-copy"><code class="sourceCode fasm"><span id="cb11-1"><a href=""></a>ldr r2<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">12</span><span class="op">]</span></span>
+<span id="cb11-2"><a href=""></a>ldr r3<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">8</span><span class="op">]</span></span>
+<span id="cb11-3"><a href=""></a>udiv    r3<span class="op">,</span> r2<span class="op">,</span> r3          <span class="co">; integer division</span></span>
+<span id="cb11-4"><a href=""></a>vmov    s15<span class="op">,</span> r3             <span class="co">; load into FPU</span></span>
+<span id="cb11-5"><a href=""></a>vcvt<span class="op">.</span>f32<span class="op">.</span>u32    s15<span class="op">,</span> s15    <span class="co">; float assignment</span></span>
+<span id="cb11-6"><a href=""></a>vstr    s15<span class="op">,</span> <span class="op">[</span>r7<span class="op">,</span> <span class="op">#</span><span class="dv">4</span><span class="op">]</span>       <span class="co">; store in memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn6"><p>ใช้คำสั่ง &gt;disassemble /m ใน GDB prompt</p></li><li id="fn7"><p>ใช้ <code>volatile</code> ไม่ให้ optimize</p></li></ol></aside></section>
 <section id="memory-map" class="slide level2 smaller">
@@ -886,10 +982,10 @@ SECTIONS {
 <ul>
 <li>นิยามใน stm32c562xx.h</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href=""></a><span class="pp">#define FLASH_BASE  </span><span class="op">(</span><span class="bn">0x08000000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb10-2"><a href=""></a><span class="pp">#define SRAM1_BASE  </span><span class="op">(</span><span class="bn">0x20000000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb10-3"><a href=""></a><span class="pp">#define SRAM2_BASE  </span><span class="op">(</span><span class="bn">0x20010000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb10-4"><a href=""></a><span class="pp">#define PERIPH_BASE </span><span class="op">(</span><span class="bn">0x40000000</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href=""></a><span class="pp">#define FLASH_BASE  </span><span class="op">(</span><span class="bn">0x08000000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb13-2"><a href=""></a><span class="pp">#define SRAM1_BASE  </span><span class="op">(</span><span class="bn">0x20000000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb13-3"><a href=""></a><span class="pp">#define SRAM2_BASE  </span><span class="op">(</span><span class="bn">0x20010000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb13-4"><a href=""></a><span class="pp">#define PERIPH_BASE </span><span class="op">(</span><span class="bn">0x40000000</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="memory-mapped-io" class="slide level2 smaller">
@@ -903,24 +999,24 @@ SECTIONS {
 <ul>
 <li>บัส</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href=""></a><span class="pp">#define PERIPH_BASE     </span><span class="op">(</span><span class="bn">0x40000000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb11-2"><a href=""></a><span class="pp">#define APB1PERIPH_BASE PERIPH_BASE</span></span>
-<span id="cb11-3"><a href=""></a><span class="pp">#define APB2PERIPH_BASE </span><span class="op">(</span><span class="pp">PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00010000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb11-4"><a href=""></a><span class="pp">#define AHB2PERIPH_BASE </span><span class="op">(</span><span class="pp">PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x02020000</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb14-1"><a href=""></a><span class="pp">#define PERIPH_BASE     </span><span class="op">(</span><span class="bn">0x40000000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb14-2"><a href=""></a><span class="pp">#define APB1PERIPH_BASE PERIPH_BASE</span></span>
+<span id="cb14-3"><a href=""></a><span class="pp">#define APB2PERIPH_BASE </span><span class="op">(</span><span class="pp">PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00010000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb14-4"><a href=""></a><span class="pp">#define AHB2PERIPH_BASE </span><span class="op">(</span><span class="pp">PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x02020000</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>GPIO</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href=""></a><span class="pp">#define GPIOA_BASE      </span><span class="op">(</span><span class="pp">AHB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb12-2"><a href=""></a><span class="pp">#define GPIOB_BASE      </span><span class="op">(</span><span class="pp">AHB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00400</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb15-1"><a href=""></a><span class="pp">#define GPIOA_BASE      </span><span class="op">(</span><span class="pp">AHB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb15-2"><a href=""></a><span class="pp">#define GPIOB_BASE      </span><span class="op">(</span><span class="pp">AHB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00400</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>เพอริเฟอรัล</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href=""></a><span class="pp">#define TIM2_BASE       </span><span class="op">(</span><span class="pp">APB1PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x0000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb13-2"><a href=""></a><span class="pp">#define TIM1_BASE       </span><span class="op">(</span><span class="pp">APB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x2C00</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb16-1"><a href=""></a><span class="pp">#define TIM2_BASE       </span><span class="op">(</span><span class="pp">APB1PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x0000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb16-2"><a href=""></a><span class="pp">#define TIM1_BASE       </span><span class="op">(</span><span class="pp">APB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x2C00</span><span class="bu">UL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การประกาศโครงสร้าง</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb14-1"><a href=""></a><span class="pp">#define GPIOA           </span><span class="op">((</span><span class="pp">GPIO_TypeDef </span><span class="op">*)</span><span class="pp"> GPIOA_BASE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb17-1"><a href=""></a><span class="pp">#define GPIOA           </span><span class="op">((</span><span class="pp">GPIO_TypeDef </span><span class="op">*)</span><span class="pp"> GPIOA_BASE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="special-function-register" class="slide level2 smaller scrollable">
@@ -928,37 +1024,34 @@ SECTIONS {
 <ul>
 <li>การประกาศโครงสร้าง</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb15-1"><a href=""></a><span class="pp">#define GPIOA           </span><span class="op">((</span><span class="pp">GPIO_TypeDef </span><span class="op">*)</span><span class="pp"> GPIOA_BASE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb18-1"><a href=""></a><span class="pp">#define GPIOA           </span><span class="op">((</span><span class="pp">GPIO_TypeDef </span><span class="op">*)</span><span class="pp"> GPIOA_BASE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การอ้างอิงกลุ่มรีจิสเตอร์</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb16-1"><a href=""></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
-<span id="cb16-2"><a href=""></a>  __IOM <span class="dt">uint32_t</span> MODER<span class="op">;</span>     <span class="co">// GPIO port mode register, offset: 0x00</span></span>
-<span id="cb16-3"><a href=""></a>  __IOM <span class="dt">uint32_t</span> OTYPER<span class="op">;</span>    <span class="co">// GPIO port output type register, offset: 0x04</span></span>
-<span id="cb16-4"><a href=""></a>  __IOM <span class="dt">uint32_t</span> OSPEEDR<span class="op">;</span>   <span class="co">// GPIO port output speed register, offset: 0x08</span></span>
-<span id="cb16-5"><a href=""></a>  __IOM <span class="dt">uint32_t</span> PUPDR<span class="op">;</span>     <span class="co">// GPIO port pull-up/pull-down register, offset: 0x0C</span></span>
-<span id="cb16-6"><a href=""></a>  __IM  <span class="dt">uint32_t</span> IDR<span class="op">;</span>       <span class="co">// GPIO port input data register, offset: 0x10</span></span>
-<span id="cb16-7"><a href=""></a>  __IOM <span class="dt">uint32_t</span> ODR<span class="op">;</span>       <span class="co">// GPIO port output data register, offset: 0x14</span></span>
-<span id="cb16-8"><a href=""></a>  __OM  <span class="dt">uint32_t</span> BSRR<span class="op">;</span>      <span class="co">// GPIO port bit set/reset  register, offset: 0x18</span></span>
-<span id="cb16-9"><a href=""></a>  __IOM <span class="dt">uint32_t</span> LCKR<span class="op">;</span>      <span class="co">// GPIO port configuration lock register, offset: 0x1C</span></span>
-<span id="cb16-10"><a href=""></a>  __IOM <span class="dt">uint32_t</span> AFR<span class="op">[</span><span class="dv">2</span><span class="op">];</span>    <span class="co">// GPIO alternate function registers, offset: 0x20-0x24</span></span>
-<span id="cb16-11"><a href=""></a>  __OM  <span class="dt">uint32_t</span> BRR<span class="op">;</span>       <span class="co">// GPIO port bit Reset register, offset: 0x28</span></span>
-<span id="cb16-12"><a href=""></a><span class="op">}</span> GPIO_TypeDef<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb19-1"><a href=""></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb19-2"><a href=""></a>  __IOM <span class="dt">uint32_t</span> MODER<span class="op">;</span>     <span class="co">// GPIO port mode register, offset: 0x00</span></span>
+<span id="cb19-3"><a href=""></a>  __IOM <span class="dt">uint32_t</span> OTYPER<span class="op">;</span>    <span class="co">// GPIO port output type register, offset: 0x04</span></span>
+<span id="cb19-4"><a href=""></a>  __IOM <span class="dt">uint32_t</span> OSPEEDR<span class="op">;</span>   <span class="co">// GPIO port output speed register, offset: 0x08</span></span>
+<span id="cb19-5"><a href=""></a>  __IOM <span class="dt">uint32_t</span> PUPDR<span class="op">;</span>     <span class="co">// GPIO port pull-up/pull-down register, offset: 0x0C</span></span>
+<span id="cb19-6"><a href=""></a>  __IM  <span class="dt">uint32_t</span> IDR<span class="op">;</span>       <span class="co">// GPIO port input data register, offset: 0x10</span></span>
+<span id="cb19-7"><a href=""></a>  __IOM <span class="dt">uint32_t</span> ODR<span class="op">;</span>       <span class="co">// GPIO port output data register, offset: 0x14</span></span>
+<span id="cb19-8"><a href=""></a>  __OM  <span class="dt">uint32_t</span> BSRR<span class="op">;</span>      <span class="co">// GPIO port bit set/reset  register, offset: 0x18</span></span>
+<span id="cb19-9"><a href=""></a>  __IOM <span class="dt">uint32_t</span> LCKR<span class="op">;</span>      <span class="co">// GPIO port configuration lock register, offset: 0x1C</span></span>
+<span id="cb19-10"><a href=""></a>  __IOM <span class="dt">uint32_t</span> AFR<span class="op">[</span><span class="dv">2</span><span class="op">];</span>    <span class="co">// GPIO alternate function registers, offset: 0x20-0x24</span></span>
+<span id="cb19-11"><a href=""></a>  __OM  <span class="dt">uint32_t</span> BRR<span class="op">;</span>       <span class="co">// GPIO port bit Reset register, offset: 0x28</span></span>
+<span id="cb19-12"><a href=""></a><span class="op">}</span> GPIO_TypeDef<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
 <li>การเข้าถึง SFR ผ่าน pointer</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb17-1"><a href=""></a><span class="pp">#define GPIOA_BASE  </span><span class="op">(</span><span class="pp">AHB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00000</span><span class="bu">UL</span><span class="op">)</span></span>
-<span id="cb17-2"><a href=""></a><span class="pp">#define GPIOA       </span><span class="op">((</span><span class="pp">GPIO_TypeDef </span><span class="op">*)</span><span class="pp"> GPIOA_BASE</span><span class="op">)</span></span>
-<span id="cb17-3"><a href=""></a>GPIOA<span class="op">-&gt;</span>ODR <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// หน่วยความจำตำแหน่ง 0x42020014 เป็น 0 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb20-1"><a href=""></a><span class="pp">#define GPIOA_BASE  </span><span class="op">(</span><span class="pp">AHB2PERIPH_BASE </span><span class="op">+</span><span class="pp"> </span><span class="bn">0x00000</span><span class="bu">UL</span><span class="op">)</span></span>
+<span id="cb20-2"><a href=""></a><span class="pp">#define GPIOA       </span><span class="op">((</span><span class="pp">GPIO_TypeDef </span><span class="op">*)</span><span class="pp"> GPIOA_BASE</span><span class="op">)</span></span>
+<span id="cb20-3"><a href=""></a>GPIOA<span class="op">-&gt;</span>ODR <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// หน่วยความจำตำแหน่ง 0x42020014 เป็น 0 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="figs/03_GPIO_ODR.jpg" alt="GPIO ODR"><br>
 </p>
 </div></div>
-</section>
-<section id="practice-hardware-access-with-gdb" class="slide level2">
-<h2>3. Practice: hardware access with GDB</h2>
 </section>
 <section id="stm32-gpio-configuration" class="slide level2 smaller">
 <h2>3. STM32 GPIO configuration</h2>
@@ -1044,29 +1137,29 @@ SECTIONS {
 </div>
 </section>
 <section id="practice-bare-metal-coding" class="slide level2 smaller scrollable">
-<h2>3. Practice: bare-metal coding</h2>
+<h2>3. Practice: bare-metal coding<sup>1</sup></h2>
 <ol type="1">
-<li>ตั้งค่า RCC เพื่อเปิดใช้งานพอร์ท A และ C</li>
+<li>ตั้งค่า RCC<sup>2</sup> เพื่อเปิดใช้งานพอร์ท A และ C</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb18-1"><a href=""></a>RCC<span class="op">-&gt;</span>AHB2ENR <span class="op">|=</span> <span class="op">((</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">2</span><span class="op">));</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb21-1"><a href=""></a>RCC<span class="op">-&gt;</span>AHB2ENR <span class="op">|=</span> <span class="op">((</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">2</span><span class="op">));</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="2" type="1">
-<li>ตั้งค่า GPIOA เพื่อกำหนดขา PA5 เป็น OUTPUT</li>
+<li>ตั้งค่า GPIOA<sup>3</sup> เพื่อกำหนดขา PA5 เป็น OUTPUT</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb19-1"><a href=""></a>GPIOA<span class="op">-&gt;</span>MODER <span class="op">&amp;=</span> <span class="op">~(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">5</span><span class="op">*</span><span class="dv">2</span><span class="op">)+</span><span class="dv">1</span><span class="op">);</span> </span>
-<span id="cb19-2"><a href=""></a>GPIOA<span class="op">-&gt;</span>MODER <span class="op">|=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">5</span><span class="op">*</span><span class="dv">2</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb22-1"><a href=""></a>GPIOA<span class="op">-&gt;</span>MODER <span class="op">&amp;=</span> <span class="op">~(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">5</span><span class="op">*</span><span class="dv">2</span><span class="op">)+</span><span class="dv">1</span><span class="op">);</span> </span>
+<span id="cb22-2"><a href=""></a>GPIOA<span class="op">-&gt;</span>MODER <span class="op">|=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">5</span><span class="op">*</span><span class="dv">2</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
 <li>ตั้งค่า GPIOC เพื่อกำหนดขา PC13 เป็น INPUT</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb20-1"><a href=""></a>GPIOC<span class="op">-&gt;</span>MODER <span class="op">&amp;=</span> <span class="op">~((</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">13</span><span class="op">*</span><span class="dv">2</span><span class="op">)+</span><span class="dv">1</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">13</span><span class="op">*</span><span class="dv">2</span><span class="op">)));</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb23-1"><a href=""></a>GPIOC<span class="op">-&gt;</span>MODER <span class="op">&amp;=</span> <span class="op">~((</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">13</span><span class="op">*</span><span class="dv">2</span><span class="op">)+</span><span class="dv">1</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">13</span><span class="op">*</span><span class="dv">2</span><span class="op">)));</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="4" type="1">
-<li>ทดสอบขา PC13 เพื่อควบคุมขา PA5</li>
+<li>ทดสอบขา PC13<sup>4</sup> เพื่อควบคุมขา PA5<sup>5</sup></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb21-1"><a href=""></a><span class="cf">if</span> <span class="op">(</span>GPIOC<span class="op">-&gt;</span>IDR <span class="op">&amp;</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">13</span><span class="op">))</span> <span class="op">{</span></span>
-<span id="cb21-2"><a href=""></a>    GPIOA<span class="op">-&gt;</span>ODR <span class="op">|=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">5</span><span class="op">);</span></span>
-<span id="cb21-3"><a href=""></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb21-4"><a href=""></a>    GPIOA<span class="op">-&gt;</span>ODR <span class="op">&amp;=</span> <span class="op">~(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">5</span><span class="op">);</span></span>
-<span id="cb21-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb24-1"><a href=""></a><span class="cf">if</span> <span class="op">(</span>GPIOC<span class="op">-&gt;</span>IDR <span class="op">&amp;</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">13</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb24-2"><a href=""></a>    GPIOA<span class="op">-&gt;</span>ODR <span class="op">|=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">5</span><span class="op">);</span></span>
+<span id="cb24-3"><a href=""></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb24-4"><a href=""></a>    GPIOA<span class="op">-&gt;</span>ODR <span class="op">&amp;=</span> <span class="op">~(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">5</span><span class="op">);</span></span>
+<span id="cb24-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside><ol class="aside-footnotes"><li id="fn8"><p>เอกสาร RM0522 Reference manual STM32C5 Arm-based 32-bit MCUs</p></li><li id="fn9"><p>บทที่ 9 หัวข้อ 9.8.16 RCC AHB2 peripheral clock register (RCC_AHB2ENR)</p></li><li id="fn10"><p>บทที่ 11 หัวข้อ 11.4.1 GPIO port mode register (GPIOx_MODER) (x = A to H)</p></li><li id="fn11"><p>บทที่ 11 หัวข้อ 11.4.5 GPIO port input data register (GPIOx_IDR) (x = A to H)</p></li><li id="fn12"><p>บทที่ 11 หัวข้อ 11.4.6 GPIO port output data register (GPIOx_ODR) (x = A to H)</p></li></ol></aside></section>
 <section id="stm32-usart" class="slide level2 smaller">
 <h2>3. STM32 USART</h2>
 <ul>
@@ -1086,84 +1179,77 @@ SECTIONS {
 <ul>
 <li>การเปิดใช้งานขาสัญญาณ</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb22-1"><a href=""></a>__HAL_RCC_GPIOA_CLK_ENABLE<span class="op">();</span></span>
-<span id="cb22-2"><a href=""></a>GPIO_InitTypeDef GPIO_InitStruct<span class="op">;</span></span>
-<span id="cb22-3"><a href=""></a>HAL_GPIO_Init<span class="op">(</span>GPIOA<span class="op">,</span> <span class="op">&amp;</span>GPIO_InitStruct<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb25-1"><a href=""></a>__HAL_RCC_GPIOA_CLK_ENABLE<span class="op">();</span></span>
+<span id="cb25-2"><a href=""></a>GPIO_InitTypeDef GPIO_InitStruct<span class="op">;</span></span>
+<span id="cb25-3"><a href=""></a>HAL_GPIO_Init<span class="op">(</span>GPIOA<span class="op">,</span> <span class="op">&amp;</span>GPIO_InitStruct<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การตั้งค่าเพอริเฟอรัล</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb23-1"><a href=""></a>USART_HandleTypeDef husart2<span class="op">;</span></span>
-<span id="cb23-2"><a href=""></a>HAL_UART_Init<span class="op">(&amp;</span>huart2<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb26-1"><a href=""></a>USART_HandleTypeDef husart2<span class="op">;</span></span>
+<span id="cb26-2"><a href=""></a>HAL_UART_Init<span class="op">(&amp;</span>huart2<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การใช้งานเพอริเฟอรัล</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb24-1"><a href=""></a>HAL_USART_Transmit<span class="op">(&amp;</span>husart2<span class="op">,</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb27-1"><a href=""></a>HAL_USART_Transmit<span class="op">(&amp;</span>husart2<span class="op">,</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การเตรียม callback สำหรับ IRQ</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb25-1"><a href=""></a>HAL_USART_Transmit_IT<span class="op">(&amp;</span>husart2<span class="op">,</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
-<span id="cb25-2"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>UART_HandleTypeDef <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span> <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb28-1"><a href=""></a>HAL_USART_Transmit_IT<span class="op">(&amp;</span>husart2<span class="op">,</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb28-2"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>UART_HandleTypeDef <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span> <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <h4 id="hal2-api">HAL2 API</h4>
 <ul>
 <li>การเปิดใช้งานขาสัญญาณ</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb26-1"><a href=""></a>HAL_RCC_GPIOA_EnableClock<span class="op">();</span></span>
-<span id="cb26-2"><a href=""></a>hal_gpio_config_t gpio_config<span class="op">;</span></span>
-<span id="cb26-3"><a href=""></a>HAL_GPIO_Init<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">,</span> <span class="op">&amp;</span>gpio_config<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb29-1"><a href=""></a>HAL_RCC_GPIOA_EnableClock<span class="op">();</span></span>
+<span id="cb29-2"><a href=""></a>hal_gpio_config_t gpio_config<span class="op">;</span></span>
+<span id="cb29-3"><a href=""></a>HAL_GPIO_Init<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">,</span> <span class="op">&amp;</span>gpio_config<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การตั้งค่าเพอริเฟอรัล</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb27-1"><a href=""></a>hal_uart_handle_t hUSART2<span class="op">;</span></span>
-<span id="cb27-2"><a href=""></a>hal_uart_config_t uart_config<span class="op">;</span></span>
-<span id="cb27-3"><a href=""></a>HAL_UART_SetConfig<span class="op">(&amp;</span>hUSART2<span class="op">,</span> <span class="op">&amp;</span>uart_config<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb30-1"><a href=""></a>hal_uart_handle_t hUSART2<span class="op">;</span></span>
+<span id="cb30-2"><a href=""></a>hal_uart_config_t uart_config<span class="op">;</span></span>
+<span id="cb30-3"><a href=""></a>HAL_UART_SetConfig<span class="op">(&amp;</span>hUSART2<span class="op">,</span> <span class="op">&amp;</span>uart_config<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การใช้งานเพอริเฟอรัล</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb28-1"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb31-1"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>การเตรียม callback สำหรับ IRQ</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb29-1"><a href=""></a>HAL_UART_Transmit_IT<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
-<span id="cb29-2"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span> <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb32-1"><a href=""></a>HAL_UART_Transmit_IT<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb32-2"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span> <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="hal-based-api" class="slide level2 smaller">
 <h2>3. HAL-based API</h2>
 <h4 id="การเขาถงฮารดแวรแบบ-polling">การเข้าถึงฮาร์ดแวร์แบบ polling</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb30-1"><a href=""></a>hal_status_t HAL_USART_Transmit<span class="op">(</span>hal_usart_handle_t <span class="op">*</span>husart<span class="op">,</span> <span class="op">...,</span> <span class="dt">uint32_t</span> timeout_ms<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb30-2"><a href=""></a>    <span class="cf">while</span> <span class="op">(</span>huart<span class="op">-&gt;</span>tx_xfer_count <span class="op">&gt;</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb30-3"><a href=""></a>        <span class="cf">if</span> <span class="op">(</span>USART_WaitOnFlagUntilTimeout<span class="op">(</span>husart<span class="op">,</span> LL_USART_ISR_TXE_TXFNF<span class="op">,</span> <span class="dv">0</span><span class="bu">U</span><span class="op">,</span> tick_start<span class="op">,</span> timeout_ms<span class="op">)</span> <span class="op">!=</span> HAL_OK<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb30-4"><a href=""></a>            LL_USART_TransmitData8<span class="op">(</span>p_usartx<span class="op">,</span> <span class="op">*</span>p_data_8_bits<span class="op">);</span></span>
-<span id="cb30-5"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb30-6"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb30-7"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb33-1"><a href=""></a>hal_status_t HAL_USART_Transmit<span class="op">(</span>hal_usart_handle_t <span class="op">*</span>husart<span class="op">,</span> <span class="op">...,</span> <span class="dt">uint32_t</span> timeout_ms<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb33-2"><a href=""></a>    <span class="cf">while</span> <span class="op">(</span>huart<span class="op">-&gt;</span>tx_xfer_count <span class="op">&gt;</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb33-3"><a href=""></a>        <span class="cf">if</span> <span class="op">(</span>USART_WaitOnFlagUntilTimeout<span class="op">(</span>husart<span class="op">,</span> LL_USART_ISR_TXE_TXFNF<span class="op">,</span> <span class="dv">0</span><span class="bu">U</span><span class="op">,</span> tick_start<span class="op">,</span> timeout_ms<span class="op">)</span> <span class="op">!=</span> HAL_OK<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb33-4"><a href=""></a>            LL_USART_TransmitData8<span class="op">(</span>p_usartx<span class="op">,</span> <span class="op">*</span>p_data_8_bits<span class="op">);</span></span>
+<span id="cb33-5"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb33-6"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb33-7"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h4 id="การเขาถงฮารดแวรผาน-interrupt">การเข้าถึงฮาร์ดแวร์ผ่าน interrupt</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb31-1"><a href=""></a>hal_status_t HAL_USART_Transmit_IT<span class="op">(</span>hal_usart_handle_t <span class="op">*</span>husart<span class="op">,</span> <span class="op">...)</span> <span class="op">{</span></span>
-<span id="cb31-2"><a href=""></a>    <span class="cf">return</span> USART_Start_Transmit_IT<span class="op">(</span>husart<span class="op">,</span> <span class="op">...);</span></span>
-<span id="cb31-3"><a href=""></a><span class="op">}</span></span>
-<span id="cb31-4"><a href=""></a>hal_status_t UART_Start_Transmit_IT<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">,</span> <span class="op">...)</span> <span class="op">{</span></span>
-<span id="cb31-5"><a href=""></a>    huart<span class="op">-&gt;</span>tx_xfer_size  <span class="op">=</span> size<span class="op">;</span></span>
-<span id="cb31-6"><a href=""></a>    huart<span class="op">-&gt;</span>tx_xfer_count <span class="op">=</span> size<span class="op">;</span></span>
-<span id="cb31-7"><a href=""></a>    huart<span class="op">-&gt;</span>p_tx_buff <span class="op">=</span> p_data<span class="op">;</span></span>
-<span id="cb31-8"><a href=""></a>    LL_USART_EnableIT_TXE_TXFNF<span class="op">(</span>p_uartx<span class="op">);</span></span>
-<span id="cb31-9"><a href=""></a><span class="op">}</span></span>
-<span id="cb31-10"><a href=""></a><span class="dt">void</span> HAL_UART_IRQHandler<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb31-11"><a href=""></a>    <span class="cf">if</span> <span class="op">(((</span>isr_flags <span class="op">&amp;</span> LL_USART_ISR_TXE_TXFNF<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">...</span></span>
-<span id="cb31-12"><a href=""></a>    <span class="cf">if</span> <span class="op">(((</span>isr_flags <span class="op">&amp;</span> LL_USART_ISR_TC<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">...</span></span>
-<span id="cb31-13"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="stm32-uart-interrupt" class="slide level2 smaller">
-<h2>3. STM32 UART interrupt</h2>
-<p><strong>Flow</strong>: enable INT source → unmask NVIC → IRQ → NVIC vector table → <strong>interrupt handler</strong> → clear IRQ flag</p>
-<p><img data-src="figs/03_STM32_USART_reg.jpg" alt="STM32 - USART reg"><br>
-</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb34-1"><a href=""></a>hal_status_t HAL_USART_Transmit_IT<span class="op">(</span>hal_usart_handle_t <span class="op">*</span>husart<span class="op">,</span> <span class="op">...)</span> <span class="op">{</span></span>
+<span id="cb34-2"><a href=""></a>    <span class="cf">return</span> USART_Start_Transmit_IT<span class="op">(</span>husart<span class="op">,</span> <span class="op">...);</span></span>
+<span id="cb34-3"><a href=""></a><span class="op">}</span></span>
+<span id="cb34-4"><a href=""></a>hal_status_t UART_Start_Transmit_IT<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">,</span> <span class="op">...)</span> <span class="op">{</span></span>
+<span id="cb34-5"><a href=""></a>    huart<span class="op">-&gt;</span>tx_xfer_size  <span class="op">=</span> size<span class="op">;</span></span>
+<span id="cb34-6"><a href=""></a>    huart<span class="op">-&gt;</span>tx_xfer_count <span class="op">=</span> size<span class="op">;</span></span>
+<span id="cb34-7"><a href=""></a>    huart<span class="op">-&gt;</span>p_tx_buff <span class="op">=</span> p_data<span class="op">;</span></span>
+<span id="cb34-8"><a href=""></a>    LL_USART_EnableIT_TXE_TXFNF<span class="op">(</span>p_uartx<span class="op">);</span></span>
+<span id="cb34-9"><a href=""></a><span class="op">}</span></span>
+<span id="cb34-10"><a href=""></a><span class="dt">void</span> HAL_UART_IRQHandler<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb34-11"><a href=""></a>    <span class="cf">if</span> <span class="op">(((</span>isr_flags <span class="op">&amp;</span> LL_USART_ISR_TXE_TXFNF<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">...</span></span>
+<span id="cb34-12"><a href=""></a>    <span class="cf">if</span> <span class="op">(((</span>isr_flags <span class="op">&amp;</span> LL_USART_ISR_TC<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="bu">U</span><span class="op">)</span> <span class="op">...</span></span>
+<span id="cb34-13"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="practice-hal-based-coding" class="slide level2 smaller">
 <h2>3. Practice: HAL-based coding</h2>
 <ol type="1">
-<li>ตั้งการทำงานของ USART2 สำหรับขา PA2/PA3 ใน STM32CubeMX2</li>
-<li>สร้าง CMake project</li>
+<li>เปิดใช้งาน USART2 สำหรับขา PA2/PA3 ใน STM32CubeMX2 → สร้าง CMake project</li>
 </ol>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1171,28 +1257,34 @@ SECTIONS {
 <ol start="3" type="1">
 <li>เขียนโค้ดส่งข้อมูล + pin toggling<sup>1</sup></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb32-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span>
-<span id="cb32-2"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb32-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb35-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span>
+<span id="cb35-2"><a href=""></a>HAL_UART_Transmit<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb35-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <h4 id="การรายงานผาน-nvic">การรายงานผ่าน NVIC</h4>
 <ol start="3" type="1">
 <li>เขียนโค้ดส่งข้อมูล + pin toggling</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb33-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
-<span id="cb33-2"><a href=""></a>HAL_UART_Transmit_IT<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb33-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb36-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
+<span id="cb36-2"><a href=""></a>HAL_UART_Transmit_IT<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb36-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="4" type="1">
 <li>เขียนโค้ด pin toggling</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb34-1"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb34-2"><a href=""></a>    HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
-<span id="cb34-3"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb37-1"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb37-2"><a href=""></a>    HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
+<span id="cb37-3"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <ol start="4" type="1">
 <li>ใช้ออสซิลโลสโคปร่วมกับ TRIGGER เพื่อตรวจสอบความกว้างของพัลส์</li>
 </ol>
-<aside><ol class="aside-footnotes"><li id="fn8"><p>การสลับสถานะของขาสัญญาณเพื่อแสดงจุดเริ่มต้น/สิ้นสุดของเหตุการณ์</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn13"><p>การสลับสถานะของขาสัญญาณเพื่อแสดงจุดเริ่มต้น/สิ้นสุดของเหตุการณ์</p></li></ol></aside></section>
+<section id="stm32-uart-interrupt" class="slide level2 smaller">
+<h2>3. STM32 UART interrupt</h2>
+<p><strong>Flow</strong>: enable INT source → unmask NVIC → IRQ → NVIC vector table → <strong>interrupt handler</strong> → clear IRQ flag</p>
+<p><img data-src="figs/03_STM32_USART_reg.jpg" alt="STM32 - USART reg"><br>
+</p>
+</section>
 <section id="firmware-behaviour" class="slide level2 smaller">
 <h2>3. Firmware behaviour</h2>
 <p><strong><code>UARTx_TDR</code> (Tx data register) มีขนาด 1 ไบต์</strong>: การส่งข้อความ “hello” ทำอย่างไร</p>
@@ -1219,14 +1311,51 @@ SECTIONS {
 <li>ไม่มีการขัดจังหวะ ยกเว้นกำหนด DMA IRQ (โอนย้ายข้อมูลครบแล้ว)</li>
 </ul>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn9"><p>Interrupt Request, IRQ</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn14"><p>Interrupt Request, IRQ</p></li></ol></aside></section>
+<section id="embedded-programming-issues" class="slide level2 smaller">
+<h2>3. Embedded programming issues</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="ปญหาจาก-interrupt-request">ปัญหาจาก Interrupt Request</h4>
+<ul>
+<li>ขัดจังหวะระหว่างอ่าน/เขียนข้อมูล → race condition<sup>1</sup> หรือ read-modify-write<sup>2</sup></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb38-1"><a href=""></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb38-2"><a href=""></a>    count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="co">// เกิด IRQ ระหว่างกลาง</span></span>
+<span id="cb38-3"><a href=""></a><span class="op">}</span></span>
+<span id="cb38-4"><a href=""></a><span class="dt">void</span> isr_handler<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb38-5"><a href=""></a>    count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb38-6"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>วิธีป้องกัน → สร้าง critical section โดยปิดการขัดจังหวะ</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb39-1"><a href=""></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb39-2"><a href=""></a>    __disable_irq<span class="op">();</span></span>
+<span id="cb39-3"><a href=""></a>    count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="co">// เข้าสู่ atomic access</span></span>
+<span id="cb39-4"><a href=""></a>    __enable_irq<span class="op">();</span></span>
+<span id="cb39-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<h4 id="ปญหาจากบตของตวแปร">ปัญหาจากบิตของตัวแปร</h4>
+<ul>
+<li>ผลกระทบ endianess ตอนส่งข้อมูล binary เช่น 100
+<ul>
+<li>big endian: 100 → <code>0x0064</code></li>
+<li>little endian: 100 → <code>0x6400</code></li>
+</ul></li>
+<li>การแปลงประเภทข้อมูลที่ชี้ด้วย pointer</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb40-1"><a href=""></a><span class="dt">int8_t</span> buf<span class="op">[</span><span class="dv">100</span><span class="op">];</span></span>
+<span id="cb40-2"><a href=""></a><span class="dt">int16_t</span> <span class="op">*</span>buf2 <span class="op">=</span> <span class="op">(</span><span class="dt">int16_t</span><span class="op">*)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>ปัญหา memory alignment ตอนโอนย้ายด้วย DMA</li>
+</ul>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn15"><p>แย่งกันเขียนค่าตัวแปร</p></li><li id="fn16"><p>ค่าในหน่วยความจำถูกอัพเดทซ้ำซ้อน</p></li></ol></aside></section>
 <section id="practice-dma-programming" class="slide level2 smaller scrollable">
 <h2>3. Practice: DMA programming</h2>
 <ol type="1">
-<li>ตั้งการทำงานของ USART2 สำหรับขา PA2/PA3 ใน STM32CubeMX2</li>
-<li>ตั้งค่า DMA เพื่อส่งผ่านข้อมูลจากหน่วยความจำ (C array) ไป USART2</li>
+<li>เปิดใช้งาน DMA ส่งผ่านข้อมูลจากหน่วยความจำ (C array) ไป USART2 → สร้าง CMake project</li>
 </ol>
-<div style="font-size: 85%; text-align: left;">
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1240,12 +1369,12 @@ SECTIONS {
 <tr class="odd">
 <td><strong>Mode</strong></td>
 <td>direct transfer</td>
-<td><strong>Direction</strong></td>
-<td>memory to peripheral</td>
-</tr>
-<tr class="even">
 <td><strong>Source addr</strong></td>
 <td>increased</td>
+</tr>
+<tr class="even">
+<td><strong>Direction</strong></td>
+<td>memory to peripheral</td>
 <td><strong>Dest addr</strong></td>
 <td>fixed</td>
 </tr>
@@ -1257,78 +1386,15 @@ SECTIONS {
 </tr>
 </tbody>
 </table>
-</div>
-<ol start="3" type="1">
-<li>สร้าง CMake project</li>
+<ol start="2" type="1">
 <li>เขียนโค้ดส่งข้อมูล + pin toggling</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb35-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
-<span id="cb35-2"><a href=""></a>HAL_UART_Transmit_DMA<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb35-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="5" type="1">
-<li>เขียนโค้ด pin toggling</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb36-1"><a href=""></a><span class="dt">void</span> HAL_UART_TxCpltCallback<span class="op">(</span>hal_uart_handle_t <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb36-2"><a href=""></a>    HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
-<span id="cb36-3"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="embedded-programming-issues" class="slide level2 smaller">
-<h2>3. Embedded programming issues</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="ปญหาจาก-interrupt-request">ปัญหาจาก Interrupt Request</h4>
-<ul>
-<li>ขัดจังหวะระหว่างอ่าน/เขียนข้อมูล → race condition<sup>1</sup> หรือ read-modify-write<sup>2</sup></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb37-1"><a href=""></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb37-2"><a href=""></a>    count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="co">// เกิด IRQ ระหว่างกลาง</span></span>
-<span id="cb37-3"><a href=""></a><span class="op">}</span></span>
-<span id="cb37-4"><a href=""></a><span class="dt">void</span> isr_handler<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb37-5"><a href=""></a>    count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb37-6"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>วิธีป้องกัน → สร้าง critical section โดยปิดการขัดจังหวะ</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb38-1"><a href=""></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb38-2"><a href=""></a>    __disable_irq<span class="op">();</span></span>
-<span id="cb38-3"><a href=""></a>    count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="co">// เข้าสู่ atomic access</span></span>
-<span id="cb38-4"><a href=""></a>    __enable_irq<span class="op">();</span></span>
-<span id="cb38-5"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:50%;">
-<h4 id="ปญหาจากบตของตวแปร">ปัญหาจากบิตของตัวแปร</h4>
-<ul>
-<li>ผลกระทบ endianess ตอนส่งข้อมูล binary เช่น 100
-<ul>
-<li>big endian: 100 → <code>0x0064</code></li>
-<li>little endian: 100 → <code>0x6400</code></li>
-</ul></li>
-<li>การแปลงประเภทข้อมูลที่ชี้ด้วย pointer</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb39-1"><a href=""></a><span class="dt">int8_t</span> buf<span class="op">[</span><span class="dv">100</span><span class="op">];</span></span>
-<span id="cb39-2"><a href=""></a><span class="dt">int16_t</span> <span class="op">*</span>buf2 <span class="op">=</span> <span class="op">(</span><span class="dt">int16_t</span><span class="op">*)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>ปัญหา memory alignment ตอนโอนย้ายด้วย DMA</li>
-</ul>
-</div></div>
-<aside><ol class="aside-footnotes"><li id="fn10"><p>แย่งกันเขียนค่าตัวแปร</p></li><li id="fn11"><p>ค่าในหน่วยความจำถูกอัพเดทซ้ำซ้อน</p></li></ol></aside></section>
-<section id="qa-1" class="slide level2">
-<h2>Q&amp;A</h2>
-<ol type="1">
-<li>ทำไม elapsed time ของการส่งข้อมูลทาง UART แบบ polling และ interrupt จึงใช้เวลาเท่ากันโดยประมาณ ?</li>
-<li>ความเสี่ยงของโค้ดส่งข้อมูลขนาดใหญ่ผ่าน DMA โดยไม่ตรวจสอบสถานะ transfer completed คืออะไร ?</li>
-<li>หากเกิด interrupt request พร้อมกัน (เช่น UART + Timer) หน่วยประมวลผลจะเลือกประมวลผล IRQ ไหน ?</li>
-</ol>
-</section></section>
-<section>
-<section id="usb2adc-workshop" class="title-slide slide level1 center">
-<h1>4. USB2ADC workshop</h1>
-<ul>
-<li>Problem statement</li>
-<li>Firmware requirements → design</li>
-</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb41-1"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span>
+<span id="cb41-2"><a href=""></a>HAL_UART_Transmit_DMA<span class="op">(</span>mx_usart2_uart_gethandle<span class="op">(),</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb41-3"><a href=""></a>HAL_GPIO_TogglePin<span class="op">(</span>HAL_GPIOA<span class="op">,</span> HAL_GPIO_PIN_5<span class="op">);</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="stm32c5-analog-peripherals" class="slide level2 smaller">
-<h2>4. STM32C5 analog peripherals</h2>
+<h2>3. STM32C5 analog peripherals</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="analog-to-digital-converter-adc">Analog-to-Digital Converter (ADC)</h4>
@@ -1336,7 +1402,7 @@ SECTIONS {
 <li>แปลงค่าแรงดันไฟฟ้า 0 ~ V<sub>REF+</sub> เป็นค่าดิจิทัล 0 ~ (2<sup>bit</sup>-1)</li>
 <li>12-bit SAR ADC1/2/3, 14 multiplexed channels</li>
 </ul>
-<p><img data-src="figs/04_STM32_ADC.jpg" alt="ADC"><br>
+<p><img data-src="figs/03_STM32_ADC.jpg" alt="ADC"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="digital-to-analog-converter-dac">Digital-to-Analog Converter (DAC)</h4>
@@ -1344,23 +1410,23 @@ SECTIONS {
 <li>แปลงค่าดิจิทัล 0 ~ (2<sup>bit</sup>-1) เป็น ค่าแรงดันไฟฟ้า 0 ~ V<sub>DDA</sub></li>
 <li>12-bit DAC, buffered/non-buffered</li>
 </ul>
-<p><img data-src="figs/04_STM32_DAC.jpg" alt="DAC"><br>
+<p><img data-src="figs/03_STM32_DAC.jpg" alt="DAC"><br>
 </p>
 </div></div>
 </section>
 <section id="adc-loopback" class="slide level2 smaller">
-<h2>4. ADC loopback</h2>
+<h2>3. ADC loopback</h2>
 <ul>
 <li><strong>ADC features</strong>: regular/injected group, single/cont./discont. conversion, SW/HW triggers, analog watchdogs</li>
 <li><strong>DAC mode</strong>: 12-bit DAC, single/waveform output, SW/HW triggers</li>
 </ul>
-<p><img data-src="figs/04_STM32_ADC_loopback.jpg" alt="ADC loopback"><br>
+<p><img data-src="figs/03_STM32_ADC_loopback.jpg" alt="ADC loopback"><br>
 </p>
 </section>
 <section id="practice-dac-to-adc" class="slide level2 smaller">
-<h2>4. Practice: DAC to ADC</h2>
+<h2>3. Practice: DAC to ADC</h2>
 <ol type="1">
-<li>เตรียม project ตัวอย่าง <strong>ex04_ADC_loopback</strong></li>
+<li>เตรียม project ตัวอย่าง <strong>ex03_ADC_loopback</strong></li>
 <li>ตรวจสอบการทำงาน main loop ด้วย breakpoint, step และ watch
 <ul>
 <li>ตัวเลขที่เปลี่ยนแปลงของ <code>dac_val</code> และ <code>adc_val</code></li>
@@ -1374,241 +1440,13 @@ SECTIONS {
 <li>ยืนยันเงื่อนไขการตรวจสอบด้วย breakpoint</li>
 </ol>
 </section>
-<section id="problem-statement" class="slide level2 smaller">
-<h2>4. Problem statement</h2>
-<p>เฟิร์มแวร์ <strong>USB2ADC</strong> สำหรับบอร์ด NUCLEO-C562RE เป็นระบบบันทึกค่าแรงดันไฟฟ้าหลายช่องสัญญาณ โดยระบบคำสั่งตามมาตรฐาน <a href="https://www.ivifoundation.org/About-IVI/scpi.html"><strong>SCPI</strong></a> standard</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">คำสั่ง</th>
-<th style="text-align: left;">คำอธิบาย</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>*IDN?</code></td>
-<td style="text-align: left;">สอบถามชื่อและเวอร์ชันของอุปกรณ์</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>*RST</code></td>
-<td style="text-align: left;">รีเซ็ตการตั้งค่าเฟิร์มแวร์เป็นค่าเริ่มต้น</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>:MEASure:VOLTage?</code></td>
-<td style="text-align: left;">อ่านค่าแรงดันไฟฟ้าทุกช่อง (A0-A3) แบบครั้งเดียว</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>:MEASure:VOLTage:CH?</code></td>
-<td style="text-align: left;">อ่านค่าแรงดันเฉพาะช่องที่ระบุ</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>:CONFigure:RATE</code></td>
-<td style="text-align: left;">ตั้งค่าความถี่ในการ Sampling (Hz)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>:CONFigure:RATE?</code></td>
-<td style="text-align: left;">สอบถามความถี่การ Sampling ปัจจุบัน</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>:FORMat:DATA</code></td>
-<td style="text-align: left;">เลือกรูปแบบสตริงที่ใช้ส่งข้อมูล</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>:INITiate:CONTinuous</code></td>
-<td style="text-align: left;">เปิด/ปิด โหมดส่งข้อมูลต่อเนื่อง (Streaming)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>:ABORt</code></td>
-<td style="text-align: left;">หยุดการส่งข้อมูล Streaming ทันที</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="firmware-design" class="slide level2 smaller">
-<h2>4. Firmware design</h2>
-<div class="columns">
-<div class="column" style="width:75%;">
-<p><img data-src="figs/05_Main_STmachine.jpg" alt="State machine"><br>
-</p>
-</div><div class="column" style="width:25%;">
-<p><img data-src="figs/05_Main_Loop.jpg" alt="Main loop"><br>
-</p>
-</div></div>
-</section>
-<section id="firmware-architecture" class="slide level2 smaller">
-<h2>4. Firmware architecture</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 36%">
-<col style="width: 36%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Files</th>
-<th style="text-align: left;">Responsibility</th>
-<th style="text-align: left;">Key Functions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>main.c</code></td>
-<td style="text-align: left;">ควบคุม Main Loop และการเปลี่ยนผ่านสถานะ (State Transition)</td>
-<td style="text-align: left;"><code>main()</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>scpi.c/h</code></td>
-<td style="text-align: left;">ตีความคำสั่งจากพอร์ตซีเรียลและจัดการ Command Event</td>
-<td style="text-align: left;"><code>SCPI_ParseChar()</code>, <code>SCPI_Execute()</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>adc_service.c/h</code></td>
-<td style="text-align: left;">ควบคุมการวัดค่า ADC, การแปลงหน่วย (Scaling) และการจัดรูปแบบข้อมูล</td>
-<td style="text-align: left;"><code>ADC_Start_Scan()</code>, <code>ADC_Format_Payload()</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>app_config.h</code></td>
-<td style="text-align: left;">รวบรวมค่ากำหนดคงที่ (Constants) และ Macro ต่างๆ</td>
-<td style="text-align: left;"><code>#define MAX_BUF_SIZE 64</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="practice-project-development" class="slide level2 smaller">
-<h2>4. Practice: project development</h2>
-<h4 id="problem-scope">Problem scope</h4>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Module</th>
-<th style="text-align: left;">Responsibility</th>
-<th style="text-align: left;">Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>SCPI Parser</strong></td>
-<td style="text-align: left;">รับอักขระและตีความคำสั่ง (Low-level)</td>
-<td style="text-align: left;">🟢 Given</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SCPI Cmd Handler</strong></td>
-<td style="text-align: left;">ควบคุมลำดับการเปลี่ยนสถานะของระบบ</td>
-<td style="text-align: left;">🔵 <strong>Task</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>ADC Service</strong></td>
-<td style="text-align: left;">อ่านค่า Hardware ADC และแปลงค่า</td>
-<td style="text-align: left;">🔵 <strong>Task</strong></td>
-</tr>
-</tbody>
-</table>
-<h4 id="unit-testing">Unit testing</h4>
-<table class="caption-top">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 38%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">ID</th>
-<th style="text-align: left;">Task</th>
-<th style="text-align: left;">Expected Output</th>
-<th style="text-align: left;">System Impact (ถ้าไม่ผ่าน)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>UT-02</strong></td>
-<td style="text-align: left;"><code>:MEAS:VOLT? 0</code></td>
-<td style="text-align: left;">แรงดันที่ขา A0</td>
-<td style="text-align: left;"><strong>Data not available:</strong> ระบบไม่สามารถตรวจสอบเซ็นเซอร์ได้</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>UT-03</strong></td>
-<td style="text-align: left;"><code>:FORM:DATA ASCII</code></td>
-<td style="text-align: left;">เปลี่ยน Format ได้</td>
-<td style="text-align: left;"><strong>Integration Fail:</strong> แอปพลิเคชัน (LabVIEW) จะไม่สามารถ Parse ข้อมูลได้</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="scpi-protocol" class="slide level2 smaller">
-<h2>4. SCPI protocol</h2>
-<p>Standard Commands for Programmable Instrumentation (SCPI) เป็นโปรโตคอลสำหรับคอมพิวเตอร์เชื่อมต่อผ่าน UART/USB/GPIB/LXI กับเครื่องมือวัด</p>
-<p><img data-src="figs/04_SCPI_protocol.jpg" alt="SCPI protocol"><br>
-</p>
-</section>
-<section id="practice-scpi" class="slide level2 smaller">
-<h2>4. Practice: SCPI</h2>
+<section id="qa-1" class="slide level2">
+<h2>Q&amp;A</h2>
 <ol type="1">
-<li>เตรียม project ตัวอย่าง <strong>ex04_SCPI_demo</strong></li>
-<li>ยืนยันการได้รับคำสั่งผ่าน USART2 โดยใช้ breakpoint ใน <code>HAL_UART_RxCpltCallback()</code>
-<ul>
-<li>ส่งตัวอักษรด้วย Serial Monitor โดยเลือก Line ending เป็น None</li>
-</ul></li>
-<li>ตั้ง breakpoint ในส่วนตรวจจับ EOL ใน <code>SCPI_Parse_Char()</code>
-<ul>
-<li>ปรับ Line encoding เป็น CRLF และใช้ watch ตรวจสอบสถานะ <code>scpi_cmd</code></li>
-</ul></li>
+<li>ทำไม elapsed time ของการส่งข้อมูลทาง UART แบบ polling และ interrupt จึงใช้เวลาเท่ากันโดยประมาณ ?</li>
+<li>ความเสี่ยงของโค้ดส่งข้อมูลขนาดใหญ่ผ่าน DMA โดยไม่ตรวจสอบสถานะ transfer completed คืออะไร ?</li>
+<li>หากเกิด interrupt request พร้อมกัน (เช่น UART + Timer) หน่วยประมวลผลจะเลือกประมวลผล IRQ ไหน ?</li>
 </ol>
-<table class="caption-top">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 15%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Test case</th>
-<th style="text-align: left;">Input</th>
-<th style="text-align: left;">Expect <code>cmd_buf</code></th>
-<th style="text-align: left;">Expect <code>param_buf</code></th>
-<th style="text-align: left;">Expect <code>is_query</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">normal</td>
-<td style="text-align: left;"><code>*IDN?</code></td>
-<td style="text-align: left;"><code>*IDN?</code></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">true</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">normal</td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">true</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">normal</td>
-<td style="text-align: left;"><code>:MEAS:VOLT? 2</code></td>
-<td style="text-align: left;"><code>:MEAS:VOLT?</code></td>
-<td style="text-align: left;"><code>2</code></td>
-<td style="text-align: left;">true</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">abnormal</td>
-<td style="text-align: left;"><code>12345:ABC 6</code></td>
-<td style="text-align: left;"><code>:ABC</code></td>
-<td style="text-align: left;"><code>6</code></td>
-<td style="text-align: left;">false</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">abnormal</td>
-<td style="text-align: left;"><code>:*IDN?</code></td>
-<td style="text-align: left;"><code>:*IDN?</code></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">true</td>
-</tr>
-</tbody>
-</table>
 
 </section></section>
 
@@ -1616,7 +1454,7 @@ SECTIONS {
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="figs/TSE_logo.svg" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>คอร์สอบรมนี้ได้รับการสนับสนุนงบประมาณจาก สป.อว.</p>
+<p>คอร์สอบรมนี้ได้รับการสนับสนุนงบประมาณจาก สป.อว. ปี 2569</p>
 </div>
 </div></div>
 
