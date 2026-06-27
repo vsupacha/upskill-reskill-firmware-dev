@@ -258,16 +258,36 @@
         </div>
 
         <div class="tab-pane fade" id="round2-content" role="tabpanel" aria-labelledby="round2-tab">
+
           <div class="row mb-4">
             <div class="col-12">
-              <div class="border rounded-3 p-3 bg-light text-center text-muted small">
-                📸 ภาพบรรยากาศการอบรม รุ่นที่ 2 (⏳ รออัปเดตเมื่อเสร็จสิ้นกิจกรรม)
+              <div class="border rounded-3 p-2 bg-light text-center" id="photo-container-round2">
+                <span class="text-muted small mb-2 d-block">📸 ภาพบรรยากาศการอบรม รุ่นที่ 2</span>
+                <div class="spinner-border spinner-border-sm text-secondary my-3" role="status"></div>
               </div>
             </div>
           </div>
-          <div class="border rounded-3 p-5 text-center bg-light text-muted">
-            📊 ระบบกำลังรอเชื่อมต่อฐานข้อมูลจาก data/round_02.json หลังจบการจัดอบรม
+
+          <div class="row g-4">
+            <div class="col-md-5">
+              <div class="border rounded-3 p-3 h-100 bg-white shadow-sm text-center">
+                <h6 class="fw-bold mb-3 text-muted small">📊 สัดส่วนสังกัดของผู้เข้าร่วม</h6>
+                <div style="position: relative; height: 260px; width: 100%">
+                  <canvas id="chartPieRound2"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="border rounded-3 p-3 h-100 bg-white shadow-sm text-center">
+                <h6 class="fw-bold mb-2 text-muted small">⭐ คะแนนความพึงพอใจในแต่ละด้าน (เต็ม 5)</h6>
+                <div style="position: relative; height: 260px; width: 100%">
+                  <canvas id="chartBarRound2"></canvas>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
 
         <div class="tab-pane fade" id="round3-content" role="tabpanel" aria-labelledby="round3-tab">
@@ -296,40 +316,84 @@
 
   <!-- Init Empty Charts -->
   <script>
-    <!-- Script ดึงข้อมูลและอัปเดต KPI Dashboard ด้วยสเกลแบบใหม่ -->
-    async function loadTrainingKPI(roundFileName) {
+    <!-- Script ดึงข้อมูลและอัปเดต KPI Dashboard โดยคำนวณภาพรวมสะสมจากทุกรอบที่ระบุ (ปัจจุบันคือ รอบ 1 + รอบ 2) -->
+    async function loadCombinedKPI(roundFileNames) {
       try {
-        const response = await fetch(`data/${roundFileName}`);
-        if (!response.ok) throw new Error('ไม่สามารถโหลดไฟล์ข้อมูลได้');
-        
-        const data = await response.json();
-        
-        // 1. อัปเดตวันที่รอบอบรม
-        document.getElementById('kpi-round-date').innerText = `รอบวันที่ ${data.roundInfo.date}`;
-        
-        // 2. การ์ดที่ 1: จำนวนผู้เข้าอบรมจริง (เพียวๆ ไม่มีรายละเอียดสังกัด)
-        document.getElementById('kpi-total-participants').innerHTML = `${data.participants.total_attended} <span class="fs-6 fw-normal text-muted">คน</span>`;
-        
-        // 3. การ์ดที่ 2: ให้ภาพรวมสังกัดทั้งหมด (ใส่ Badge สรุปสัดส่วนกลุ่ม)
+        const allData = await Promise.all(
+          roundFileNames.map(async (fileName) => {
+            const response = await fetch(`data/${fileName}`);
+            if (!response.ok) throw new Error(`ไม่สามารถโหลดไฟล์ ${fileName} ได้`);
+            return response.json();
+          })
+        );
+
+        // 1. อัปเดตข้อความหัวข้อ ให้แสดงว่าเป็นข้อมูลสะสมจากกี่รอบ
+        document.getElementById('kpi-round-date').innerText =
+          `ข้อมูลสะสม รุ่นที่ 1-${allData.length} (จากทั้งหมด 3 รุ่น)`;
+
+        // 2. การ์ดที่ 1: รวมจำนวนผู้เข้าอบรมจริงทุกรอบ
+        const totalParticipants = allData.reduce((sum, d) => sum + d.participants.total_attended, 0);
+        document.getElementById('kpi-total-participants').innerHTML = `${totalParticipants} <span class="fs-6 fw-normal text-muted">คน</span>`;
+
+        // 3. การ์ดที่ 2: รวมจำนวนผู้เข้าอบรมแยกตามสังกัดทุกรอบ
+        const roles = { automotive_industry: 0, student: 0, general_worker: 0, lecturer: 0 };
+        allData.forEach((d) => {
+          roles.automotive_industry += d.participants.by_role.automotive_industry;
+          roles.student += d.participants.by_role.student;
+          roles.general_worker += d.participants.by_role.general_worker;
+          roles.lecturer += d.participants.by_role.lecturer;
+        });
         document.getElementById('kpi-group-all-roles').innerHTML = `
-          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">🏭 ยานยนต์:</span> <b>${data.participants.by_role.automotive_industry} คน</b></div>
-          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">🎓 นักศึกษา:</span> <b>${data.participants.by_role.student} คน</b></div>
-          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">💼 บุคลากรทั่วไป:</span> <b>${data.participants.by_role.general_worker} คน</b></div>
-          <div class="d-flex justify-content-between small"><span class="text-truncate">🏫 อาจารย์:</span> <b>${data.participants.by_role.lecturer} คน</b></div>
+          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">🏭 ยานยนต์:</span> <b>${roles.automotive_industry} คน</b></div>
+          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">🎓 นักศึกษา:</span> <b>${roles.student} คน</b></div>
+          <div class="d-flex justify-content-between mb-1 small"><span class="text-truncate">💼 บุคลากรทั่วไป:</span> <b>${roles.general_worker} คน</b></div>
+          <div class="d-flex justify-content-between small"><span class="text-truncate">🏫 อาจารย์:</span> <b>${roles.lecturer} คน</b></div>
         `;
-        
-        // 4. การ์ดที่ 3: คะแนนความรู้ปรับสเกล Pre (เต็ม 10) / Post (เต็ม 20)
-        document.getElementById('kpi-pre-avg').innerText = `${data.knowledge_assessment.pre_test_avg} / ${data.knowledge_assessment.pre_test_max}`;
-        document.getElementById('kpi-post-avg').innerText = `${data.knowledge_assessment.post_test_avg} / ${data.knowledge_assessment.post_test_max}`;
-        
-        // 5. การ์ดที่ 4: คะแนนความพึงพอใจ
-        document.getElementById('kpi-satisfaction-score').innerHTML = `${data.satisfaction.overall_score} <span class="fs-6 fw-normal text-muted">/ 5</span>`;
-        document.getElementById('kpi-satisfaction-highlight').innerText = `✨ วิทยากรรับเชิญสูงสุด (${data.satisfaction.categories.guest_speaker})`;
-        
+
+        // 4. การ์ดที่ 3: คะแนนความรู้ - ค่าเฉลี่ยถ่วงน้ำหนักตามจำนวนผู้เข้าอบรมของแต่ละรอบ
+        const weightedPreAvg = allData.reduce((sum, d) => sum + d.knowledge_assessment.pre_test_avg * d.participants.total_attended, 0) / totalParticipants;
+        const weightedPostAvg = allData.reduce((sum, d) => sum + d.knowledge_assessment.post_test_avg * d.participants.total_attended, 0) / totalParticipants;
+        document.getElementById('kpi-pre-avg').innerText = `${weightedPreAvg.toFixed(2)} / ${allData[0].knowledge_assessment.pre_test_max}`;
+        document.getElementById('kpi-post-avg').innerText = `${weightedPostAvg.toFixed(2)} / ${allData[0].knowledge_assessment.post_test_max}`;
+
+        // 5. การ์ดที่ 4: คะแนนความพึงพอใจภาพรวม - ค่าเฉลี่ยถ่วงน้ำหนักตามจำนวนผู้เข้าอบรมของแต่ละรอบ
+        const weightedSatisfaction = allData.reduce((sum, d) => sum + d.satisfaction.overall_score * d.participants.total_attended, 0) / totalParticipants;
+        document.getElementById('kpi-satisfaction-score').innerHTML = `${weightedSatisfaction.toFixed(2)} <span class="fs-6 fw-normal text-muted">/ 5</span>`;
+
+        // หาด้านที่ได้คะแนนความพึงพอใจสูงสุด โดยถ่วงน้ำหนักรวมทุกรอบ
+        const categoryLabels = {
+          architecture_understanding: 'ความเข้าใจสถาปัตยกรรม',
+          practical_config: 'การฝึกปฏิบัติ (Config)',
+          firmware_coding: 'การเขียนเฟิร์มแวร์',
+          tool_usage: 'การใช้เครื่องมือวัด',
+          content_suitability: 'ความเหมาะสมของเนื้อหา',
+          materials_adequacy: 'ความเพียงพอของอุปกรณ์',
+          lecturer_clarity: 'คำอธิบายของวิทยากรหลัก',
+          guest_speaker: 'เนื้อหาวิทยากรรับเชิญ',
+          facility_and_food: 'สถานที่และอาหาร'
+        };
+        const categoryAverages = {};
+        Object.keys(categoryLabels).forEach((key) => {
+          categoryAverages[key] = allData.reduce((sum, d) => sum + d.satisfaction.categories[key] * d.participants.total_attended, 0) / totalParticipants;
+        });
+        const topCategoryKey = Object.keys(categoryAverages).reduce((a, b) => (categoryAverages[a] >= categoryAverages[b] ? a : b));
+        document.getElementById('kpi-satisfaction-highlight').innerText =
+          `✨ ${categoryLabels[topCategoryKey]}สูงสุด (${categoryAverages[topCategoryKey].toFixed(2)})`;
+
       } catch (error) {
-        console.error('Error loading KPI data:', error);
+        console.error('Error loading combined KPI data:', error);
         document.getElementById('kpi-round-date').innerText = 'เกิดข้อผิดพลาดในการโหลดข้อมูล';
       }
+    }
+
+    // ฟังก์ชันสำรอง กรณีรูปภาพบรรยากาศโหลดไม่สำเร็จ (ไฟล์ยังไม่ถูกอัปโหลด หรือ path ไม่ถูกต้อง)
+    function handleImageError(imgElement, filename) {
+      const container = imgElement.parentElement;
+      imgElement.remove();
+      const fallback = document.createElement('div');
+      fallback.className = 'text-muted small py-4';
+      fallback.innerText = `⚠️ ไม่พบไฟล์ภาพ images/${filename}`;
+      if (container) container.appendChild(fallback);
     }
 
     // ฟังก์ชันสำหรับดึงข้อมูลและวาดกราฟเฉพาะของรอบที่ 1
@@ -428,11 +492,105 @@
         });
     }
 
+    // ฟังก์ชันสำหรับดึงข้อมูลและวาดกราฟเฉพาะของรอบที่ 2
+    function initRound2Charts() {
+      if (loadedTabs.round2) return;
+
+      // 1. โหลดรูปภาพแบบเต็มความกว้าง (Fit Width ด้วยคลาส w-100)
+      const photoContainer = document.getElementById('photo-container-round2');
+      photoContainer.innerHTML = `
+        <span class="text-muted small mb-2 d-block fw-medium">📸 ภาพบรรยากาศการอบรม รุ่นที่ 2</span>
+        <img src="images/round_02.jpg" alt="บรรยากาศการอบรม รุ่นที่ 2" class="img-fluid rounded w-100" style="max-height: 380px; object-fit: cover;" 
+             onerror="handleImageError(this, 'round_02.jpg')">
+      `;
+
+      // 2. เรียก Fetch ข้อมูล JSON มาวาดกราฟลงในการ์ด 2 ใบด้านล่าง
+      fetch('data/round_02.json')
+        .then(response => {
+          if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลสถิติได้');
+          return response.json();
+        })
+        .then(data => {
+
+          // วาดกราฟวงกลม (Pie Chart) ด้านล่างซ้าย
+          const ctxPie2 = document.getElementById('chartPieRound2').getContext('2d');
+          new Chart(ctxPie2, {
+            type: 'pie',
+            data: {
+              labels: ['ยานยนต์', 'นักศึกษา', 'บุคคลทั่วไป', 'อาจารย์'],
+              datasets: [{
+                data: [
+                  data.participants.by_role.automotive_industry,
+                  data.participants.by_role.student,
+                  data.participants.by_role.general_worker,
+                  data.participants.by_role.lecturer
+                ],
+                backgroundColor: ['#0d6efd', '#0dcaf0', '#6c757d', '#ffc107'],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Prompt', size: 12 } } }
+              }
+            }
+          });
+
+          // วาดกราฟแท่งแนวนอน (Bar Chart) ด้านล่างขวา
+          const ctxBar2 = document.getElementById('chartBarRound2').getContext('2d');
+          new Chart(ctxBar2, {
+            type: 'bar',
+            data: {
+              labels: [
+                'ความเข้าใจสถาปัตยกรรม', 'การฝึกปฏิบัติ (Config)', 'การเขียนเฟิร์มแวร์',
+                'การใช้เครื่องมือวัด', 'ความเหมาะสมของเนื้อหา', 'ความเพียงพอของอุปกรณ์',
+                'คำอธิบายของวิทยากรหลัก', 'เนื้อหาวิทยากรรับเชิญ', 'สถานที่และอาหาร'
+              ],
+              datasets: [{
+                label: 'คะแนนเฉลี่ย',
+                data: [
+                  data.satisfaction.categories.architecture_understanding,
+                  data.satisfaction.categories.practical_config,
+                  data.satisfaction.categories.firmware_coding,
+                  data.satisfaction.categories.tool_usage,
+                  data.satisfaction.categories.content_suitability,
+                  data.satisfaction.categories.materials_adequacy,
+                  data.satisfaction.categories.lecturer_clarity,
+                  data.satisfaction.categories.guest_speaker,
+                  data.satisfaction.categories.facility_and_food
+                ],
+                backgroundColor: 'rgba(255, 193, 7, 0.85)',
+                borderColor: '#ffc107',
+                borderWidth: 1,
+                borderRadius: 4
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: { min: 0, max: 5, grid: { display: true } },
+                y: { ticks: { font: { family: 'Prompt', size: 11 } } }
+              },
+              plugins: { legend: { display: false } }
+            }
+          });
+
+          loadedTabs.round2 = true;
+        })
+        .catch(err => {
+          console.error('Error loading round 2 data:', err);
+        });
+    }
+
     // ฟังก์ชันดักจับเหตุการณ์สลับแท็บของ Bootstrap
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. 
-      loadTrainingKPI('round_01.json')
-      
+      // 1. คำนวณ KPI ภาพรวมแบบสะสมจากข้อมูลรอบที่ 1 และรอบที่ 2
+      loadCombinedKPI(['round_01.json', 'round_02.json']);
+
       // 1. ตรวจสอบแท็บแรกที่ถูกเปิดใช้งานตอนเริ่มต้นหน้าจอ (Default Active Tab)
       initRound1Charts();
 
@@ -442,6 +600,8 @@
         tab.addEventListener('shown.bs.tab', (event) => {
           if (event.target.id === 'round1-tab') {
             initRound1Charts();
+          } else if (event.target.id === 'round2-tab') {
+            initRound2Charts();
           }
         });
       });

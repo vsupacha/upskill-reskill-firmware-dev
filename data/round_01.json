@@ -14,25 +14,25 @@
     }
   },
   "knowledge_assessment": {
-    "pre_test_avg": 54.4,
-    "pre_test_max": 80,
-    "post_test_avg": 82.5,
-    "post_test_max": 95,
+    "pre_test_avg": 53.6,
+    "pre_test_max": 80.0,
+    "post_test_avg": 82.9,
+    "post_test_max": 95.0,
     "total_tested": 19
   },
   "satisfaction": {
-    "overall_score": 4.54,
-    "total_responses": 28,
+    "overall_score": 4.48,
+    "total_responses": 20,
     "categories": {
-      "architecture_understanding": 4.39,
-      "practical_config": 4.39,
-      "firmware_coding": 4.28,
-      "tool_usage": 4.28,
-      "content_suitability": 4.33,
-      "materials_adequacy": 4.61,
-      "lecturer_clarity": 4.5,
-      "guest_speaker": 4.67,
-      "facility_and_food": 4.67
+      "architecture_understanding": 4.40,
+      "practical_config": 4.45,
+      "firmware_coding": 4.30,
+      "tool_usage": 4.30,
+      "content_suitability": 4.40,
+      "materials_adequacy": 4.60,
+      "lecturer_clarity": 4.50,
+      "guest_speaker": 4.65,
+      "facility_and_food": 4.70
     }
   }
 }

@@ -1,0 +1,38 @@
+{
+  "roundInfo": {
+    "id": "round_02",
+    "date": "23-25 มิถุนายน 2569",
+    "status": "Completed"
+  },
+  "participants": {
+    "total_attended": 20,
+    "by_role": {
+      "lecturer": 3,
+      "student": 6,
+      "automotive_industry": 7,
+      "general_worker": 8
+    }
+  },
+  "knowledge_assessment": {
+    "pre_test_avg": 48.0,
+    "pre_test_max": 90.0,
+    "post_test_avg": 68.5,
+    "post_test_max": 90,
+    "total_tested": 20
+  },
+  "satisfaction": {
+    "overall_score": 4.54,
+    "total_responses": 17,
+    "categories": {
+      "architecture_understanding": 4.24,
+      "practical_config": 4.29,
+      "firmware_coding": 4.53,
+      "tool_usage": 4.29,
+      "content_suitability": 4.35,
+      "materials_adequacy": 4.76,
+      "lecturer_clarity": 4.94,
+      "guest_speaker": 4.76,
+      "facility_and_food": 4.94
+    }
+  }
+}
